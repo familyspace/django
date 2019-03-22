@@ -13,6 +13,8 @@ class Category(models.Model):
     """
     name = models.CharField(max_length=128,
                             blank=False,
+                            default='Family',
+                            verbose_name=_('category'),
                             )
 
 
@@ -26,9 +28,13 @@ class FSGroup(models.Model):
     """
     name = models.CharField(max_length=128,
                             blank=False,
+                            verbose_name=_('name')
                             )
     is_private = models.BooleanField(default=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL)
+    category = models.ForeignKey(Category,
+                                 null=True,
+                                 on_delete=models.SET_NULL,
+                                 verbose_name=_('category'))
 
     def get_all_users(self):
         users = FSAbstractUser.objects.filter(group__name=self.name)
@@ -42,16 +48,26 @@ class FSAbstractUser(AbstractUser):
     username, first_name, last_name, email в родительском классе AbstractUser
     """
 
-    activation_key = models.CharField(max_length=128, blank=True, editable=False)
-    activation_key_expires = models.DateTimeField(default=(now() + timedelta(hours=48)), editable=False)
-    role = models.CharField(max_length=128, blank=True)
-    group = models.ManyToManyField(FSGroup, on_delete=models.SET_NULL, default=None)
+    activation_key = models.CharField(max_length=128,
+                                      blank=True,
+                                      editable=False,
+                                      verbose_name=_('activation_key'), )
+    activation_key_expires = models.DateTimeField(default=(now() + timedelta(hours=48)),
+                                                  editable=False,
+                                                  verbose_name=_('activation_key_expires'))
+    role = models.CharField(max_length=128,
+                            blank=True,
+                            verbose_name=_('role'))
+    group = models.ManyToManyField(FSGroup)
 
     def is_activation_key_expired(self):
         if now() <= self.activation_key_expires:
             return False
         else:
             return True
+
+    class Meta:
+        verbose_name_plural = 'Все пользователи Family Space'
 
 
 class FSUser(FSAbstractUser):
@@ -68,14 +84,16 @@ class FSUser(FSAbstractUser):
     GENDER_CHOICES = ((MALE, 'M'),
                       (FEMALE, 'Ж'))
 
-    gender = models.CharField(max_length='1',
-                              blank=False,
+    gender = models.CharField(max_length=1,
+                              blank=True,
                               choices=GENDER_CHOICES,
                               verbose_name=_('gender'),
                               )
     birth_date = models.DateField(verbose_name=_('birth_date'),
-                                  blank=False)
+                                  blank=True, null=True)
 
+    class Meta:
+        verbose_name_plural = 'Пользователи Family Space'
 
 class UserProfile(models.Model):
     """
@@ -88,9 +106,13 @@ class UserProfile(models.Model):
                                 unique=True,
                                 null=False,
                                 db_index=True,
-                                on_delete=models.CASCADE)
+                                on_delete=models.CASCADE,
+                                verbose_name=_('user'))
 
-    phone = models.CharField(max_length=20, blank=False, unique=True)
+    phone = models.CharField(max_length=20,
+                             blank=False,
+                             unique=True,
+                             verbose_name=_('phone'), )
 
     def get_all_groups(self):
         groups = FSGroup.objects.filter(fsabstractuser__user=self.user)
@@ -103,4 +125,4 @@ class UserProfile(models.Model):
 
     @receiver(post_save, sender=FSUser)
     def save_user_profile(sender, instance, **kwargs):
-        instance.shopuserprofile.save()
+        instance.userprofile.save()
