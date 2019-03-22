@@ -30,6 +30,8 @@ class FSGroup(models.Model):
                             blank=False,
                             verbose_name=_('name')
                             )
+    description = models.TextField(blank=True,
+                                   verbose_name=_('description'))
     is_private = models.BooleanField(default=True)
     category = models.ForeignKey(Category,
                                  null=True,
@@ -39,6 +41,7 @@ class FSGroup(models.Model):
     def get_all_users(self):
         users = FSAbstractUser.objects.filter(group__name=self.name)
         return users
+
 
 
 class FSAbstractUser(AbstractUser):
