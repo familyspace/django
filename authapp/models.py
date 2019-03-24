@@ -35,6 +35,9 @@ class User(AbstractUser):
         else:
             return True
 
+    def __str__(self):
+        return self.username
+
     class Meta:
         verbose_name = _('FamilySpace user')
         verbose_name_plural = _('FamilySpace users')
@@ -76,3 +79,10 @@ class UserProfile(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.userprofile.save()
+
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        verbose_name = _('User profile')
+        verbose_name_plural = _('Users profile')
