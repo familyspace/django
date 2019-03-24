@@ -10,16 +10,24 @@ from datetime import timedelta
 
 class User(AbstractUser):
     """
-    Пользователь портала
+    Пользователь портала (расширение AbstractUser)
+
+    Аттрибуты:
+    activation_key:
+    activation_key_expires:
+
+    Методы:
+    is_activation_key_expired:
+
     """
 
     activation_key = models.CharField(max_length=128,
                                       blank=True,
                                       editable=False,
-                                      verbose_name=_('activation_key'), )
+                                      verbose_name=_('Activation key'), )
     activation_key_expires = models.DateTimeField(default=(now() + timedelta(hours=48)),
                                                   editable=False,
-                                                  verbose_name=_('activation_key_expires'))
+                                                  verbose_name=_('Activation key expires'))
 
     def is_activation_key_expired(self):
         if now() <= self.activation_key_expires:
@@ -28,7 +36,8 @@ class User(AbstractUser):
             return True
 
     class Meta:
-        verbose_name_plural = 'Пользователи Family Space'
+        verbose_name = _('FamilySpace user')
+        verbose_name_plural = _('FamilySpace users')
 
 
 class UserProfile(models.Model):
@@ -40,24 +49,24 @@ class UserProfile(models.Model):
                                 null=False,
                                 db_index=True,
                                 on_delete=models.CASCADE,
-                                verbose_name=_('user'))
+                                verbose_name=_('User'))
     MALE = 'M'
     FEMALE = 'W'
-    GENDER_CHOICES = ((MALE, 'M'),
-                      (FEMALE, 'Ж'))
+    GENDER_CHOICES = ((MALE, _('M')),
+                      (FEMALE, _('W')))
 
     gender = models.CharField(max_length=1,
                               blank=True,
                               choices=GENDER_CHOICES,
-                              verbose_name=_('gender'),
+                              verbose_name=_('Gender'),
                               )
-    birth_date = models.DateField(verbose_name=_('birth_date'),
+    birth_date = models.DateField(verbose_name=_('Birth date'),
                                   blank=True, null=True)
 
     phone = models.CharField(max_length=20,
                              blank=False,
                              unique=True,
-                             verbose_name=_('phone'), )
+                             verbose_name=_('Phone'), )
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
