@@ -1,5 +1,6 @@
 from django.db import models
 from enum import Enum
+from authapp.models import User
 
 
 # Create your models here.
@@ -15,7 +16,7 @@ class Group(models.Model):
                              max_length=255,
                              blank=False,
                              null=False)
-    description = models.TextField(verbose_name='Описание',
+    description = models.TextField(verbose_name='Описание группы',
                                    blank=True,
                                    null=True)
     is_public = models.BooleanField(verbose_name='Публичная группа',
@@ -37,7 +38,7 @@ class GroupUser(models.Model):
     '''
     Таблица списка пользователей в группе
     '''
-    # User = models.ForeignKey(User, verbose_name='Пользователь')
+    User = models.ForeignKey(User, verbose_name='Пользователь',on_delete='CASCADE')
     role = models.CharField(verbose_name='Роль',
                             max_length=3,
                             choices=[(item, item.value) for item in RoleChoice],

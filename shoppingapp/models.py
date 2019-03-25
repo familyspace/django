@@ -1,8 +1,9 @@
 from django.db import models
-
+from authapp.models import User
+from groupapp.models import Group
 
 # Create your models here.
-from groupapp.models import Group
+
 
 
 class ShopingItem(models.Model):
@@ -12,4 +13,4 @@ class ShopingItem(models.Model):
                               verbose_name='Группа',
                               on_delete='CASCADE',
                               related_name='shopingitems')
-    # user = models.ManyToManyField(User, verbose_name='Пользователи в закупке')
+    user = models.ManyToManyField(User, verbose_name='Пользователи в закупке')
