@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'userapp',
     'groupapp',
     'taskapp',
+    'authapp',
 ]
 
 MIDDLEWARE = [
