@@ -14,3 +14,5 @@ class Task(models.Model):
     user = models.ManyToManyField(User,
                                   verbose_name='Пользователи в задаче',
                                   related_name='taskusers')
+    done = models.BooleanField(default=False,
+                               verbose_name='Задача выполнена')
