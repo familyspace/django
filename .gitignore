@@ -192,4 +192,4 @@ site/
 fabric.yaml
 fitsup.tar.gz
 fits_me/settings/production.py
-templates/
+#templates/
