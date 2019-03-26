@@ -1,9 +1,9 @@
 from django.urls import path
-import authapp.views as authapp
+from authapp.views import SignInView
 
 app_name = 'authapp'
 urlpatterns = [
-    # path('login/', authapp.login, name='login'),
+    path('signin/', SignInView.as_view(), name='signin'),
     # path('logout', authapp.logout, name='logout'),
     # path('register/', authapp.register, name='register'),
     # path('edit/', authapp.edit, name='edit'),
