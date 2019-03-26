@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-24 21:49+0500\n"
+"POT-Creation-Date: 2019-03-26 23:44+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +20,14 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
+#: .\authapp\forms.py:16
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: .\authapp\forms.py:18
+msgid "Password"
+msgstr "Пароль"
+
 #: .\authapp\models.py:27
 msgid "Activation key"
 msgstr "Код активации"
@@ -28,52 +36,61 @@ msgstr "Код активации"
 msgid "Activation key expires"
 msgstr "Код активации действителен до"
 
-#: .\authapp\models.py:39
+#: .\authapp\models.py:42
 msgid "FamilySpace user"
 msgstr "Пользователь Family Space"
 
-#: .\authapp\models.py:40
+#: .\authapp\models.py:43
 msgid "FamilySpace users"
 msgstr "Пользователи Family Space"
 
-#: .\authapp\models.py:52
+#: .\authapp\models.py:55
 msgid "User"
 msgstr "Пользователь"
 
-#: .\authapp\models.py:55
+#: .\authapp\models.py:58
 msgid "M"
 msgstr "М"
 
-#: .\authapp\models.py:56
+#: .\authapp\models.py:59
 msgid "W"
 msgstr "Ж"
 
-#: .\authapp\models.py:61
+#: .\authapp\models.py:64
 msgid "Gender"
 msgstr "Пол"
 
-#: .\authapp\models.py:63
+#: .\authapp\models.py:66
 msgid "Birth date"
 msgstr "Дата рождения"
 
-#: .\authapp\models.py:69
+#: .\authapp\models.py:72
 msgid "Phone"
 msgstr "Номер телефона"
 
-#: .\authapp\models.py:81
+#: .\authapp\models.py:87
 msgid "User profile"
 msgstr "Профиль пользователя"
 
-#: .\authapp\models.py:82
+#: .\authapp\models.py:88
 msgid "Users profile"
 msgstr "Профили пользователей"
 
-#: .\family_space\settings.py:106
+#: .\authapp\templates\authapp\signin.html:5
+#: .\authapp\templates\authapp\signin.html:14 .\authapp\views.py:7
+msgid "Sign in"
+msgstr "Войти в FamilySpace"
+
+#: .\authapp\templates\authapp\signin.html:11
+msgid "Please sign in"
+msgstr "Пожалуйста авторизуйтесь"
+
+#: .\family_space\settings.py:115
 msgid "English"
 msgstr ""
 
-#: .\family_space\settings.py:107
-msgid "Russian"
+#: .\family_space\settings.py:116
+msgid "Русский"
 msgstr ""
 
 #: .\venv\Lib\site-packages\django\contrib\messages\apps.py:7
