@@ -14,6 +14,6 @@ class SwaggerSchemaView(APIView):
     ]
 
     def get(self, request):
-        generator = SchemaGenerator(title='FitsAp API')
+        generator = SchemaGenerator(title='FamilySpace API')
         schema = generator.get_schema(request=request, public=True)
         return Response(schema)
