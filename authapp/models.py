@@ -15,11 +15,17 @@ class User(AbstractUser):
     Аттрибуты:
     activation_key:
     activation_key_expires:
+    phone:
 
     Методы:
     is_activation_key_expired:
 
     """
+
+    phone = models.CharField(max_length=20,
+                             blank=False,
+                             unique=True,
+                             verbose_name=_('Phone'))
 
     activation_key = models.CharField(max_length=128,
                                       blank=True,
@@ -65,11 +71,6 @@ class UserProfile(models.Model):
                               )
     birth_date = models.DateField(verbose_name=_('Birth date'),
                                   blank=True, null=True)
-
-    phone = models.CharField(max_length=20,
-                             blank=False,
-                             unique=True,
-                             verbose_name=_('Phone'), )
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
