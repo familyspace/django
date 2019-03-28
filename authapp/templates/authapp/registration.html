@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="/static/css/style_userapp.css">
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+    <div class="logo-wrapper">
+        <div class="flex-logo-wrapper">
+            <div class="btn">
+                <h2 class="logo-h2">Registration</h2>
+            </div>
+            <div class="btn">
+                <form class="logo-form" action="{% url 'auth:authreg' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ registration_form.as_p }}
+                    <input class="logo-input-submit" type="submit" value="SAVE">
+                </form>
+            </div>
+            <div class="btn">
+                <button class="logo-signup-btn" type="button"><a href="{% url 'mainpage' %}">Main Page</a></button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

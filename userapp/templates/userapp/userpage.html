@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="/static/css/style_userapp.css">
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+<div class="wrapper">
+    <div id="toggleMenu"></div>
+    <div class="flex-container-wrapper">
+        <img src="/static/img/logo_userapp.png" alt="logo">
+        <div class="flex-container-one">
+            {% if user.is_authenticated %}
+                <div class="btn">
+                    <div class="user-name">
+                        <p>{{ user.username }}</p>
+                    </div>
+                </div>
+                <div class="btn">
+                    <button class="btn-menu" type="button">
+                        <a href="{% url 'auth:authlogout' %}">Logout</a>
+                    </button>
+                </div>
+            {% endif %}
+            <div class="btn">
+                <button class="btn-menu" type="button"><a href="#">Профиль</a></button>
+            </div>
+            <div class="btn">
+                <button class="btn-menu" type="button"><a href="#">Поиск контактов</a></button>
+            </div>
+            <div class="btn">
+                <button class="btn-menu" type="button"><a href="#">Найти группу</a></button>
+            </div>
+            <div class="btn">
+                <button class="btn-menu" type="button"><a href="#">Создать группу</a></button>
+            </div>
+        </div>
+        <div class="drop-menu">
+            <p>Ваши группы</p>
+        </div>
+        <div class="flex-container-two">
+            {% for item in groups %}
+                <div class="btn">
+                    <button class="btn-group" type="button"><a href="#">{{ item.title }}</a></button>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+</div>
+
+<script src="/static/js/jquery.js"></script>
+<script src="/static/js/js_userapp.js"></script>
+</body>
+</html>

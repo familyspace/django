@@ -1,0 +1,394 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f3f3f3;
+}
+
+/* MEDIA QUERIES USER PAGE */
+/*tablets/mobiles*/
+
+.wrapper {
+    background-color: #f3f3f3;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    justify-content: center;
+}
+
+.flex-container-wrapper {
+    /*margin: auto;*/
+    width: 100%;
+    background: #f3f3f3;
+    display: flex;
+    flex-flow: column;
+    /*justify-content: center;*/
+    align-items: center;
+    /*overflow: hidden;*/
+}
+
+img {
+    width: 150px;
+    margin: 25px 0;
+    /*position: absolute;*/
+    /*top: 0;*/
+}
+
+.flex-container-one {
+    width: 100%;
+    background: #f3f3f3;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    /*overflow: hidden;*/
+}
+
+.flex-container-two {
+    width: 100%;
+    background: #f3f3f3;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    /*overflow: scroll;*/
+}
+
+.drop-menu {
+    margin: 2px 0 0;
+    background: #56b45a;
+    width: 100%;
+    min-width: 150px;
+    line-height: 300%;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.drop-menu p {
+    font-family: Arial;
+    font-size: 14px;
+    color: #272727;
+}
+
+.user-name {
+    margin: 0;
+    background: #b43e3f;
+    width: 100%;
+    min-width: 150px;
+    line-height: 300%;
+    /*cursor: pointer;*/
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-name p {
+    font-family: Arial;
+    font-size: 14px;
+    color: white;
+}
+
+.btn {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-menu {
+    margin: 0 0;
+    background: #56b45a;
+    width: 100%;
+    min-width: 150px;
+    line-height: 300%;
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+    transition: .2s;
+    border-bottom: 0.5px solid #055515;
+
+}
+
+.btn-menu a {
+    text-decoration: none;
+    color: white;
+
+}
+
+.btn-menu:hover {
+    background: #2c7cb4;
+    border-bottom: 0.5px solid #c5c7c7;
+}
+
+.btn-group {
+    margin: 0 0;
+    border: none;
+    background: white;
+    width: 100%;
+    min-width: 150px;
+    line-height: 300%;
+    font-size: 14px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.btn-group:hover {
+    background: #272727;
+
+}
+
+.btn-group a {
+    text-decoration: none;
+    color: #272727;
+}
+
+.btn-group:hover a {
+    color: white;
+}
+
+.toggleMenu {
+    display: none;
+}
+
+/* MEDIA QUERIES USER PAGE */
+/*DESCTOP*/
+@media screen and (min-width: 768px) {
+
+    .wrapper {
+        background-color: #f3f3f3;
+        background-image: url(/static/img/backpic.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100%;
+        margin: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        z-index: -5;
+
+    }
+
+
+    .flex-container-wrapper {
+        background-color: transparent;
+        z-index: 1000;
+        display: flex;
+        position: absolute;
+        top: 0;
+        left: 0px;
+        align-items: flex-start;
+        margin: 2px;
+        width: 150px;
+        transition: all ease-in-out 200ms;
+        -webkit-transition: all ease-in-out 200ms;
+    }
+
+    .flex-container-one, .flex-container-two, .drop-menu {
+        width: 150px;
+    }
+
+    #toggleMenu {
+        width: 17px;
+        height: 17px;
+        background-color: #f3f3f3;
+        background-image: url(/static/img/close.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        z-index: 1050;
+        cursor: pointer;
+        border: 5px solid #fff;
+        border-radius: 2px;
+        transition: all ease-in-out 200ms;
+        -webkit-transition: all ease-in-out 200ms;
+        opacity: 0.2;
+    }
+    #toggleMenu:hover {
+        opacity: 0.7;
+    }
+}
+
+/* END USER PAGE */
+
+/* LOGIN PAGE */
+/* MOBILES */
+
+.logo-wrapper {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.flex-logo-wrapper {
+    width: 100%;
+    background: #f3f3f3;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.logo-img {
+    width: 150px;
+    margin: 20% 0;
+}
+
+.btn {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-h2 {
+    font-style: italic;
+    font-size: 40px;
+    margin: 10px auto;
+    color: #272727;
+}
+
+.logo-form {
+    max-width: 70%;
+    margin: 10px auto;
+    position: relative;
+    text-align: center;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+
+}
+.logo-input {
+    margin: 2%;
+    /*padding: 0 2%;*/
+    width: 235px;;
+    line-height: 200%;
+}
+/*.logo-input-login {*/
+    /*margin: 2%;*/
+    /*width: 235px;*/
+    /*line-height: 200%;*/
+/*}*/
+
+/*.logo-input-password {*/
+    /*margin: 2%;*/
+    /*width: 235px;*/
+    /*line-height: 200%;*/
+/*}*/
+
+.logo-input-submit {
+    margin: 20px 0 0;
+    background: #56b45a;
+    width: 180px;
+    line-height: 40px;
+    cursor: pointer;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 20px;
+    transition: .4s;
+}
+
+.logo-input-submit a {
+    text-decoration: none;
+    color: white;
+}
+
+.logo-input-submit:hover {
+    background: #2c7cb4;
+}
+
+.logo-signup-btn {
+    margin: 0px;
+    background: white;
+    width: 180px;
+    line-height: 40px;
+    cursor: pointer;
+    border: 0.5px solid lightgrey;
+    color: #363638;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 20px;
+    transition: .4s;
+}
+
+.logo-signup-btn a {
+    text-decoration: none;
+    color: #363638;
+}
+
+.logo-signup-btn:hover {
+    background: #272727;
+    border: 0.5px solid #272727;
+}
+
+.logo-signup-btn:hover a {
+    color: white;
+}
+
+label, .helptext {
+    display: none;
+}
+
+.logo-form ul {
+    display: none;
+}
+
+/* MEDIA QUERIES LOGIN PAGE */
+/*DESCTOP*/
+
+@media screen and (min-width: 768px) {
+    .logo-wrapper {
+        background-color: white;
+        border: 0.5px solid lightgrey;
+        width: 300px;
+        margin: 0 auto;
+        padding: 2% 2%;
+        position: absolute;
+        top: 10%;
+        max-height: 500px;
+        text-align: center;
+        overflow: hidden;
+        box-shadow: 5px 5px 2px lightgrey;
+        border-radius: 10px;
+    }
+
+    .flex-logo-wrapper {
+        width: 100%;
+        background: white;
+        overflow: hidden;
+    }
+
+    .logo-img {
+        width: 150px;
+        margin: 20px 0;
+    }
+
+}
+
+/* END LOGIN PAGE */

@@ -1,5 +1,5 @@
 from django.db import models
-from authapp.models import User
+from authapp.models import FamilyUser
 from groupapp.models import Group
 
 
@@ -11,7 +11,7 @@ class Task(models.Model):
                               verbose_name='Группа',
                               on_delete='CASCADE',
                               related_name='tasks')
-    user = models.ManyToManyField(User,
+    user = models.ManyToManyField(FamilyUser,
                                   verbose_name='Пользователи в задаче',
                                   related_name='taskusers')
     done = models.BooleanField(default=False,
