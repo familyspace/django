@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from enum import Enum
 from authapp.models import FamilyUser
@@ -15,6 +16,9 @@ class Category(models.Model):
 
 
 class Group(models.Model):
+    user = models.ForeignKey(FamilyUser,
+                             on_delete=models.CASCADE,
+                             related_name="usergroups"),
     title = models.CharField(verbose_name='Название группы',
                              max_length=255,
                              blank=False,

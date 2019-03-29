@@ -1,22 +1,33 @@
-from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.urls import reverse
+from .forms import GroupCreationForm
 from groupapp.models import Group
-
-from django.template.loader import render_to_string
-from django.http import JsonResponse
 
 # Create your views here.
 
-# @login_required(login_url='/login/')
-def mainpage(request):
-    return render(request, 'userapp/index.html')
+@login_required
+def userpage(request):
+    groups = Group.objects.filter(user=request.user)
+    check = 'контролер считывается'
 
+    content = {
+        'grouplist': groups,
+        'test': check
+    }
+    return render(request, 'userapp/userpage.html', content)
 
-def usergroups_userapp(request):
-        group = Group.objects.all()
+@login_required
+def creategroup_page(request):
+    if request.method == 'POST':
+        form = GroupCreationForm(request.POST)
+        if form.is_valid():
+            response = form.save(commit=False)
+            response.user = request.user
+            response.save()
+            return HttpResponseRedirect(reverse('userapp:creategroups'))
+    else:
+        form = GroupCreationForm()
 
-        content = {
-            'groups': group,
-        }
-
-        return render(request, 'userapp/userpage.html', content)
+    return render(request, 'userapp/creategroups.html', {'group_form': form})

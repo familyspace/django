@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="/static/css/style_userapp.css">
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+    {% if user.is_authenticated %}
+        <p>User: {{ user.username }}</p>
+        <button type="button">
+            <a href="{% url 'auth:authlogout' %}">Logout</a>
+        </button>
+    {% endif %}
+    <form action="{% url 'userapp:creategroups' %}" method="post">
+        {% csrf_token %}
+        {{ group_form }}
+        <input type="submit" value="Create group">
+    </form>
+
+    <button type="button">
+        <a href="{% url 'userapp:userpage' %}">Back to userpage</a>
+    </button>
+
+{#    <div class="logo-wrapper">#}
+{#        <div class="flex-logo-wrapper">#}
+{#            #}
+{##}
+{#                <div class="btn">#}
+{#                    <p>{{'You are logged out.'}}</p>#}
+{#                </div>#}
+{#                <div class="btn">#}
+{#                    <button class="logo-input-submit" type="button">#}
+{#                        <a href="{% url 'auth:authlogin' %}">Login Page</a>#}
+{#                    </button>#}
+{#                </div>#}
+{##}
+{#        </div>#}
+{#    </div>#}
+</body>
+</html>

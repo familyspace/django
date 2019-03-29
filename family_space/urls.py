@@ -6,11 +6,9 @@ import userapp.views as userapp
 
 
 urlpatterns = [
-
     path('admin/', admin.site.urls),
-    path('userapp/', userapp.usergroups_userapp, name='userpage'),
-    path('', userapp.mainpage, name='mainpage'),
-    path('login/', include('authapp.urls', namespace='auth')),
+    path('', include('authapp.urls', namespace='auth')),
+    path('userpage/', include('userapp.urls', namespace='userapp')),
 ]
 
 if settings.DEBUG:

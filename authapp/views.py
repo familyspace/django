@@ -17,7 +17,7 @@ def login(request):
 
         if user and user.is_active:
             auth.login(request, user)
-            return HttpResponseRedirect(reverse('userpage'))
+            return HttpResponseRedirect(reverse('userapp:userpage'))
         else:
             return render(request, 'authapp/login.html', {'login_form': form})
     else:
@@ -26,7 +26,7 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return HttpResponseRedirect(reverse('mainpage'))
+    return HttpResponseRedirect(reverse('auth:authlogin'))
 
 def registration(request):
     if request.method == 'POST':
