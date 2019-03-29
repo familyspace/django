@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_swagger',
     'api.apiauthapp',
+    'api.apiuserapp',
     'api.core',
     'shoppingapp',
     'chatapp',
