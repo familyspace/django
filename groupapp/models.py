@@ -16,9 +16,7 @@ class Category(models.Model):
 
 
 class Group(models.Model):
-    user = models.ForeignKey(FamilyUser,
-                             on_delete=models.CASCADE,
-                             related_name="usergroups"),
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, default=True, on_delete=models.CASCADE, related_name="groupsmodel")
     title = models.CharField(verbose_name='Название группы',
                              max_length=255,
                              blank=False,
