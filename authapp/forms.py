@@ -46,3 +46,13 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'phone')
+
+    def save(self, commit=True):
+        user = super(SignUpForm, self).save()
+        user.get_activation_key()
+        user.save()
+        user.get_verify_email()
+
+        return user
+
+
