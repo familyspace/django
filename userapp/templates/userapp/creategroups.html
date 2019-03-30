@@ -8,37 +8,31 @@
     <meta name="viewport" content="width=device-width">
 </head>
 <body>
+    <div class="createpage-wrapper">
+        <div class="logo-wrapper">
+            <div class="flex-logo-wrapper">
 
-    {% if user.is_authenticated %}
-        <p>User: {{ user.username }}</p>
-        <button type="button">
-            <a href="{% url 'auth:authlogout' %}">Logout</a>
-        </button>
-    {% endif %}
-    <form action="{% url 'userapp:creategroups' %}" method="post">
-        {% csrf_token %}
-        {{ group_form }}
-        <input type="submit" value="Create group">
-    </form>
+                <div class="btn">
+                    <form class="creategroup-form" action="{% url 'userapp:creategroups' %}" method="post">
+                        {% csrf_token %}
+                        {% for item in group_form %}
+                            {% if 'is_public' in item.as_widget %}
+                                <p>Публичная группа: {{ item }}</p>
+                            {% else %}
+                                {{ item }}
+                            {% endif %}
+                        {% endfor %}
+                        <input class="logo-input-submit" type="submit" value="Создать группу">
+                    </form>
+                </div>
+                <div class="btn">
+                    <button class="logo-signup-btn" type="button">
+                        <a href="{% url 'userapp:userpage' %}">На главную</a>
+                    </button>
+                </div>
 
-    <button type="button">
-        <a href="{% url 'userapp:userpage' %}">Back to userpage</a>
-    </button>
-
-{#    <div class="logo-wrapper">#}
-{#        <div class="flex-logo-wrapper">#}
-{#            #}
-{##}
-{#                <div class="btn">#}
-{#                    <p>{{'You are logged out.'}}</p>#}
-{#                </div>#}
-{#                <div class="btn">#}
-{#                    <button class="logo-input-submit" type="button">#}
-{#                        <a href="{% url 'auth:authlogin' %}">Login Page</a>#}
-{#                    </button>#}
-{#                </div>#}
-{##}
-{#        </div>#}
-{#    </div>#}
+            </div>
+        </div>
+    </div>
 </body>
 </html>

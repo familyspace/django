@@ -1,20 +1,14 @@
-$(document).ready(function() {
-	$(".drop-menu").click(function() {
-		$(".flex-container-two").slideToggle(500);
-	});
-});
-
 const slideMenu = function() {
 
-    const navBlock = document.querySelector('#toggleMenu');
+    const navBlock = document.querySelector('#drop-menu');
     let toggleStatus = 1;
 
     const toggleMenu = function() {
         if (toggleStatus === 1) {
-            document.querySelector('.flex-container-wrapper').style.left = "-155px";
+            document.querySelector('#hide-groups').style.display = 'none';
             toggleStatus = 0;
         } else if (toggleStatus === 0) {
-            document.querySelector('.flex-container-wrapper').style.left = "0px";
+            document.querySelector('#hide-groups').style.display = 'flex';
             toggleStatus = 1;
         }
     }
