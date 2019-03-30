@@ -1,11 +1,20 @@
+import hashlib
+import random
+
 from django.contrib.auth.models import AbstractUser
+from django.core.mail import EmailMessage
+from django.core.mail import EmailMultiAlternatives
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.shortcuts import render
 from django.utils.timezone import now
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from datetime import timedelta
+
+from family_space import settings
 
 
 class User(AbstractUser):
@@ -40,6 +49,24 @@ class User(AbstractUser):
             return False
         else:
             return True
+
+    # Генерация кода активации
+    def get_activation_key(self):
+        self.is_active = False
+        salt = hashlib.sha1(str(random.random()).encode('utf8')).hexdigest()[:6]
+        self.activation_key = hashlib.sha1((self.email + salt).encode('utf8')).hexdigest()
+
+    # Отправка пользователю письма с кодом активации
+    def get_verify_email(self):
+        email = EmailMessage()
+        email.subject = _('Family Space Sign Up Confirmation')
+        email.from_email = settings.EMAIL_HOST_USER
+        email.to.append(self.email)
+        verify_link = reverse(settings.EMAIL_VERIFY_VIEW, args=[self.email, self.activation_key])
+        email.body = _('Hello, {}! Сlick the link below to complete your registration\n {}{}').format(self.username,
+                                                                                                      settings.DOMAIN_NAME,
+                                                                                                      verify_link)
+        return email.send()
 
     def __str__(self):
         return self.username
