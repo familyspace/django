@@ -17,6 +17,7 @@
         {{ form.as_p }}
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">{% trans "Sign up" %}</button>
+        <a class="text-right" href="{% url 'authapp:signin' %}">{% trans "Sign In" %}</a>
         <p class="mt-5 mb-3 text-muted">&copy FamilySpace 2019</p>
     </form>
 
