@@ -133,6 +133,7 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'authapp.User'
 
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = 'authapp:signin'
 
 DOMAIN_NAME = 'http://localhost:8000'
 EMAIL_HOST = 'localhost'

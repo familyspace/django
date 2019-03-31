@@ -57,16 +57,32 @@ class User(AbstractUser):
         self.activation_key = hashlib.sha1((self.email + salt).encode('utf8')).hexdigest()
 
     # Отправка пользователю письма с кодом активации
-    def get_verify_email(self):
+    def send_verify_email(self):
         email = EmailMessage()
         email.subject = _('Family Space Sign Up Confirmation')
         email.from_email = settings.EMAIL_HOST_USER
         email.to.append(self.email)
-        verify_link = reverse(settings.EMAIL_VERIFY_VIEW, args=[self.email, self.activation_key])
-        email.body = _('Hello, {}! Сlick the link below to complete your registration\n {}{}').format(self.username,
-                                                                                                      settings.DOMAIN_NAME,
-                                                                                                      verify_link)
+        verify_link = reverse(settings.EMAIL_VERIFY_VIEW)
+        email.body = _(
+            'Hello, {}! Сlick the link below to complete your registration\n {}{}?email={}&activation_key={}').format(
+            self.username,
+            settings.DOMAIN_NAME,
+            verify_link,
+            self.email,
+            self.activation_key)
         return email.send()
+
+    # Проверка кода активации
+    def is_valid_activation_key(self, activation_key=None):
+        if self.activation_key == activation_key and not self.is_activation_key_expired():
+            return True
+        else:
+            return False
+
+    def activate(self):
+        self.is_active = True
+        self.activation_key_expires = now()
+        self.save()
 
     def __str__(self):
         return self.username
