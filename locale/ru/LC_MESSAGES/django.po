@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-31 01:32+0500\n"
+"POT-Creation-Date: 2019-04-01 00:37+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,92 +20,91 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: .\authapp\forms.py:22 .\authapp\forms.py:38
+#: .\authapp\forms.py:18 .\authapp\forms.py:34
 msgid "Username"
 msgstr "Имя пользователя"
 
-#: .\authapp\forms.py:24 .\authapp\forms.py:46
+#: .\authapp\forms.py:20 .\authapp\forms.py:42
 msgid "Password"
 msgstr "Пароль"
 
-#: .\authapp\forms.py:40
+#: .\authapp\forms.py:36
 msgid "Enter your email"
 msgstr "Введите адрес электронной почты"
 
-#: .\authapp\forms.py:41
+#: .\authapp\forms.py:37
 msgid "Email"
 msgstr ""
 
-#: .\authapp\forms.py:43
+#: .\authapp\forms.py:39
 msgid "Enter your phone number"
 msgstr "Введите ваш номер телефона"
 
-#: .\authapp\forms.py:44
+#: .\authapp\forms.py:40
 msgid "Phone number"
 msgstr "Номер телефона"
 
-#: .\authapp\forms.py:48
+#: .\authapp\forms.py:44
 msgid "Password again"
 msgstr "Пароль ещё раз"
 
-#: .\authapp\models.py:34
+#: .\authapp\models.py:37
 msgid "Phone"
 msgstr "Номер телефона"
 
-#: .\authapp\models.py:39
+#: .\authapp\models.py:42
 msgid "Activation key"
 msgstr "Код активации"
 
-#: .\authapp\models.py:42
+#: .\authapp\models.py:45
 msgid "Activation key expires"
 msgstr "Срок действия кода активации"
 
-#: .\authapp\models.py:52
+#: .\authapp\models.py:62
 msgid "Family Space Sign Up Confirmation"
 msgstr "Подтверждение регистрации на портале Family Space"
 
-#: .\authapp\models.py:56
+#: .\authapp\models.py:67
 msgid ""
 "Hello, {}! Сlick the link below to complete your registration\n"
-" {}{}"
+" {}{}?email={}&activation_key={}"
 msgstr ""
 "Привет, {}! Для завершения регистрации перейдите по ссылке ниже\n"
-" {}{}"
+" {}{}?email={}&activation_key={}"
 
-
-#: .\authapp\models.py:65
+#: .\authapp\models.py:91
 msgid "FamilySpace user"
 msgstr "Пользователь FamilySpace"
 
-#: .\authapp\models.py:66
+#: .\authapp\models.py:92
 msgid "FamilySpace users"
 msgstr "Пользователи FamilySpace"
 
-#: .\authapp\models.py:78
+#: .\authapp\models.py:104
 msgid "User"
 msgstr "Пользователь"
 
-#: .\authapp\models.py:81
+#: .\authapp\models.py:107
 msgid "M"
 msgstr "М"
 
-#: .\authapp\models.py:82
+#: .\authapp\models.py:108
 msgid "W"
 msgstr "Ж"
 
-#: .\authapp\models.py:87
+#: .\authapp\models.py:113
 msgid "Gender"
 msgstr "Пол"
 
-#: .\authapp\models.py:89
+#: .\authapp\models.py:115
 msgid "Birth date"
 msgstr "Дата рождения"
 
-#: .\authapp\models.py:105
+#: .\authapp\models.py:131
 msgid "User profile"
 msgstr "Профиль пользователя"
 
-#: .\authapp\models.py:106
+#: .\authapp\models.py:132
 msgid "Users profile"
 msgstr "Профили пользователей"
 
@@ -116,9 +115,10 @@ msgstr "Вход"
 
 #: .\authapp\templates\authapp\signin.html:17
 msgid "Please sign in"
-msgstr "Пожалйста авторизуйтесь"
+msgstr "Пожалуйста авторизуйтесь"
 
-#: .\authapp\templates\authapp\signin.html:21 .\authapp\views.py:20
+#: .\authapp\templates\authapp\signin.html:21
+#: .\authapp\templates\authapp\verify.html:23
 msgid "Sign Up"
 msgstr "Регистрация"
 
@@ -128,26 +128,51 @@ msgstr "Регистрация"
 msgid "Sign up"
 msgstr "Регистрация"
 
-#: .\authapp\tools.py:8
-msgid "Confirmation user "
-msgstr ""
+#: .\authapp\templates\authapp\verify.html:7
+msgid "Verify activation key"
+msgstr "Активация пользователя"
 
-#: .\authapp\tools.py:9
-#, python-brace-format
-msgid ""
-"Hello, {user.username}!\n"
-"To confirm registration on the portal {settings.DOMAIN_NAME}, please go to"
-msgstr ""
+#: .\authapp\templates\authapp\verify.html:19
+msgid "Use "
+msgstr "Нажмите "
 
-#: .\authapp\views.py:13
+#: .\authapp\templates\authapp\verify.html:19
 msgid "Sign In"
-msgstr "Авторизация"
+msgstr "Вход на портал"
 
-#: .\family_space\settings.py:115
+#: .\authapp\templates\authapp\verify.html:19
+msgid " to sign in to Family space"
+msgstr " чтобы войти на портал Family Space"
+
+#: .\authapp\templates\authapp\verify.html:22
+msgid "Error number: "
+msgstr "Номер ошибки: "
+
+#: .\authapp\templates\authapp\verify.html:23
+msgid "Try sign up again "
+msgstr "Попробуйте зарегистрироваться заново "
+
+#: .\authapp\views.py:21
+msgid "Sign Out"
+msgstr "Выход"
+
+#: .\authapp\views.py:38
+msgid "Activation is successful."
+msgstr "Активация прошла успешно!"
+
+#: .\authapp\views.py:40
+msgid "Error activation user."
+msgstr "Ошибка при активации пользователя"
+
+#: .\authapp\views.py:44
+msgid "Error activation user: {}"
+msgstr "Ошибка при активации пользователя"
+
+#: .\family_space\settings.py:110
 msgid "English"
 msgstr ""
 
-#: .\family_space\settings.py:116
+#: .\family_space\settings.py:111
 msgid "Русский"
 msgstr ""
 
@@ -1467,3 +1492,6 @@ msgstr ""
 msgctxt "stick"
 msgid "club"
 msgstr ""
+
+#~ msgid "Activation already done."
+#~ msgstr "Активация была завершена ранее!"
