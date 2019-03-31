@@ -13,7 +13,7 @@
             <div class="flex-logo-wrapper">
 
                 <div class="btn">
-                    <form class="creategroup-form" action="{% url 'userapp:creategroups' %}" method="post">
+                    <form class="creategroup-form" action="{% url 'userapp:creategroups' user.pk %}" method="post">
                         {% csrf_token %}
                         {% for item in group_form %}
                             {% if 'is_public' in item.as_widget %}

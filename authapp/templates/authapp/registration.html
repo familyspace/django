@@ -18,11 +18,11 @@
                 <form class="logo-form" action="{% url 'auth:authreg' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ registration_form.as_p }}
-                    <input class="logo-input-submit" type="submit" value="SAVE">
+                    <input class="logo-input-submit" type="submit" value="Сохранить">
                 </form>
             </div>
             <div class="btn">
-                <button class="logo-signup-btn" type="button"><a href="{% url 'auth:authlogin' %}">Main Page</a></button>
+                <button class="logo-signup-btn" type="button"><a href="{% url 'auth:authlogin' %}">На главную</a></button>
             </div>
         </div>
     </div>

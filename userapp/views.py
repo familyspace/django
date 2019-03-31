@@ -2,6 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+
+from authapp.models import User
 from .forms import GroupCreationForm
 from groupapp.models import Group
 
@@ -10,23 +12,21 @@ from groupapp.models import Group
 @login_required
 def userpage(request):
     groups = Group.objects.filter(user=request.user)
-    check = 'контролер считывается'
 
     content = {
         'grouplist': groups,
-        'test': check
     }
-    return render(request, 'userapp/userpage.html', content)
+    return render(request, 'groupapp/groupspage.html', content)
 
 @login_required
-def creategroup_page(request):
+def creategroup_page(request, user_pk):
     if request.method == 'POST':
         form = GroupCreationForm(request.POST)
         if form.is_valid():
-            response = form.save(commit=False)
-            response.user = request.user
+            response = form.save(commit=True)
+            response.user.add(request.user)
             response.save()
-            return HttpResponseRedirect(reverse('userapp:creategroups'))
+            return HttpResponseRedirect(reverse('userapp:userpage'))
     else:
         form = GroupCreationForm()
 

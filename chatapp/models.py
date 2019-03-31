@@ -1,5 +1,5 @@
 from django.db import models
-from authapp.models import FamilyUser
+from authapp.models import User
 from groupapp.models import Group
 
 
@@ -12,7 +12,7 @@ class Chat(models.Model):
                               verbose_name='Группа',
                               on_delete='CASCADE',
                               related_name='chat')
-    user = models.ForeignKey(FamilyUser,
+    user = models.ForeignKey(User,
                              verbose_name='Пользователь написавший сообщение',
                              on_delete='CASCADE')
     date_modify = models.DateTimeField(verbose_name='Дата и время изменения записи',

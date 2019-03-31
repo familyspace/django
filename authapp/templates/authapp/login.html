@@ -19,11 +19,11 @@
                 <form class="logo-form" action="{% url 'auth:authlogin' %}" method="post">
                     {% csrf_token %}
                     {{ login_form }}
-                    <input class="logo-input-submit" type="submit" value="Sign In">
+                    <input class="logo-input-submit" type="submit" value="Войти">
                 </form>
             </div>
             <div class="btn">
-                <button class="logo-signup-btn" type="button"><a href="{% url 'auth:authreg' %}">Sign Up</a></button>
+                <button class="logo-signup-btn" type="button"><a href="{% url 'auth:authreg' %}">Регистрация</a></button>
             </div>
         </div>
     </div>

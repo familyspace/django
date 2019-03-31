@@ -140,7 +140,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-AUTH_USER_MODEL = 'authapp.FamilyUser'
+AUTH_USER_MODEL = 'authapp.User'
 
 # LOGIN_SUCCES_URL = '/userapp/index.html'
 # LOGIN_REDIRECT_URL = '/userapp/'

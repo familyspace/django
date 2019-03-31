@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 from enum import Enum
-from authapp.models import FamilyUser
+from authapp.models import User
 
 
 # Create your models here.
@@ -16,7 +16,8 @@ class Category(models.Model):
 
 
 class Group(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, default=True, on_delete=models.CASCADE, related_name="groupsmodel")
+    # user = models.ForeignKey(settings.AUTH_USER_MODEL, default=True, on_delete=models.CASCADE, related_name="groupsmodel")
+    user = models.ManyToManyField(User)
     title = models.CharField(verbose_name='Название группы',
                              max_length=255,
                              blank=False,
@@ -33,6 +34,10 @@ class Group(models.Model):
     def __str__(self):
         return self.title
 
+def get_groups_list(self):
+    groups_list = Group.objects.all()
+    return groups_list
+
 
 class RoleChoice(Enum):
     '''
@@ -46,7 +51,7 @@ class GroupUser(models.Model):
     '''
     Таблица списка пользователей в группе
     '''
-    User = models.ForeignKey(FamilyUser, verbose_name='Пользователь',on_delete='CASCADE')
+    User = models.ForeignKey(User, verbose_name='Пользователь',on_delete='CASCADE')
     role = models.CharField(verbose_name='Роль',
                             max_length=3,
                             choices=[(item, item.value) for item in RoleChoice],

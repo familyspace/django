@@ -9,6 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('authapp.urls', namespace='auth')),
     path('userpage/', include('userapp.urls', namespace='userapp')),
+    path('groupsapp/', include('groupapp.urls', namespace='groupapp')),
 ]
 
 if settings.DEBUG:

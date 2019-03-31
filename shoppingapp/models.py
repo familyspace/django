@@ -1,5 +1,5 @@
 from django.db import models
-from authapp.models import FamilyUser
+from authapp.models import User
 from groupapp.models import Group
 
 
@@ -13,7 +13,7 @@ class ShopingItem(models.Model):
                               verbose_name='Группа',
                               on_delete='CASCADE',
                               related_name='shopingitems')
-    user = models.ManyToManyField(FamilyUser, verbose_name='Пользователи в закупке')
+    user = models.ManyToManyField(User, verbose_name='Пользователи в закупке')
     done = models.BooleanField(default=False,
                                verbose_name='Покупка совершена')
     price = models.DecimalField(verbose_name='Цена покупки',

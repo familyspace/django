@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from .models import FamilyUser
+from .models import User
 
 class LoginForm(forms.Form):
     username = forms.CharField(label="", widget=forms.TextInput(
@@ -18,7 +18,7 @@ class LoginForm(forms.Form):
 
 class RegistrationForm(UserCreationForm):
     class Meta:
-        model = FamilyUser
+        model = User
         fields = ('username', 'password1', 'password2', 'email')
 
     def __init__(self, *args, **kwargs):
@@ -27,9 +27,10 @@ class RegistrationForm(UserCreationForm):
         self.fields['password1'].widget.attrs['placeholder'] = 'password'
         self.fields['password2'].widget.attrs['placeholder'] = 'confirm password'
         self.fields['email'].widget.attrs['placeholder'] = 'your email'
-        self.fields['username'].label = ''
-        self.fields['password1'].label = ''
-        self.fields['password2'].label = ''
-        self.fields['email'].label = ''
+        # self.fields['username'].label = ''
+        # self.fields['password1'].label = ''
+        # self.fields['password2'].label = ''
+        # self.fields['email'].label = ''
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'logo-input'
+            self.fields[field].label = ''

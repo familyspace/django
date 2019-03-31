@@ -1,13 +1,13 @@
 from django.db import models
 
-from django.contrib.auth.models import User, AbstractUser
+from django.contrib.auth.models import AbstractUser
 from django.utils.timezone import now
 from datetime import timedelta
 
 
 # Create your models here.
 
-class FamilyUser(AbstractUser):
+class User(AbstractUser):
     MALE = 'M'
     FEMALE = 'W'
 
