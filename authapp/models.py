@@ -3,7 +3,6 @@ import random
 
 from django.contrib.auth.models import AbstractUser
 from django.core.mail import EmailMessage
-from django.core.mail import EmailMultiAlternatives
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -16,6 +15,8 @@ from datetime import timedelta
 
 from family_space import settings
 
+GENDER_CHOICES = (('M', _('M')),
+                  ('W', _('W')))
 
 class User(AbstractUser):
     """
@@ -102,10 +103,7 @@ class UserProfile(models.Model):
                                 db_index=True,
                                 on_delete=models.CASCADE,
                                 verbose_name=_('User'))
-    MALE = 'M'
-    FEMALE = 'W'
-    GENDER_CHOICES = ((MALE, _('M')),
-                      (FEMALE, _('W')))
+
 
     gender = models.CharField(max_length=1,
                               blank=True,
