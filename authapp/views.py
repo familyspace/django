@@ -17,7 +17,7 @@ class SignInView(LoginView):
 class SignUpView(CreateView):
     form_class = SignUpForm
     template_name = 'authapp/signup.html'
-    success_url = '/auth/signin'
+    success_url = '/auth/signin/'
 
 
 class SignOutView(LogoutView):
