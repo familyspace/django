@@ -1,6 +1,7 @@
 import hashlib
 import random
 
+import jwt
 from django.contrib.auth.models import AbstractUser
 from django.core.mail import EmailMessage
 from django.core.mail import EmailMultiAlternatives
@@ -12,7 +13,8 @@ from django.utils.timezone import now
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
-from datetime import timedelta
+from datetime import datetime, timedelta
+import time
 
 from family_space import settings
 
@@ -44,6 +46,21 @@ class User(AbstractUser):
     activation_key_expires = models.DateTimeField(default=(now() + timedelta(hours=48)),
                                                   editable=False,
                                                   verbose_name=_('Activation key expires'))
+
+    @property
+    def token(self):
+        return self._generate_jwt_token()
+
+
+    def _generate_jwt_token(self):
+        dt_exp = time.mktime((datetime.now() + timedelta(days=settings.EXP_TOKEN)).timetuple())
+
+        token = jwt.encode({
+            'user_id': self.pk,
+            'exp': int(dt_exp),
+        }, settings.SECRET_KEY, algorithm='HS256')
+
+        return token.decode('utf-8')
 
     def is_activation_key_expired(self):
         if now() <= self.activation_key_expires:
