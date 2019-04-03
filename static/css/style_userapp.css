@@ -169,7 +169,55 @@ body {
     display: flex;
 }
 
+.search {
+    margin: 3%;
+    width: 250px;
+}
 
+.search-btn {
+    border: none;
+    background-color: #2c7cb4;
+    color: white;
+    cursor: pointer;
+    line-height: 14px;
+    padding: 1%;
+}
+
+.search-btn:hover {
+    background-color: #56b45a;
+}
+
+.btn-search {
+    margin: 1% 0;
+    border: none;
+    background: #5f88b4;
+    width: 90%;
+    line-height: 300%;
+    font-size: 14px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.btn-search:hover {
+    background: #88b456;
+}
+
+.btn-search a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.btn-search:hover a {
+    color: white;
+}
+
+.sr-nm, .btn-search:hover .add {
+ display: inline;
+}
+
+.btn-search:hover .sr-nm, .add {
+ display: none;
+}
 
 /* MEDIA QUERIES USER PAGE */
 /*DESKTOP*/

@@ -1,0 +1,29 @@
+{% extends "userapp/base.html" %}
+{% load static %}
+{% block body %}
+
+    <div class="flex-container-two">
+
+        <div class="flex-block-wrapper-3">
+            <form class="search" method="get" action="{% url 'userapp:usersearch' %}">
+                <input type="text" name="query" placeholder="кого будем искать"/>
+                <input class="search-btn" type="submit" value="поиск"/>
+            </form>
+            <div class="hide-div" id="hide-groups">
+                {% for item in search %}
+                    <div class="btn mainpg">
+                        <button class="btn-search" type="button">
+                            <a class="search-name" href="#">
+                                <span class="sr-nm">{{ item.username }}</span>&nbsp;<span class="add">Добавить контакт</span>
+                            </a>
+
+                        </button>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}

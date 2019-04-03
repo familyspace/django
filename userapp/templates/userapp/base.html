@@ -23,7 +23,7 @@
                     </div>
                 {% endif %}
                 <div class="btn mainpg">
-                    <button class="btn-menu" type="button"><a href="#">Поиск контактов</a></button>
+                    <button class="btn-menu" type="button"><a href="{% url 'userapp:usersearch' %}">Поиск контактов</a></button>
                 </div>
                 <div class="btn mainpg">
                     <button class="btn-menu" type="button"><a href="{% url 'userapp:userpage' %}">Все группы</a></button>
@@ -33,6 +33,9 @@
                 </div>
                 <div class="btn mainpg">
                     <button class="btn-menu" type="button"><a href="{% url 'userapp:creategroups' user.pk %}">Создать группу</a></button>
+                </div>
+                <div class="btn mainpg">
+                    <button class="btn-menu" type="button"><a href="{% url 'userapp:groupsearch' %}">Найти группу</a></button>
                 </div>
             </div>
                 {% block body %}

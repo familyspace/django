@@ -1,0 +1,29 @@
+{% extends "userapp/base.html" %}
+{% load static %}
+{% block body %}
+
+    <div class="flex-container-two">
+
+        <div class="flex-block-wrapper-3">
+            <form class="search" method="get" action="{% url 'userapp:groupsearch' %}">
+                <input type="text" name="query" placeholder="введите название группы"/>
+                <input class="search-btn" type="submit" value="поиск"/>
+            </form>
+            <div class="hide-div" id="hide-groups">
+                {% for item in search %}
+                    <div class="btn mainpg">
+                        <button class="btn-search" type="button">
+                            <a class="search-name" href="#">
+                                <span class="sr-nm">{{ item.title }}</span>&nbsp;<span class="add">Вступить в группу</span>
+                            </a>
+
+                        </button>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}
