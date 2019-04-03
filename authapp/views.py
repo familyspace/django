@@ -1,9 +1,12 @@
 from django.contrib.auth.views import LoginView, LogoutView, TemplateView
-from django.views.generic.edit import CreateView
+from django.http import HttpResponseForbidden
+from django.urls import reverse
+from django.views.generic.edit import CreateView, UpdateView, SingleObjectMixin, FormMixin
 from django.utils.translation import gettext_lazy as _
 
-from authapp.forms import SignInForm, SignUpForm
-from authapp.models import User
+from authapp.forms import SignInForm, SignUpForm, UserUpdateForm, UserProfileUpdateForm
+from authapp.models import User, UserProfile
+from family_space import settings
 
 
 class SignInView(LoginView):
@@ -19,6 +22,45 @@ class SignUpView(CreateView):
 
 class SignOutView(LogoutView):
     title = _('Sign Out')
+
+
+class UserUpdateView(UpdateView, FormMixin):
+    model = User
+    form_class = UserUpdateForm
+    success_url = '/'
+    template_name = 'authapp/update.html'
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        # Запрещаем править чужие профили
+        if not request.user.is_authenticated or request.user.pk != self.object.pk:
+            return HttpResponseForbidden()
+
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+
+        user = self.get_object()
+        user_profile = UserProfile.objects.get(user__username=user.username)
+
+        context['user_form'] = UserUpdateForm(initial=kwargs, instance=user)
+        context['userprofile_form'] = UserProfileUpdateForm(initial=kwargs, instance=user_profile)
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseForbidden()
+
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        userprofile_form = UserProfileUpdateForm(request.POST, request.FILES, instance=request.user.userprofile)
+
+        if user_form.is_valid() and userprofile_form.is_valid():
+            user_form.save()
+
+        return super().post(request, *args, **kwargs)
 
 
 class VerifyView(TemplateView):
