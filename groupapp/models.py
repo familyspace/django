@@ -38,9 +38,9 @@ class GroupUser(models.Model):
     '''
     Таблица списка пользователей в группе
     '''
-    User = models.ForeignKey(User, verbose_name='Пользователь',on_delete='CASCADE')
+    User = models.ForeignKey(User, verbose_name='Пользователь', related_name='usergroups', on_delete='CASCADE')
     role = models.CharField(verbose_name='Роль',
                             max_length=3,
                             choices=[(item, item.value) for item in RoleChoice],
                             default=RoleChoice.ADM)
-    group = models.ForeignKey(Group, related_name='groupusers', on_delete='CASCADE')
+    group = models.ForeignKey(Group, related_name='users', on_delete='CASCADE')
