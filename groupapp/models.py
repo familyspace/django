@@ -43,4 +43,4 @@ class GroupUser(models.Model):
                             max_length=3,
                             choices=[(item, item.value) for item in RoleChoice],
                             default=RoleChoice.ADM)
-    group = models.ForeignKey(Group, related_name='users', on_delete='CASCADE')
+    group = models.ForeignKey(Group, related_name='groupusers', on_delete='CASCADE')

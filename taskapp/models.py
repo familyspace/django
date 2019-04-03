@@ -10,7 +10,7 @@ class Task(models.Model):
     group = models.ForeignKey(Group,
                               verbose_name='Группа',
                               on_delete='CASCADE',
-                              related_name='tasks')
+                              related_name='grouptasks')
     user = models.ManyToManyField(User,
                                   verbose_name='Пользователи в задаче',
                                   related_name='taskusers')

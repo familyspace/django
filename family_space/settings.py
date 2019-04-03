@@ -43,11 +43,11 @@ INSTALLED_APPS = [
     'api.apiauthapp',
     'api.apiuserapp',
     'api.core',
+    'groupapp',
     'shoppingapp',
     'chatapp',
     'eventapp',
     'userapp',
-    'groupapp',
     'taskapp',
     'authapp',
 ]
