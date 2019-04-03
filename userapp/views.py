@@ -31,6 +31,7 @@ def creategroup_page(request, user_pk):
 
     return render(request, 'userapp/creategroups.html', {'group_form': form})
 
+@login_required
 def usersearch(request):
         search = request.GET.get("query")
         if search:
@@ -42,9 +43,7 @@ def usersearch(request):
 
         return render(request, 'userapp/usersearch.html')
 
-
-
-
+@login_required
 def groupsearch(request):
     search = request.GET.get("query")
     if search:
