@@ -6,9 +6,9 @@ from rest_framework.schemas import AutoSchema
 class CustomersSchema(AutoSchema):
     def get_description(self, path, method):
 
-        if path == '/apiauth/signup/':
+        if path == '/api/auth/signup/':
             return 'Создание нового пользователя.'
-        if path == '/apiauth/signin/':
+        if path == '/api/auth/signin/':
             return 'Авторизация по логину и паролю.'
 
         return None

@@ -21,7 +21,8 @@ from . import settings
 
 
 urlpatterns = [
-    path('apiauth/', include('api.apiauthapp.urls')),
+    path('api/auth/', include('api.apiauthapp.urls')),
+    path('api/profile/', include('api.apiuserapp.urls')),
     path('docs/', include('api.apidocs.urls')),
     path('auth/', include('authapp.urls', namespace='auth')),
     path('admin/', admin.site.urls),
