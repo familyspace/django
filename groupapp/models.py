@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.db import models
 from enum import Enum
 from authapp.models import User
@@ -6,18 +5,15 @@ from authapp.models import User
 
 # Create your models here.
 class Category(models.Model):
-    category_name = models.CharField(verbose_name='Название категории',
+    name = models.CharField(verbose_name='Название категории',
                                      max_length=100,
                                      blank=False,
                                      null=False)
-
     def __str__(self):
-        return self.category_name
+        return self.name
 
 
 class Group(models.Model):
-    # user = models.ForeignKey(settings.AUTH_USER_MODEL, default=True, on_delete=models.CASCADE, related_name="groupsmodel")
-    user = models.ManyToManyField(User)
     title = models.CharField(verbose_name='Название группы',
                              max_length=255,
                              blank=False,
@@ -32,7 +28,12 @@ class Group(models.Model):
                                  on_delete='PROTECT')
 
     def __str__(self):
-        return self.title
+        return self.title + ' ' + self.category.name
+
+    def get_users(self):
+        relations = GroupUser.objects.filter(group=self.pk)
+        members = map(lambda item: item.user, relations)
+        return members
 
 def get_groups_list(self):
     groups_list = Group.objects.all()
@@ -46,14 +47,14 @@ class RoleChoice(Enum):
     ADM = 'Администратор'
     USR = 'Пользователь'
 
-
 class GroupUser(models.Model):
     '''
     Таблица списка пользователей в группе
     '''
-    User = models.ForeignKey(User, verbose_name='Пользователь',on_delete='CASCADE')
+    user = models.ForeignKey(User, verbose_name='Пользователь', related_name='usergroups', on_delete='CASCADE')
     role = models.CharField(verbose_name='Роль',
                             max_length=3,
                             choices=[(item, item.value) for item in RoleChoice],
                             default=RoleChoice.ADM)
-    group = models.ForeignKey(Group, related_name='groupusers', on_delete='CASCADE')
+    group = models.ForeignKey(Group, related_name='users', on_delete='CASCADE')
+

@@ -6,6 +6,6 @@ import groupapp.views as groupapp
 app_name = 'userapps'
 urlpatterns = [
     path('', groupapp.view_all_groups, name='userpage'),
-    path('usergroups/', userapp.userpage, name='usergroups'),
+    path('usergroups/<user_pk>', groupapp.view_user_groups, name='usergroups'),
     path('creategroup/<user_pk>', userapp.creategroup_page, name='creategroups')
 ]

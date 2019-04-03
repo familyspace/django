@@ -8,7 +8,7 @@
             <div class="flex-block-wrapper-3">
                 <p>Все группы: </p>
                 <div class="hide-div" id="hide-groups">
-                    {% for item in all_groups %}
+                    {% for item in groups %}
                         <div class="btn mainpg">
                             <button class="btn-group" type="button"><a href="{% url 'groupapp:view_one_group' item.pk %}">{{ item.title }}</a></button>
                         </div>

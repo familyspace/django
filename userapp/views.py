@@ -5,29 +5,27 @@ from django.urls import reverse
 
 from authapp.models import User
 from .forms import GroupCreationForm
-from groupapp.models import Group
+from groupapp.models import Group, GroupUser
 
 # Create your views here.
-
-@login_required
-def userpage(request):
-    groups = Group.objects.filter(user=request.user)
-
-    content = {
-        'grouplist': groups,
-    }
-    return render(request, 'groupapp/groupspage.html', content)
 
 @login_required
 def creategroup_page(request, user_pk):
     if request.method == 'POST':
         form = GroupCreationForm(request.POST)
+
         if form.is_valid():
             response = form.save(commit=True)
-            response.user.add(request.user)
+            usergroupform = GroupUser()
+            usergroupform.user = request.user
+            usergroupform.group = response
+            # usergroupform.role = 'Администратор'
+            usergroupform.save()
+            # response.user.add(request.user)
             response.save()
             return HttpResponseRedirect(reverse('userapp:userpage'))
     else:
         form = GroupCreationForm()
 
     return render(request, 'userapp/creategroups.html', {'group_form': form})
+

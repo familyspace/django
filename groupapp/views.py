@@ -1,7 +1,8 @@
-from django.shortcuts import render, get_object_or_404
-
+from django.shortcuts import render
+from groupapp.models import Group, get_groups_list, GroupUser
+from authapp.models import User
+from django.shortcuts import get_object_or_404
 # Create your views here.
-from groupapp.models import get_groups_list, Group
 
 
 def view_all_groups(request):
@@ -11,7 +12,7 @@ def view_all_groups(request):
     groups = get_groups_list(request)
 
     content = {
-        'all_groups': groups,
+        'groups': groups,
     }
 
     return render(request, 'userapp/userpage.html', content)
@@ -21,27 +22,25 @@ def view_one_group(request, group_pk):
     '''
     Просмотр участников группы с заданным pk
     '''
-    try:
-        mygroup = get_object_or_404(Group, pk=group_pk)
-        members = mygroup.user.all()
-        content = {
-            'members': members
-        }
-    except:
-        print('Такой группы не существует')
-        content = {
-        }
+
+    my_group = get_object_or_404(Group, pk=group_pk)
+    members = my_group.get_users()
+    content = {
+        'members': members
+    }
 
     return render(request, 'groupapp/participants.html', content)
 
-# def view_user_groups(request, user_pk):
-#     '''
-#     Просмотр списка групп пользователя по его pk
-#     '''
-#
-#     groups = Group.objects.filter(user__pk=user_pk)
-#     content = {
-#         'user_groups': groups,
-#     }
-#
-#     return render(request, 'groupapp/groupspage.html', content)
+def view_user_groups(request, user_pk):
+    '''
+    Просмотр списка групп пользователя по его pk
+    '''
+
+    relations = GroupUser.objects.filter(user=user_pk)
+    groups = map(lambda item: item.group, relations)
+
+    content = {
+        'groups': groups,
+    }
+
+    return render(request, 'groupapp/groupspage.html', content)
