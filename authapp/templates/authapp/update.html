@@ -1,0 +1,23 @@
+{% extends 'authapp/base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}
+    {% trans "Edit profile" %}
+{% endblock title %}
+
+{% block css %}
+    <link href="{% static 'css/authapp.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+    <form class="form-signup" action="{% url 'authapp:edit' user.pk %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1 class="h3 mb-3 font-weight-normal">{% trans "Edit profile" %}</h1>
+        {{ user_form.as_p }}
+        {{ userprofile_form.as_p }}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">{% trans "Save" %}</button>
+        <p class="mt-5 mb-3 text-muted">&copy FamilySpace 2019</p>
+    </form>
+
+{% endblock content %}
