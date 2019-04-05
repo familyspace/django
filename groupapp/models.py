@@ -35,6 +35,11 @@ class Group(models.Model):
         members = map(lambda item: item.user, relations)
         return members
 
+    def add_user(self, user):
+        GroupUser.objects.create(user=user, group=self)
+        comment = 'Участник добавлен'
+        return comment
+
 def get_groups_list(self):
     groups_list = Group.objects.all()
     return groups_list

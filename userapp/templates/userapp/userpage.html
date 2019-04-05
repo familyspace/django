@@ -11,6 +11,18 @@
                     {% for item in groups %}
                         <div class="btn mainpg">
                             <button class="btn-group" type="button"><a href="{% url 'groupapp:view_one_group' item.pk %}">{{ item.title }}</a></button>
+                            {% for j in item.get_users %}
+                                {% if user.id == j.id %}
+                                    <button class="btn-search" type="button">
+                                        <a href="#">
+                                            <span class="sr-nm">Вы в группе</span>&nbsp;
+                                            <span class="add">Выйти из группы</span>
+                                        </a>
+                                    </button>
+                                {% else %}
+                                    <button class="btn-search" type="button"><a href="#">Вступить</a></button>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     {% endfor %}
                 </div>

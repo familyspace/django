@@ -9,7 +9,9 @@
                 <div class="hide-div" id="hide-groups">
                     {% for item in members %}
                         <div class="btn mainpg">
-                            <button class="btn-group" type="button"><a href="#">{{ item.username }}</a></button>
+                            <button class="btn-group" type="button">
+                                <a href="#">{{ item.username }}</a>
+                            </button>
                         </div>
                     {% endfor %}
                 </div>
