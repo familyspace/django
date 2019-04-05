@@ -122,6 +122,9 @@ class UserProfile(models.Model):
                                 on_delete=models.CASCADE,
                                 verbose_name=_('User'))
 
+    avatar = models.ImageField(verbose_name=_('Avatar'),
+                               upload_to='avatars',
+                               blank=True)
 
     gender = models.CharField(max_length=1,
                               blank=True,

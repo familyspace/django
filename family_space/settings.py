@@ -138,6 +138,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
 
 REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'api.core.handlers.core_exception_handler',
@@ -200,3 +202,4 @@ except ImportError:
     pass
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'authapp/static/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

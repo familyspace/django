@@ -64,12 +64,12 @@ class UserUpdateForm(ModelForm):
         super(UserUpdateForm, self).__init__(*args, **kwargs)
 
         for field_name, field in self.fields.items():
-            field.widget.attrs['required'] = True
             field.widget.attrs['class'] = 'form-control'
             field.label = ""
 
             if field_name == 'username':
                 field.widget.attrs['placeholder'] = _('Username')
+                field.widget.attrs['required'] = True
             elif field_name == 'first_name':
                 field.help_text = _('Your first name')
                 field.widget.attrs['placeholder'] = _('First Name')
@@ -79,6 +79,7 @@ class UserUpdateForm(ModelForm):
             elif field_name == 'phone':
                 field.help_text = _('Your phone number')
                 field.widget.attrs['placeholder'] = _('Phone number')
+                field.widget.attrs['required'] = True
 
     class Meta:
         model = User
@@ -93,7 +94,6 @@ class UserProfileUpdateForm(ModelForm):
         for field_name, field in self.fields.items():
 
             field.widget.attrs['class'] = 'form-control'
-            field.widget.attrs['required'] = True
             field.label = ""
 
             if field_name == 'gender':
@@ -103,10 +103,9 @@ class UserProfileUpdateForm(ModelForm):
 
                 field.widget = DateBSInput()
                 field.widget.attrs['class'] = 'form-control'
-                field.widget.attrs['required'] = True
                 field.label = ""
                 field.help_text = _('Your birth date')
 
     class Meta:
         model = UserProfile
-        fields = ('gender', 'birth_date')
+        fields = ('avatar', 'gender', 'birth_date')

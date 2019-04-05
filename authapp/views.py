@@ -1,5 +1,5 @@
 from django.contrib.auth.views import LoginView, LogoutView, TemplateView
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, HttpResponseNotFound, Http404
 from django.urls import reverse
 from django.views.generic.edit import CreateView, UpdateView, SingleObjectMixin, FormMixin
 from django.utils.translation import gettext_lazy as _
@@ -34,7 +34,8 @@ class UserUpdateView(UpdateView, FormMixin):
         self.object = self.get_object()
         # Запрещаем править чужие профили
         if not request.user.is_authenticated or request.user.pk != self.object.pk:
-            return HttpResponseForbidden()
+            return HttpResponseNotFound()
+
 
         return super().get(request, *args, **kwargs)
 
@@ -52,7 +53,7 @@ class UserUpdateView(UpdateView, FormMixin):
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return HttpResponseForbidden()
+            return HttpResponseNotFound()
 
         user_form = UserUpdateForm(request.POST, instance=request.user)
         userprofile_form = UserProfileUpdateForm(request.POST, request.FILES, instance=request.user.userprofile)
@@ -91,5 +92,3 @@ class VerifyView(TemplateView):
                               'success_message': success_message, }
         context = self.get_context_data(**kwargs)
         return self.render_to_response(context)
-
-# TODO: Написать контроллер для редактирования профиля
