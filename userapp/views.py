@@ -19,12 +19,6 @@ def creategroup_page(request, user_pk):
         if form.is_valid():
             response = form.save(commit=True)
             response.add_user(request.user)
-            # usergroupform = GroupUser()
-            # usergroupform.user = request.user
-            # usergroupform.group = response
-            # usergroupform.role = 'Администратор'
-            # usergroupform.save()
-            # response.user.add(request.user)
             response.save()
             return HttpResponseRedirect(reverse('userapp:userpage'))
     else:
@@ -56,9 +50,9 @@ def groupsearch(request):
 
     return render(request, 'userapp/groupsearch.html')
 
-# @login_required
-# def adduser(group, user_pk):
-#     my_user = get_object_or_404(User, pk=user_pk)
-#     group.add_user(my_user)
-    # return HttpResponseRedirect(reverse('userapp:userpage'))
-    # return render('userapp/added.html')
+@login_required
+def adduser(request, group_pk):
+    my_group = get_object_or_404(Group, pk=group_pk)
+    my_group.add_user(request.user)
+    return HttpResponseRedirect(reverse('userapp:userpage'))
+
