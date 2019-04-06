@@ -1,29 +1,19 @@
 from django.db import models
 from enum import Enum
-from authapp.models import User
+
 from django.shortcuts import get_object_or_404
+
+from authapp.models import User
 
 
 # Create your models here.
-
-def get_groups_list(self):
-    groups_list = Group.objects.all()
-    return groups_list
-
-def create_group(user, title, category_name):
-    my_category = get_object_or_404(Category, category_name=category_name)
-    my_group = Group.objects.create(title=title, category=my_category)
-    my_group.add_user(user)
-    print('Группа ' + title + ' создана')
-    return my_group
-
 class Category(models.Model):
-    category_name = models.CharField(verbose_name='Название категории',
+    name = models.CharField(verbose_name='Название категории',
                                      max_length=100,
                                      blank=False,
                                      null=False)
     def __str__(self):
-        return self.category_name
+        return self.name
 
 
 class Group(models.Model):
@@ -41,15 +31,10 @@ class Group(models.Model):
                                  on_delete='PROTECT')
 
     def __str__(self):
-        return self.title + ' ' + self.category.category_name
-
-    # def get_users(self):
-    #     relations = GroupUser.objects.filter(group=self.pk)
-    #     members = map(lambda item: item.user, relations)
-    #     return members
+        return self.title + ' ' + self.category.name
 
     def get_users(self):
-        relations = self.groupusers.all()
+        relations = GroupUser.objects.filter(group=self.pk)
         members = map(lambda item: item.user, relations)
         return members
 
@@ -66,13 +51,17 @@ class Group(models.Model):
         comment = 'Участник удален'
         return comment
 
+def get_groups_list(self):
+    groups_list = Group.objects.all()
+    return groups_list
+
+
 class RoleChoice(Enum):
     '''
     Задание списка перечесления для поля таблицы через класс
     '''
     ADM = 'Администратор'
     USR = 'Пользователь'
-
 
 class GroupUser(models.Model):
     '''
@@ -82,11 +71,6 @@ class GroupUser(models.Model):
     role = models.CharField(verbose_name='Роль',
                             max_length=3,
                             choices=[(item, item.value) for item in RoleChoice],
-                            default=RoleChoice.USR)
-    group = models.ForeignKey(Group, related_name='groupusers', on_delete='CASCADE')
+                            default=RoleChoice.ADM)
+    group = models.ForeignKey(Group, related_name='users', on_delete='CASCADE')
 
-    class Meta:
-        unique_together = ('user', 'group')
-
-    def __str__(self):
-        return self.user.username + ' ' + self.group.title + ' ' + self.role

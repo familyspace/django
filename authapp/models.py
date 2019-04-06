@@ -71,7 +71,8 @@ class User(AbstractUser):
 
     # Генерация кода активации
     def get_activation_key(self):
-        self.is_active = False
+        # TODO озменить на false в продакшине
+        self.is_active = True
         salt = hashlib.sha1(str(random.random()).encode('utf8')).hexdigest()[:6]
         self.activation_key = hashlib.sha1((self.email + salt).encode('utf8')).hexdigest()
 
