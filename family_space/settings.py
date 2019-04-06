@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -26,7 +28,6 @@ SECRET_KEY = '+4##tnsmrsvxy(aehvwz0pdmu%o*g^k_=iq76-(i&h3jhswedr'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -109,7 +110,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 LANGUAGES = [
@@ -181,6 +181,7 @@ SWAGGER_SETTINGS = {
 
 AUTH_USER_MODEL = 'authapp.User'
 
+LOGIN_URL = 'authapp:signin'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'authapp:signin'
 
