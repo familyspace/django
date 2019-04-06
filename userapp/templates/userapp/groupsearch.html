@@ -12,18 +12,24 @@
             <div class="hide-div" id="hide-groups">
                 {% for item in search %}
                     <div class="btn mainpg">
-                        <button class="btn-search" type="button">
-                            <a class="search-name" href="#">
-                                <span class="sr-nm">{{ item.title }}</span>&nbsp;<span class="add">Вступить в группу</span>
-                            </a>
-
+                        <button class="btn-group" type="button">
+                            <a href="{% url 'groupapp:view_one_group' item.pk %}">{{ item.title }}</a>
                         </button>
+                        {% if user in item.get_users %}
+                            <button class="btn-search" type="button">
+                                <a href="{% url 'userapp:removeuser' item.pk %}">
+                                    <span class="sr-nm">Вы в группе</span>&nbsp;
+                                    <span class="add">Выйти из группы</span>
+                                </a>
+                            </button>
+                        {% else %}
+                            <button class="btn-search" type="button"><a href="{% url 'userapp:adduser' item.pk %}">Вступить</a></button>
+                        {% endif %}
                     </div>
                 {% endfor %}
             </div>
         </div>
 
     </div>
-
 
 {% endblock %}

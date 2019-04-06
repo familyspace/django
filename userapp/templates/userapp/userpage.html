@@ -13,7 +13,7 @@
                             <button class="btn-group" type="button"><a href="{% url 'groupapp:view_one_group' item.pk %}">{{ item.title }}</a></button>
                             {% if user in item.get_users %}
                                 <button class="btn-search" type="button">
-                                    <a href="#">
+                                    <a href="{% url 'userapp:removeuser' item.pk %}">
                                         <span class="sr-nm">Вы в группе</span>&nbsp;
                                         <span class="add">Выйти из группы</span>
                                     </a>

@@ -56,3 +56,9 @@ def adduser(request, group_pk):
     my_group.add_user(request.user)
     return HttpResponseRedirect(reverse('userapp:userpage'))
 
+@login_required
+def removeuser(request, group_pk):
+    group_user = get_object_or_404(GroupUser, user=request.user, group=group_pk)
+    group_user.delete()
+    return HttpResponseRedirect(reverse('userapp:userpage'))
+

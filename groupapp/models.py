@@ -1,5 +1,8 @@
 from django.db import models
 from enum import Enum
+
+from django.shortcuts import get_object_or_404
+
 from authapp.models import User
 
 
@@ -38,6 +41,14 @@ class Group(models.Model):
     def add_user(self, user):
         GroupUser.objects.create(user=user, group=self)
         comment = 'Участник добавлен'
+        return comment
+
+    def remove_user(self, user):
+        group_user = get_object_or_404(GroupUser, user=user, group=self)
+        print('юзер опознан')
+        group_user.delete()
+        print('и удален из группы')
+        comment = 'Участник удален'
         return comment
 
 def get_groups_list(self):
