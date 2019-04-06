@@ -1,0 +1,33 @@
+{% extends 'authapp/base.html' %}
+{% load authapp_tags %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "Verify activation key" %}
+{% endblock title %}
+
+{% block css %}
+    <link href="{% static 'css/verify.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+    <main role="main" class="container">
+    {% if success_message %}
+        <h1 class="mt-5">{{ success_message }}</h1>
+        <p>{% trans 'Use ' %}<a href={% url "authapp:signin" %}>{% trans 'Sign In' %}</a> {% trans ' to sign in to Family space' %}</p>
+    {% elif error_message %}
+        <h1 class="mt-5">{{ error_message }}</h1>
+        <p class="lead">{% trans 'Error number: ' %}{{ error_number|hex }}</p>
+        <p>{% trans 'Try sign up again ' %}<a href={% url "authapp:signup" %}>{% trans 'Sign Up' %}</a> </p>
+    {% endif %}
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">&copy;2019 Family Space</span>
+        </div>
+    </footer>
+{% endblock content %}

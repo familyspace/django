@@ -38,7 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework_swagger',
     'api.apiauthapp',
+    'api.apiuserapp',
+    'api.core',
     'shoppingapp',
     'chatapp',
     'eventapp',
@@ -140,6 +144,44 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'api.core.handlers.core_exception_handler',
+    'NON_FIELD_ERRORS_KEY': 'error',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'api.apiauthapp.backends.JWTAuthentication',
+    ),
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # 'PAGE_SIZE': 10,
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+    ),
+}
+
+# Время жизни токена в днях
+EXP_TOKEN = 365
+
+SWAGGER_SETTINGS = {
+    'APIS_SORTER': 'alpha',
+    'api_version': '0.1',
+    'enabled_methods': [
+        'get',
+        'post',
+        'put',
+        'delete',
+    ],
+    'SECURITY_DEFINITIONS': {
+        "api_key": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT authorization"
+        },
+    },
+    'USE_SESSION_AUTH': False,
+    'SHOW_REQUEST_HEADERS': True,
+    'JSON_EDITOR': True
+}
+
 AUTH_USER_MODEL = 'authapp.User'
 
 # LOGIN_SUCCES_URL = '/userapp/index.html'
@@ -149,3 +191,25 @@ AUTH_USER_MODEL = 'authapp.User'
 #     from local_settings import *
 # except ImportError:
 #     pass
+
+LOGIN_REDIRECT_URL = 'userapp:userpage'
+LOGOUT_REDIRECT_URL = 'authapp:signin'
+
+DOMAIN_NAME = 'http://localhost:8000'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = '25'
+EMAIL_HOST_USER = 'django@geekshop.local'
+EMAIL_HOST_PASSWORD = 'geekshop'
+EMAIL_USE_SSL = False
+EMAIL_VERIFY_VIEW = 'authapp:verify'
+
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+    EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'tmp/email-messages/')
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'authapp/static/')

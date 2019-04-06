@@ -7,9 +7,12 @@ import userapp.views as userapp
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('authapp.urls', namespace='auth')),
     path('userpage/', include('userapp.urls', namespace='userapp')),
     path('groupsapp/', include('groupapp.urls', namespace='groupapp')),
+    path('api/auth/', include('api.apiauthapp.urls')),
+    path('api/profile/', include('api.apiuserapp.urls')),
+    path('docs/', include('api.apidocs.urls')),
+    path('auth/', include('authapp.urls', namespace='auth')),
 ]
 
 if settings.DEBUG:

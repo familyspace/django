@@ -18,7 +18,12 @@
                     </div>
                     <div class="btn mainpg">
                         <button class="btn-menu userblock" type="button">
-                            <a href="{% url 'auth:authlogout' %}">Logout</a>
+                            <a href="{% url 'authapp:edit' user.pk %}">Профиль</a>
+                        </button>
+                    </div>
+                    <div class="btn mainpg">
+                        <button class="btn-menu userblock" type="button">
+                            <a href="{% url 'authapp:signout' %}">Выйти</a>
                         </button>
                     </div>
                 {% endif %}
