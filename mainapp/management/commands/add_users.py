@@ -5,10 +5,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         names = ['Иван', 'Петр', 'Михаил', 'Леонид', 'Александр', 'Роман', 'Дилшот', 'Олег', 'Ильяс', 'Заур']
-        # User.objects.all().delete()
-        # print('Все пользователи удалены')
-        # super_user = User.objects.create_superuser('Misha', 'petmik@yandex.ru', 'reimatec', first_name='Михаил', last_name='Петухов')
-        # super_user.first_name = 'Михаил'
+        User.objects.all().delete()
+        print('Все пользователи удалены')
+        super_user = User.objects.create_superuser('Misha', 'petmik@yandex.ru', 'reimatec', first_name='Михаил', last_name='Петухов')
+
         i = 1
         for person in names:
             userlogin = 'test'+str(i)
