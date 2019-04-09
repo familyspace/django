@@ -46,3 +46,12 @@ def view_user_groups(request, user_pk):
     }
 
     return render(request, 'groupapp/groupspage.html', content)
+
+
+def group_menu(request, group_pk):
+
+    grouppk = group_pk
+    content = {
+        'grpk': grouppk
+    }
+    return render(request, 'groupapp/groupmenu.html', content)

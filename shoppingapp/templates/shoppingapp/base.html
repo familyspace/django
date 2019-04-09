@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="/static/css/style_userapp.css">
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="flex-container-wrapper">
+            <img class="img-logo" src="/static/img/logo_userapp.png" alt="logo">
+            <div class="flex-container-one">
+                {% if user.is_authenticated %}
+                    <div class="btn mainpg">
+                        <button class="btn-menu userblock" type="button"><a href="#">{{ user.username }}</a></button>
+                    </div>
+                    <div class="btn mainpg">
+                        <button class="btn-menu userblock" type="button">
+                            <a href="{% url 'authapp:edit' user.pk %}">Профиль</a>
+                        </button>
+                    </div>
+                    <div class="btn mainpg">
+                        <button class="btn-menu userblock" type="button">
+                            <a href="{% url 'authapp:signout' %}">Выйти</a>
+                        </button>
+                    </div>
+                {% endif %}
+                <div class="btn mainpg">
+                    <button class="btn-menu" type="button"><a href="{% url 'userapp:userpage' %}">Главная</a></button>
+                </div>
+                <div class="btn mainpg">
+                    <button class="btn-menu" type="button"><a href="#">Календарь</a></button>
+                </div>
+                <div class="btn mainpg">
+                    <button class="btn-menu" type="button"><a href="#">Покупки</a></button>
+                </div>
+                <div class="btn mainpg">
+                    <button class="btn-menu" type="button"><a href="#">Задачи</a></button>
+                </div>
+                <div class="btn mainpg">
+                    <button class="btn-menu" type="button"><a href="#">Чат</a></button>
+                </div>
+            </div>
+                {% block body %}
+                {% endblock %}
+        </div>
+    </div>
+
+<script src="/static/js/jquery.js"></script>
+<script src="/static/js/js_userapp.js"></script>
+</body>
+</html>

@@ -13,6 +13,7 @@ urlpatterns = [
     path('api/profile/', include('api.apiuserapp.urls')),
     path('docs/', include('api.apidocs.urls')),
     path('auth/', include('authapp.urls', namespace='auth')),
+    path('shoppingapp/', include('shoppingapp.urls', namespace='shop'))
 ]
 
 if settings.DEBUG:

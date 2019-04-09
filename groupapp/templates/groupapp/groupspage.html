@@ -9,7 +9,7 @@
                 <div class="hide-div" id="hide-groups">
                     {% for group in groups %}
                         <div class="btn mainpg">
-                            <button class="btn-group" type="button"><a href="{% url 'groupapp:view_one_group' group.pk %}">{{ group.title }}</a></button>
+                            <button class="btn-group" type="button"><a href="{% url 'groupapp:groupmenu' group.pk %}">{{ group.title }}</a></button>
                         </div>
                     {% endfor %}
                 </div>

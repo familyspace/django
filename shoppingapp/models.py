@@ -18,8 +18,18 @@ class ShopingItem(models.Model):
                                verbose_name='Покупка совершена')
     price = models.DecimalField(verbose_name='Цена покупки',
                                 default=0,
-                                max_digits=5,
+                                max_digits=9,
                                 decimal_places=2)
     comment = models.CharField(max_length=255,
                                verbose_name='Коментарий к покупке',
                                blank=True)
+
+    def __str__(self):
+        return self.title
+
+
+
+
+def get_purchases_list(self):
+    purchases_list = ShopingItem.objects.all()
+    return purchases_list

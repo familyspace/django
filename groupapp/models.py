@@ -7,6 +7,8 @@ from authapp.models import User
 
 
 # Create your models here.
+
+
 class Category(models.Model):
     name = models.CharField(verbose_name='Название категории',
                                      max_length=100,
