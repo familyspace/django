@@ -1,10 +1,12 @@
+from django.core.serializers import json
+from django.http import JsonResponse
 from rest_framework import serializers
 
 from api.apigroupapp.serializers import GroupSerializer
 from authapp.models import UserProfile, User
 from api.core import errorcodes
 from api.core import exceptions
-from groupapp.models import GroupUser
+from groupapp.models import GroupUser, Group
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -14,14 +16,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 
 class UsersGroupsSerializer(serializers.ModelSerializer):
-    groups = serializers.SerializerMethodField()
+    group = GroupSerializer(read_only=True)
 
     class Meta:
-        model = User
-        fields = ('id', 'groups')
+        model = GroupUser
+        fields = ['group']
 
-    def get_groups(self, obj):
-        user_groups = [item for sublist in
-                       GroupUser.objects.filter(user=self.context['request'].user).values('group') for item in
-                       sublist]
-        return GroupSerializer(instance=user_groups)

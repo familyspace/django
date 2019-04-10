@@ -2,7 +2,7 @@ from django.apps import AppConfig
 
 
 class ApiauthappConfig(AppConfig):
-    name = 'api.apiauthapp'
+    name = 'apiauthapp'
     label = 'api_authentication'
     verbose_name = 'api_Authentication'
 

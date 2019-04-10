@@ -15,6 +15,9 @@ from api.apiuserapp.serializers import UserProfileSerializer, UsersGroupsSeriali
 
 
 # Create your views here.
+from groupapp.models import GroupUser
+
+
 class UserProfileViewSet(ListModelMixin, UpdateModelMixin, viewsets.GenericViewSet):
     permission_classes = (IsAuthenticated,)
     renderer_classes = (ApiJSONRenderer,)
@@ -37,9 +40,9 @@ class UsersGroups(ListAPIView):
     schema = UsersGroupsSchema()
 
     def get_queryset(self):
-        return User.objects.filter(user=self.request.user)
+        return GroupUser.objects.filter(user=self.request.user.pk)
 
     def permission_denied(self, request, message=None):
         if not request.successful_authenticator:
-            raise exceptions.FitsMeException(**errorcodes.ERR_WRONG_TOKEN)
+            raise exceptions.FamilySpaceException(**errorcodes.ERR_WRONG_TOKEN)
         super().permission_denied(request, message=None)

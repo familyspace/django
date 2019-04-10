@@ -9,7 +9,7 @@ urlpatterns = [
                   path('', include('userapp.urls', namespace='userapp')),
                   path('groupsapp/', include('groupapp.urls', namespace='groupapp')),
                   path('api/auth/', include('api.apiauthapp.urls')),
-                  path('api/profile/', include('api.apiuserapp.urls')),
+                  path('api/', include('api.apiuserapp.urls')),
                   path('docs/', include('api.apidocs.urls')),
                   path('auth/', include('authapp.urls', namespace='auth')),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
