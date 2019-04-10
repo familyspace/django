@@ -21,8 +21,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
         return value
 
     def validate_password(self, value):
-        if len(value) != 64:
-            raise FamilySpaceException(errorcodes.ERR_WRONG_PASSWORD)
+        # if len(value) != 64:
+        #     raise FamilySpaceException(**errorcodes.ERR_WRONG_PASSWORD)
         return value
 
     class Meta:
