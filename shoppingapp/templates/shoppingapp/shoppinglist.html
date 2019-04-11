@@ -1,36 +1,32 @@
-{% extends "shoppingapp/base.html" %}
+{% extends "userapp/base.html" %}
 {% load static %}
 {% block body %}
 
+            <div class="flex-container-two" id="shop">
 
-        <div class="flex-container-two" id="shop">
+                <div class="flex-block-wrapper-3" id="fbw3-div">
+                    <div class="btn mainpg">
+                        <p id="p-purchase">Список покупок:</p>
 
-            <div class="flex-block-wrapper-3" id="fbw3-div">
-                <div class="btn mainpg">
-                    <p id="p-purchase">Список покупок:</p>
-                    <button class="btn-search" id="btn-add-purchase" type="button"><a href="#">Добавить</a></button>
+                            <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'shoppingapp:purchasecreation' group_pk=group_pk %}">Добавить</a></button>
+                            <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'groupapp:groupmenu' group_pk=group_pk %}">Назад</a></button>
+
+                    </div>
+
+                    {% for item in purchases %}
+                        <div class="btn mainpg">
+                            <button class="btn-group" type="button">
+                                <a href="#">{{ item.title }}</a>
+                            </button>
+                            <button class="btn-search" id="remove-purchase" type="button">
+                                <a href="{% url 'shop:purchaseremove' title=item.title group_pk=group_pk %}">Удалить</a>
+                            </button>
+                        </div>
+                    {% endfor %}
+
+
                 </div>
 
-
-                {% for item in purchases %}
-                    <div class="btn mainpg">
-                        <button class="btn-group" type="button">
-                            <a href="#">{{ item.title }}</a>
-                        </button>
-                        <button class="btn-search" id="check-purchase" type="button">
-                            <a href="#">
-                                <a href="#">Посмотреть</a>
-                            </a>
-                        </button>
-                        <button class="btn-search" id="remove-purchase" type="button">
-                            <a href="#">Удалить</a>
-                        </button>
-                    </div>
-                {% endfor %}
-
-
             </div>
-
-        </div>
 
 {% endblock %}

@@ -1,4 +1,6 @@
 from django.db import models
+from django.shortcuts import get_object_or_404
+
 from authapp.models import User
 from groupapp.models import Group
 
@@ -26,9 +28,6 @@ class ShopingItem(models.Model):
 
     def __str__(self):
         return self.title
-
-
-
 
 def get_purchases_list(self):
     purchases_list = ShopingItem.objects.all()

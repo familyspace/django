@@ -50,8 +50,8 @@ def view_user_groups(request, user_pk):
 
 def group_menu(request, group_pk):
 
-    grouppk = group_pk
     content = {
-        'grpk': grouppk
+        'group_pk': group_pk
     }
+
     return render(request, 'groupapp/groupmenu.html', content)
