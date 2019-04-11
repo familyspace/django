@@ -40,7 +40,7 @@ class ViewedSchema(AutoSchema):
         return fields
 
 
-class UsersGroupsSchema(AutoSchema):
+class GetUserGroupsSchema(AutoSchema):
     def get_description(self, path, method):
         if method == 'GET':
             return 'Получить группы пользователя'

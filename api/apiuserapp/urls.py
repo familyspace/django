@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from api.apiuserapp.views import UserProfileViewSet, UsersGroups
+from api.apiuserapp.views import UserProfileViewSet, GetUserGroups
 #
 # urlpatterns = [
 #     path('profile/', UserProfileViewSet, name='apiprofile'),
@@ -13,5 +13,5 @@ router = DefaultRouter()
 
 router.register(r'profile', UserProfileViewSet, basename='profile')
 
-urlpatterns = [path('usergroups/', UsersGroups.as_view(), name='usergroups'),
+urlpatterns = [path('usergroups/', GetUserGroups.as_view(), name='getusergroups'),
                ] + router.urls

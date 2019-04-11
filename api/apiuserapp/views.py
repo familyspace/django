@@ -10,8 +10,8 @@ from api.core import errorcodes
 from api.core import exceptions
 from api.core.renderrers import ApiJSONRenderer
 from authapp.models import UserProfile, User
-from api.apiuserapp.schemas import ViewedSchema, UsersGroupsSchema
-from api.apiuserapp.serializers import UserProfileSerializer, UsersGroupsSerializer
+from api.apiuserapp.schemas import ViewedSchema, GetUserGroupsSchema
+from api.apiuserapp.serializers import UserProfileSerializer, GetUserGroupsSerializer
 
 
 # Create your views here.
@@ -33,11 +33,11 @@ class UserProfileViewSet(ListModelMixin, UpdateModelMixin, viewsets.GenericViewS
             raise exceptions.FamilySpaceException(**errorcodes.ERR_WRONG_TOKEN)
         super().permission_denied(request, message=None)
 
-class UsersGroups(ListAPIView):
+class GetUserGroups(ListAPIView):
     permission_classes = (IsAuthenticated,)
     renderer_classes = (ApiJSONRenderer,)
-    serializer_class = UsersGroupsSerializer
-    schema = UsersGroupsSchema()
+    serializer_class = GetUserGroupsSerializer
+    schema = GetUserGroupsSchema()
 
     def get_queryset(self):
         return GroupUser.objects.filter(user=self.request.user.pk)
