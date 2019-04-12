@@ -121,7 +121,8 @@ class UserProfile(models.Model):
                                 null=False,
                                 db_index=True,
                                 on_delete=models.CASCADE,
-                                verbose_name=_('User'))
+                                verbose_name=_('User'),
+                                related_name='userprofile')
 
 
     gender = models.CharField(max_length=1,

@@ -22,9 +22,9 @@ class UsersGroupsSchema(AutoSchema):
         if method == 'GET':
             fields = [
                 coreapi.Field(
-                    name='group',
-                    required=True,
-                    location="form",
+                    name='group_id',
+                    required=False,
+                    location="query",
                     schema=coreschema.String(title='id',
                                              default=1,
                                              description='id группы'),
