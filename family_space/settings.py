@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
     'api.apiauthapp',
     'api.apiuserapp',
+    'api.apigroupapp',
     'api.core',
     'groupapp',
     'shoppingapp',

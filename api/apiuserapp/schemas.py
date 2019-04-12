@@ -38,3 +38,13 @@ class ViewedSchema(AutoSchema):
             ]
 
         return fields
+
+
+class GetUserGroupsSchema(AutoSchema):
+    def get_description(self, path, method):
+        if method == 'GET':
+            return 'Получить группы пользователя'
+
+    def get_encoding(self, path, method):
+        return 'application/json'
+
