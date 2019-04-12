@@ -27,7 +27,8 @@ def view_one_group(request, group_pk):
     my_group = get_object_or_404(Group, pk=group_pk)
     members = my_group.get_users()
     content = {
-        'members': members
+        'members': members,
+        'group_pk': group_pk
     }
 
     return render(request, 'groupapp/participants.html', content)

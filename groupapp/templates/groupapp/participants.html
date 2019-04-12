@@ -2,10 +2,13 @@
 {% load static %}
 {% block body %}
 
-        <div class="flex-container-two">
+        <div class="flex-container-two" id="shop">
 
             <div class="flex-block-wrapper-3">
-                <p>Участники группы: </p>
+                <div class="btn mainpg">
+                        <p id="p-purchase">Участники группы:</p>
+                        <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'groupapp:groupmenu' group_pk=group_pk %}">Назад</a></button>
+                    </div>
                 <div class="hide-div" id="hide-groups">
                     {% for item in members %}
                         <div class="btn mainpg">

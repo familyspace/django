@@ -108,6 +108,14 @@ body {
     background: #b45e5d;
 }
 
+.sr-nm, .userblock:hover .add {
+ display: inline;
+}
+
+.userblock:hover .sr-nm, .add {
+ display: none;
+}
+
 .btn-group {
     margin: 1% 1%;
     border: none;
@@ -567,8 +575,8 @@ body {
     }
 
     #p-purchase {
-        width: 70%;
-        margin: 2% 10% 1% 3%;
+        width: 60%;
+        margin: 2% 5% 1% 3%;
     }
 
     #remove-purchase {
@@ -577,5 +585,24 @@ body {
 
     #check-purchase {
         width: 40%;
+    }
+
+    #purchase-done {
+        font-size: 22px;
+    }
+
+    #id_done {
+        width: 30px;
+        height: 15px;
+        margin: 0;
+    }
+
+    #id_group, #id_user {
+        width: 249px;
+
+    }
+
+    .buy-done {
+        background-color: #56b45a;
     }
 }

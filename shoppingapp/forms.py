@@ -19,11 +19,11 @@ class PurchaseCreationForm(forms.ModelForm):
 class PurchaseEditForm(forms.ModelForm):
     class Meta:
             model = ShopingItem
-            fields = ('title', 'done', 'group', 'user', 'price', 'comment')
+            fields = ('title', 'group', 'done', 'price', 'comment', 'user')
 
     def __init__(self, *args, **kwargs):
         super(PurchaseEditForm, self).__init__(*args, **kwargs)
-        self.fields['comment'].widget.attrs['placeholder'] = "Комментарий"
+        # self.fields['comment'].widget.attrs['placeholder'] = "Комментарий"
 
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'logo-input'

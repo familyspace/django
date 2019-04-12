@@ -14,11 +14,11 @@
             <div class="flex-container-one">
                 {% if user.is_authenticated %}
                     <div class="btn mainpg">
-                        <button class="btn-menu userblock" type="button"><a href="#">{{ user.username }}</a></button>
-                    </div>
-                    <div class="btn mainpg">
                         <button class="btn-menu userblock" type="button">
-                            <a href="{% url 'authapp:edit' user.pk %}">Профиль</a>
+                            <a href="{% url 'authapp:edit' user.pk %}">
+                                <span class="sr-nm">{{ user.username }}</span>&nbsp;
+                                <span class="add">Профиль</span>
+                            </a>
                         </button>
                     </div>
                     <div class="btn mainpg">
