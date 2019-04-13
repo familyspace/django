@@ -4,7 +4,6 @@ from django.forms import models
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-
 from authapp.models import User
 from groupapp.models import Group, GroupUser
 from shoppingapp.forms import PurchaseCreationForm, PurchaseEditForm
