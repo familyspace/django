@@ -13,3 +13,6 @@ class UserContactList(models.Model):
     contact_user = models.ForeignKey(User,
                                      verbose_name='Контакт пользователя',
                                      on_delete='CASCADE')
+
+    def __str__(self):
+        return self.contact_user.username + ' является другом ' + self.user.username

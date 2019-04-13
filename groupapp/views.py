@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
 from django.shortcuts import render
 from groupapp.models import Group, get_groups_list, GroupUser
 from authapp.models import User
@@ -23,6 +24,10 @@ def view_one_group(request, group_pk):
     '''
     Просмотр участников группы с заданным pk
     '''
+
+    friendlyuser = GroupUser.objects.filter(group=group_pk, user=request.user.pk)
+    if not friendlyuser:
+        return HttpResponseForbidden()
 
     my_group = get_object_or_404(Group, pk=group_pk)
     members = my_group.get_users()
@@ -50,6 +55,10 @@ def view_user_groups(request, user_pk):
 
 
 def group_menu(request, group_pk):
+
+    friendlyuser = GroupUser.objects.filter(group=group_pk, user=request.user.pk)
+    if not friendlyuser:
+        return HttpResponseForbidden()
 
     content = {
         'group_pk': group_pk

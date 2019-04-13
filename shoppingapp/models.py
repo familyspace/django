@@ -6,6 +6,7 @@ from groupapp.models import Group
 
 
 # Create your models here.
+from userapp.models import UserContactList
 
 
 class ShopingItem(models.Model):

@@ -1,5 +1,7 @@
 from django import forms
 from shoppingapp.models import ShopingItem
+from userapp.models import UserContactList
+
 
 class PurchaseCreationForm(forms.ModelForm):
     class Meta:
@@ -7,7 +9,9 @@ class PurchaseCreationForm(forms.ModelForm):
             fields = ('title', 'user', 'price', 'comment')
 
     def __init__(self, *args, **kwargs):
+        # user = kwargs.pop('user')
         super(PurchaseCreationForm, self).__init__(*args, **kwargs)
+        # self.fields['user'].queryset = UserContactList.objects.filter(user=user)
         self.fields['title'].widget.attrs['placeholder'] = "Что купить"
         self.fields['comment'].widget.attrs['placeholder'] = "Комментарий"
 
@@ -23,7 +27,7 @@ class PurchaseEditForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(PurchaseEditForm, self).__init__(*args, **kwargs)
-        # self.fields['comment'].widget.attrs['placeholder'] = "Комментарий"
+        self.fields['comment'].widget.attrs['placeholder'] = "Комментарий"
 
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'logo-input'
