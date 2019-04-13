@@ -16,20 +16,20 @@
                     {% for item in todo %}
                         <div class="btn mainpg">
                             <button class="btn-group" type="button">
-                                <a href="{% url 'shop:purchasedetails' title=item.title group_pk=group_pk %}">{{ item.title }}</a>
+                                <a href="{% url 'shop:purchasedetails' item_pk=item.pk group_pk=group_pk %}">{{ item.title }}</a>
                             </button>
                             <button class="btn-search" id="remove-purchase" type="button">
-                                <a href="{% url 'shop:purchaseremove' title=item.title group_pk=group_pk %}">Удалить</a>
+                                <a href="{% url 'shop:purchaseremove' item_pk=item.pk group_pk=group_pk %}">Удалить</a>
                             </button>
                         </div>
                     {% endfor %}
                     {% for item in done %}
                         <div class="btn mainpg">
                             <button class="btn-group buy-done" type="button">
-                                <a href="{% url 'shop:purchasedetails' title=item.title group_pk=group_pk %}">{{ item.title }}</a>
+                                <a href="{% url 'shop:purchasedetails' item_pk=item.pk group_pk=group_pk %}">{{ item.title }}</a>
                             </button>
                             <button class="btn-search" id="remove-purchase" type="button">
-                                <a href="{% url 'shop:purchaseremove' title=item.title group_pk=group_pk %}">Удалить</a>
+                                <a href="{% url 'shop:purchaseremove' item_pk=item.pk group_pk=group_pk %}">Удалить</a>
                             </button>
                         </div>
                     {% endfor %}

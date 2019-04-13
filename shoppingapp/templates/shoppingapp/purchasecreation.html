@@ -15,7 +15,7 @@
 
                         <form class="creategroup-form" action="{% url 'shop:purchasecreation' group_pk=group_pk %}" method="post">
                             {% csrf_token %}
-                            {% for item in purchase_form %}
+                            {% for item in form %}
                                 {{ item }}
                             {% endfor %}
                             <input class="logo-input-submit" type="submit" value="Сохранить">

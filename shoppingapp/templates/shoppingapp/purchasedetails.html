@@ -11,7 +11,7 @@
 
                     <div class="btn">
 
-                        <form class="creategroup-form" action="{% url 'shop:purchasedetails' title=title group_pk=group_pk %}" method="post">
+                        <form class="creategroup-form" action="{% url 'shop:purchasedetails' item_pk=item_pk group_pk=group_pk %}" method="post">
                             {% csrf_token %}
                             {% for item in edit_form %}
                                 {% if 'done' in item.as_widget %}

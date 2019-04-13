@@ -1,9 +1,6 @@
 from django.db import models
-from django.shortcuts import get_object_or_404
-
 from authapp.models import User
 from groupapp.models import Group
-
 
 # Create your models here.
 from userapp.models import UserContactList
