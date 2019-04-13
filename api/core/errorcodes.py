@@ -55,3 +55,20 @@ ERR_TOKEN_USER_NOT_ACTIVE = {
     'status': status.HTTP_403_FORBIDDEN
 }
 
+ERR_NO_GROUP_ID_IN_QUERY = {
+    'code': 100012,
+    'detail': _('No correct group_id param in query'),
+    'status': status.HTTP_404_NOT_FOUND
+}
+
+ERR_NO_RIGHTS_FOR_ACTION = {
+    'code': 100013,
+    'detail': _('No rights for action'),
+    'status': status.HTTP_403_FORBIDDEN
+}
+
+ERR_USER_ALREDY_IN_GROUP = {
+    'code': 100013,
+    'detail': _('User already in group'),
+    'status': status.HTTP_400_BAD_REQUEST
+}

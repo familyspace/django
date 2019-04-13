@@ -1,11 +1,21 @@
 from rest_framework import serializers
 
-from authapp.models import UserProfile
-from api.core import errorcodes
-from api.core import exceptions
+from api.apigroupapp.serializers import GroupSerializer
+from authapp.models import UserProfile, User
+from groupapp.models import GroupUser
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = ('gender', 'birth_date', 'id')
+
+
+
+
+class GetUserGroupsSerializer(serializers.ModelSerializer):
+    group = GroupSerializer(read_only=True)
+
+    class Meta:
+        model = GroupUser
+        fields = ['group']

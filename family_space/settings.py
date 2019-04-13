@@ -11,11 +11,12 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -28,7 +29,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,17 +40,18 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_swagger',
-    'api.apigroupapp',
     'api.apiauthapp',
     'api.apiuserapp',
+    'api.apigroupapp',
     'api.core',
+    'groupapp',
     'shoppingapp',
     'chatapp',
     'eventapp',
     'userapp',
-    'groupapp',
     'taskapp',
     'authapp',
+    'mainapp',
 ]
 
 MIDDLEWARE = [
@@ -83,7 +84,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'family_space.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
@@ -93,7 +93,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -112,7 +111,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -185,15 +183,8 @@ SWAGGER_SETTINGS = {
 
 AUTH_USER_MODEL = 'authapp.User'
 
-# LOGIN_SUCCES_URL = '/userapp/index.html'
-# LOGIN_REDIRECT_URL = '/userapp/'
-#
-# try:
-#     from local_settings import *
-# except ImportError:
-#     pass
-
-LOGIN_REDIRECT_URL = 'userapp:userpage'
+LOGIN_URL = 'authapp:signin'
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'authapp:signin'
 
 DOMAIN_NAME = 'http://localhost:8000'

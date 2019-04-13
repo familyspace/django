@@ -56,10 +56,10 @@ def view_group_purchases(request, group_pk):
 #         # args = [self.kwargs['group_pk']]
 #         context['group_pk'] = Group.objects.get(id=self.kwargs['group_pk'])
 #         return context
-
-    # def form_valid(self, PurchaseCreationForm):
-    #     PurchaseCreationForm.instance.group = get_object_or_404(Group, pk=group_pk)
-    #     return super(purchasecreation_page, self).form_valid(PurchaseCreationForm)
+#
+#     def form_valid(self, PurchaseCreationForm):
+#         PurchaseCreationForm.instance.group = get_object_or_404(Group, pk=group_pk)
+#         return super(purchasecreation_page, self).form_valid(PurchaseCreationForm)
 
 
 
