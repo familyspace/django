@@ -20,6 +20,7 @@ from family_space import settings
 GENDER_CHOICES = (('M', _('M')),
                   ('W', _('W')))
 
+
 class User(AbstractUser):
     """
     Пользователь портала (расширение AbstractUser)
@@ -51,7 +52,6 @@ class User(AbstractUser):
     @property
     def token(self):
         return self._generate_jwt_token()
-
 
     def _generate_jwt_token(self):
         dt_exp = time.mktime((datetime.now() + timedelta(days=settings.EXP_TOKEN)).timetuple())
@@ -124,6 +124,25 @@ class UserProfile(models.Model):
                                 verbose_name=_('User'),
                                 related_name='userprofile')
 
+    first_name = models.CharField(null=True,
+                                  blank=True,
+                                  max_length=30,
+                                  verbose_name=_('First name'))
+
+    last_name = models.CharField(null=True,
+                                 blank=True,
+                                 max_length=30,
+                                 verbose_name=_('Last name'))
+    # отчество
+    patronymic = models.CharField(null=True,
+                                  blank=True,
+                                  max_length=30,
+                                  verbose_name=_('Patronymic'))
+
+    phone = models.CharField(null=True,
+                             blank=True,
+                             max_length=30,
+                             verbose_name=_('Phone'))
 
     gender = models.CharField(max_length=1,
                               blank=True,
@@ -141,6 +160,10 @@ class UserProfile(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.userprofile.save()
+
+    @property
+    def email(self):
+        return self.user.email
 
     def __str__(self):
         return self.user.username

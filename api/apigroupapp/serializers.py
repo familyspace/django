@@ -1,19 +1,25 @@
 from rest_framework import serializers
 
 from authapp.models import User, UserProfile
-from groupapp.models import Group, GroupUser, RoleChoice
+from groupapp.models import Group, GroupUser, RoleChoice, Category
 from api.core import errorcodes
 from api.core import exceptions
 
 
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['id', 'name']
+
+
 class GroupSerializer(serializers.ModelSerializer):
-    category = serializers.SerializerMethodField()
+    category_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Group
-        fields = ['id', 'title', 'description', 'is_public', 'category']
+        fields = ['id', 'title', 'description', 'is_public', 'category_name', 'category']
 
-    def get_category(self, obj):
+    def get_category_name(self, obj):
         return obj.category.name
 
 

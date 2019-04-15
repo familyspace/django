@@ -3,7 +3,7 @@ import coreschema
 from rest_framework.schemas import AutoSchema
 
 
-class ViewedSchema(AutoSchema):
+class UserProfileSchema(AutoSchema):
     def get_description(self, path, method):
         if method == 'GET':
             return 'Получить профаил пользователя'
@@ -35,6 +35,62 @@ class ViewedSchema(AutoSchema):
                                              description='birth_date'),
                     description='формат  YYYY-MM-DD'
                 ),
+                coreapi.Field(
+                    name='email',
+                    required=True,
+                    location="form",
+                    schema=coreschema.String(title='email',
+                                             default='false',
+                                             description='email'),
+                    description='email'
+                ),
+                coreapi.Field(
+                    name='first_name',
+                    required=True,
+                    location="form",
+                    schema=coreschema.String(title='first_name',
+                                             default='false',
+                                             description='first_name'),
+                    description='Имя'
+                ),
+                coreapi.Field(
+                    name='last_name',
+                    required=True,
+                    location="form",
+                    schema=coreschema.String(title='last_name',
+                                             default='false',
+                                             description='last_name'),
+                    description='Фамилия'
+                ),
+                coreapi.Field(
+                    name='patronymic',
+                    required=True,
+                    location="form",
+                    schema=coreschema.String(title='patronymic',
+                                             default='false',
+                                             description='patronymic'),
+                    description='Отчество'
+                ),
+                coreapi.Field(
+                    name='phone',
+                    required=True,
+                    location="form",
+                    schema=coreschema.String(title='Phone',
+                                             default='false',
+                                             description='Phone'),
+                    description='Телефон'
+                ),
+                coreapi.Field(
+                    name='password',
+                    required=True,
+                    location="form",
+                    schema=coreschema.String(title='password',
+                                             default='false',
+                                             description='password'),
+                    description='Новый пароль'
+                ),
+
+
             ]
 
         return fields
