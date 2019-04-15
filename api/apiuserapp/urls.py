@@ -11,7 +11,7 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 
-router.register(r'profile', UserProfileViewSet, basename='profile')
+router.register(r'user_profile_api', UserProfileViewSet, basename='profile')
 
-urlpatterns = [path('usergroups/', GetUserGroups.as_view(), name='getusergroups'),
+urlpatterns = [path('user_groups_api/', GetUserGroups.as_view(), name='getusergroups'),
                ] + router.urls

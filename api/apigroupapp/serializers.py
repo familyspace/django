@@ -26,16 +26,39 @@ class GroupSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     gender = serializers.SerializerMethodField()
     birth_date = serializers.SerializerMethodField()
+    email = serializers.SerializerMethodField()
+    first_name = serializers.SerializerMethodField()
+    last_name = serializers.SerializerMethodField()
+    patronymic = serializers.SerializerMethodField()
+    phone = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = ('email', 'gender', 'birth_date',)
+        fields = ('email', 'gender', 'birth_date', 'email',
+                  'first_name', 'last_name', 'patronymic', 'phone')
 
     def get_gender(self, obj):
         return obj.userprofile.gender
 
     def get_birth_date(self, obj):
         return str(obj.userprofile.birth_date)
+
+    def get_email(self, obj):
+        return str(obj.userprofile.email)
+
+    def get_first_name(self, obj):
+        return str(obj.userprofile.first_name)
+
+    def get_last_name(self, obj):
+        return str(obj.userprofile.last_name)
+
+    def get_patronymic(self, obj):
+        return str(obj.userprofile.patronymic)
+
+    def get_phone(self, obj):
+        return str(obj.userprofile.phone)
+
+
 
 
 class UsersGroupsSerializer(serializers.ModelSerializer):
