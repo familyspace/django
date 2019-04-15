@@ -19,18 +19,7 @@ class UsersGroupsSchema(AutoSchema):
 
     def get_serializer_fields(self, path, method):
         fields = []
-        if method == 'GET':
-            fields = [
-                coreapi.Field(
-                    name='group_id',
-                    required=False,
-                    location="query",
-                    schema=coreschema.String(title='id',
-                                             default=1,
-                                             description='id группы'),
-                    description='id группы'
-                ),
-            ]
+
         if method == 'POST':
             fields = [
                 coreapi.Field(
