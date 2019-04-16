@@ -31,26 +31,37 @@ def view_group_purchases(request, group_pk):
 
     return render(request, 'shoppingapp/shoppinglist.html', content)
 
-class purchasecreation_page(CreateView):
-    model = ShopingItem
-    template_name = 'shoppingapp/purchasecreation.html'
-    form_class = PurchaseCreationForm
+@login_required
+def purchasecreation_page(request, group_pk):
+    '''
+    Добавление покупки в группу
+    '''
 
-    def get_success_url(self):
-        return reverse_lazy('shop:shoppinglist', kwargs={'group_pk': Group.objects.get(id=self.kwargs.get('group_pk')).pk})
+    friendlyuser = GroupUser.objects.filter(group=group_pk, user=request.user.pk)
+    if not friendlyuser:
+        return HttpResponseForbidden()
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(purchasecreation_page, self).get_context_data(**kwargs)
-        context['group_pk'] = Group.objects.get(id=self.kwargs.get('group_pk')).pk
-        return context
+    form = PurchaseCreationForm(request.POST)
 
-    def form_valid(self, PurchaseCreationForm, **kwargs):
-        group_pk = Group.objects.get(id=self.kwargs.get('group_pk')).pk
-        self.object = PurchaseCreationForm.save(commit=False)
-        self.object.group = get_object_or_404(Group, pk=group_pk)
-        self.object.save()
-        PurchaseCreationForm.save_m2m()
-        return super(purchasecreation_page, self).form_valid(PurchaseCreationForm)
+    if request.method == 'POST':
+        if form.is_valid():
+            response = form.save(commit=False)
+            group = get_object_or_404(Group, pk=group_pk)
+            response.group = group
+            response.save()
+            form.save_m2m()
+            return HttpResponseRedirect(reverse('shop:shoppinglist', args = [group_pk]))
+    else:
+        formuser = User.objects.filter(pk__in=GroupUser.objects.filter(group=group_pk).values_list('user'))
+        form = PurchaseCreationForm()
+        form.fields['user'].queryset = formuser
+
+    content = {
+        'purchase_form': form,
+        'group_pk': group_pk
+    }
+
+    return render(request, 'shoppingapp/purchasecreation.html', content)
 
 @transaction.atomic
 def purchase_edit(request, group_pk, item_pk):
