@@ -16,6 +16,10 @@ class ApiJSONRenderer(JSONRenderer):
         if errors is not None:
             print(errors)
             return super(ApiJSONRenderer, self).render(data)
+
+        if not data:
+            return ""
+
         return json.dumps({
             self.object_label: data
         })

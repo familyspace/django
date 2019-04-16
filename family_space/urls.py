@@ -8,8 +8,8 @@ urlpatterns = [
                   path('', include('userapp.urls', namespace='userapp')),
                   path('groupsapp/', include('groupapp.urls', namespace='groupapp')),
                   path('authapi/', include('api.apiauthapp.urls')),
-                  path('userapi/', include('api.apiuserapp.urls')),
-                  path('groupapi/', include('api.apigroupapp.urls')),
+                  path('', include('api.apiuserapp.urls')),
+                  path('', include('api.apigroupapp.urls')),
                   path('docs/', include('api.apidocs.urls')),
                   path('auth/', include('authapp.urls', namespace='auth')),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
