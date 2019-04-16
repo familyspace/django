@@ -9,11 +9,12 @@ from api.core import exceptions
 
 class UserProfileSerializer(serializers.ModelSerializer):
     password = serializers.HiddenField(default='')
+
     class Meta:
         model = UserProfile
         fields = ('gender', 'birth_date', 'id', 'email',
                   'first_name', 'last_name', 'patronymic', 'phone', 'password')
-        read_only_fields = ('id','password')
+        read_only_fields = ('id', 'password')
 
     def update(self, instance, validated_data):
         # if self.context['request'].user.id != self.initial_data['id']:

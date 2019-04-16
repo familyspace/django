@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from collections import OrderedDict
+from django_filters import rest_framework as filters
 
 from rest_framework import viewsets
 from rest_framework.generics import ListAPIView
@@ -7,7 +8,8 @@ from rest_framework.mixins import CreateModelMixin, ListModelMixin, UpdateModelM
     RetrieveModelMixin
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
-from api.apigroupapp.schemas import UsersGroupsSchema, CategorySchema, CategoryEditSchema, GroupEditSchema
+from api.apigroupapp.schemas import UsersGroupsSchema, CategorySchema, CategoryEditSchema, GroupEditSchema, \
+    GroupSearchSchema
 from api.apigroupapp.serializers import UsersGroupsSerializer, CategorySerializer, GroupSerializer
 from api.core import errorcodes
 from api.core import exceptions
@@ -84,6 +86,46 @@ class GroupEdit(CreateModelMixin, RetrieveModelMixin, UpdateModelMixin,
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     schema = GroupEditSchema()
+
+    def get_success_headers(self, data):
+        # добавляю пользователя создавшего группу админом
+        groupuser = GroupUser(user=self.request.user,
+                              role=RoleChoice.ADM.name,
+                              group_id=data['id'])
+        groupuser.save()
+        return super().get_success_headers(data)
+
+    def permission_denied(self, request, message=None):
+        if not request.successful_authenticator:
+            raise exceptions.FamilySpaceException(**errorcodes.ERR_WRONG_TOKEN)
+        super().permission_denied(request, message=None)
+
+
+class GroupSearchFilter(filters.FilterSet):
+    # TODO не работает регистронезависимый поиск
+    search = filters.CharFilter(field_name="title", lookup_expr='icontains')
+
+    class Meta:
+        model = Group
+        fields = ['search', 'category']
+
+
+class GroupSearch(ListAPIView):
+    permission_classes = (IsAuthenticated,)
+    renderer_classes = (ApiJSONRenderer,)
+    serializer_class = GroupSerializer
+    schema = GroupSearchSchema()
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = GroupSearchFilter
+
+    def get_queryset(self):
+        # проверка наличия параметра search в адрессе запроса
+        if not 'search' in self.request.query_params:
+            # если его нет возвращаю пустой набор
+            return Group.objects.filter(pk=-1)
+
+        return Group.objects.filter(is_public=True).exclude(
+            pk__in=GroupUser.objects.filter(user=self.request.user).values_list('group'))
 
     def permission_denied(self, request, message=None):
         if not request.successful_authenticator:

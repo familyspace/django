@@ -82,6 +82,42 @@ class CategorySchema(AutoSchema):
         return 'application/json'
 
 
+class GroupSearchSchema(AutoSchema):
+    def get_description(self, path, method):
+        if method == 'GET':
+            return 'Поиск групп'
+
+    def get_encoding(self, path, method):
+        return 'application/json'
+
+    # поля добавляет фильтр
+
+    # def get_serializer_fields(self, path, method):
+    #     fields = []
+    #     if method == 'GET':
+    #         fields = [
+    #             coreapi.Field(
+    #                 name='search',
+    #                 required=False,
+    #                 location="query",
+    #                 schema=coreschema.String(title='search',
+    #                                          default=1,
+    #                                          description='Строка поиска по названию группы'),
+    #                 description='Строка поиска по названию группы'
+    #             ),
+    #             coreapi.Field(
+    #                 name='category',
+    #                 required=False,
+    #                 location="query",
+    #                 schema=coreschema.Integer(title='category',
+    #                                          default=1,
+    #                                          description='Фильтр по категориям'),
+    #                 description='Фильтр по категориям'
+    #             ),
+    #         ]
+    #     return fields
+
+
 class CategoryEditSchema(AutoSchema):
     def get_description(self, path, method):
         if method == 'PUT':

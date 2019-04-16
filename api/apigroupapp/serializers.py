@@ -59,8 +59,6 @@ class UserSerializer(serializers.ModelSerializer):
         return str(obj.userprofile.phone)
 
 
-
-
 class UsersGroupsSerializer(serializers.ModelSerializer):
     group_id = serializers.IntegerField(required=False)
     user_id = serializers.IntegerField(required=False)
