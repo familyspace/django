@@ -10,7 +10,7 @@ from api.core import errorcodes
 from api.core import exceptions
 from api.core.renderrers import ApiJSONRenderer
 from authapp.models import UserProfile, User
-from api.apiuserapp.schemas import ViewedSchema, GetUserGroupsSchema
+from api.apiuserapp.schemas import UserProfileSchema, GetUserGroupsSchema
 from api.apiuserapp.serializers import UserProfileSerializer, GetUserGroupsSerializer
 
 
@@ -22,7 +22,7 @@ class UserProfileViewSet(ListModelMixin, UpdateModelMixin, viewsets.GenericViewS
     permission_classes = (IsAuthenticated,)
     renderer_classes = (ApiJSONRenderer,)
     serializer_class = UserProfileSerializer
-    schema = ViewedSchema()
+    schema = UserProfileSchema()
 
     def get_queryset(self):
             return UserProfile.objects.filter(user=self.request.user)

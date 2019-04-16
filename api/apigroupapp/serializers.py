@@ -1,35 +1,62 @@
 from rest_framework import serializers
 
 from authapp.models import User, UserProfile
-from groupapp.models import Group, GroupUser, RoleChoice
+from groupapp.models import Group, GroupUser, RoleChoice, Category
 from api.core import errorcodes
 from api.core import exceptions
 
 
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['id', 'name']
+
+
 class GroupSerializer(serializers.ModelSerializer):
-    category = serializers.SerializerMethodField()
+    category_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Group
-        fields = ['id', 'title', 'description', 'is_public', 'category']
+        fields = ['id', 'title', 'description', 'is_public', 'category_name', 'category']
 
-    def get_category(self, obj):
+    def get_category_name(self, obj):
         return obj.category.name
 
 
 class UserSerializer(serializers.ModelSerializer):
     gender = serializers.SerializerMethodField()
     birth_date = serializers.SerializerMethodField()
+    email = serializers.SerializerMethodField()
+    first_name = serializers.SerializerMethodField()
+    last_name = serializers.SerializerMethodField()
+    patronymic = serializers.SerializerMethodField()
+    phone = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = ('email', 'gender', 'birth_date',)
+        fields = ('email', 'gender', 'birth_date', 'email',
+                  'first_name', 'last_name', 'patronymic', 'phone')
 
     def get_gender(self, obj):
         return obj.userprofile.gender
 
     def get_birth_date(self, obj):
         return str(obj.userprofile.birth_date)
+
+    def get_email(self, obj):
+        return str(obj.userprofile.email)
+
+    def get_first_name(self, obj):
+        return str(obj.userprofile.first_name)
+
+    def get_last_name(self, obj):
+        return str(obj.userprofile.last_name)
+
+    def get_patronymic(self, obj):
+        return str(obj.userprofile.patronymic)
+
+    def get_phone(self, obj):
+        return str(obj.userprofile.phone)
 
 
 class UsersGroupsSerializer(serializers.ModelSerializer):
