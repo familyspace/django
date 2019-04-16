@@ -7,7 +7,7 @@ from authapp.models import User
 from groupapp.models import Group, GroupUser
 from shoppingapp.forms import PurchaseCreationForm, PurchaseEditForm
 from shoppingapp.models import ShopingItem
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
 from django.urls import reverse_lazy
 
 @login_required
@@ -94,3 +94,6 @@ def removeitem(request, item_pk, group_pk):
     item = get_object_or_404(ShopingItem, pk=item_pk)
     item.delete()
     return HttpResponseRedirect(reverse('shop:shoppinglist', args=[group_pk]))
+
+
+
