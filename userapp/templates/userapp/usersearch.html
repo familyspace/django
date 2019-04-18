@@ -14,10 +14,14 @@
                     <div class="btn mainpg">
                         <button class="btn-search" type="button">
                             <a class="search-name" href="#">
-                                <span class="sr-nm">{{ item.username }}</span>&nbsp;<span class="add">Добавить контакт</span>
+                                {{ item.username }}
                             </a>
-
                         </button>
+                        {% if user in item.get_contacts %}
+                            <button class="btn-search" type="button"><a href="#">Друг</a></button>
+                        {% else %}
+                            <button class="btn-search" type="button"><a href="{% url 'userapp:addcontact' friend_pk=item.pk %}">Добавить</a></button>
+                        {% endif %}
                     </div>
                 {% endfor %}
             </div>

@@ -4,6 +4,8 @@ from enum import Enum
 from django.shortcuts import get_object_or_404
 
 from authapp.models import User
+from django.contrib.auth.models import AbstractUser
+
 
 
 # Create your models here.

@@ -28,6 +28,9 @@
                     </div>
                 {% endif %}
                 <div class="btn mainpg">
+                    <button class="btn-menu" type="button"><a href="{% url 'userapp:usercontacts' user.pk %}">Контакты</a></button>
+                </div>
+                <div class="btn mainpg">
                     <button class="btn-menu" type="button"><a href="{% url 'userapp:usersearch' %}">Поиск контактов</a></button>
                 </div>
                 <div class="btn mainpg">

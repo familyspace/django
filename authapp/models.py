@@ -7,7 +7,7 @@ from django.core.mail import EmailMessage
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.utils.timezone import now
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -16,6 +16,8 @@ from datetime import datetime, timedelta
 import time
 
 from family_space import settings
+
+
 
 GENDER_CHOICES = (('M', _('M')),
                   ('W', _('W')))
@@ -48,6 +50,25 @@ class User(AbstractUser):
     activation_key_expires = models.DateTimeField(default=(now() + timedelta(hours=48)),
                                                   editable=False,
                                                   verbose_name=_('Activation key expires'))
+
+    def get_contacts(self):
+        contacts = UserContactList.objects.filter(contact_user=self.pk)
+        friends = map(lambda item: item.user, contacts)
+        return friends
+
+    def get_group(self):
+        membership = self.usergroups.all()
+        print(membership)
+        # for i in membership:
+        #     print(i)
+        # friends = map(lambda item: item.group, membership)
+
+        return membership
+
+    def add_contact(self, friend_pk):
+        UserContactList.objects.create(user=self, contact_user=friend_pk)
+        comment = 'Участник добавлен'
+        return comment
 
     @property
     def token(self):
@@ -111,7 +132,6 @@ class User(AbstractUser):
         verbose_name = _('FamilySpace user')
         verbose_name_plural = _('FamilySpace users')
 
-
 class UserProfile(models.Model):
     """
     Профиль пользователя
@@ -171,3 +191,16 @@ class UserProfile(models.Model):
     class Meta:
         verbose_name = _('User profile')
         verbose_name_plural = _('Users profile')
+
+class UserContactList(models.Model):
+    user = models.ForeignKey(User,
+                             verbose_name='Пользователь',
+                             db_index=True,
+                             on_delete='CASCADE',
+                             related_name='contacts')
+    contact_user = models.ForeignKey(User,
+                                     verbose_name='Контакт пользователя',
+                                     on_delete='CASCADE')
+
+    def __str__(self):
+        return self.contact_user.username + ' является другом ' + self.user.username

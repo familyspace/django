@@ -3,8 +3,6 @@ from authapp.models import User
 from groupapp.models import Group
 
 # Create your models here.
-from userapp.models import UserContactList
-
 
 class ShopingItem(models.Model):
     title = models.CharField(verbose_name='Название товара',
@@ -26,7 +24,3 @@ class ShopingItem(models.Model):
 
     def __str__(self):
         return self.title
-
-def get_purchases_list(self):
-    purchases_list = ShopingItem.objects.all()
-    return purchases_list
