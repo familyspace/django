@@ -8,7 +8,7 @@ from api.core import exceptions
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
-    password = serializers.HiddenField(default='')
+    password = serializers.HiddenField(default='', required=False)
 
     class Meta:
         model = UserProfile
@@ -17,11 +17,13 @@ class UserProfileSerializer(serializers.ModelSerializer):
         read_only_fields = ('id', 'password')
 
     def update(self, instance, validated_data):
+        # почему то он даёт изменять других пользователей и без проверки
         # if self.context['request'].user.id != self.initial_data['id']:
         #     raise exceptions.FamilySpaceException(**errorcodes.ERR_NO_RIGHTS_FOR_ACTION)
-        self.context['request'].user.email = self.initial_data['email']
-        if self.initial_data['password']:
-            res = self.context['request'].user.set_password(self.initial_data['password'])
+        if 'email' in self.initial_data:
+            self.context['request'].user.email = self.initial_data['email']
+        if 'password' in self.initial_data and self.initial_data['password']:
+            self.context['request'].user.set_password(self.initial_data['password'])
         self.context['request'].user.save()
         return super().update(instance, validated_data)
 

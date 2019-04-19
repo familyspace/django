@@ -15,77 +15,69 @@ class UserProfileSchema(AutoSchema):
 
     def get_serializer_fields(self, path, method):
         fields = []
-        if method == 'PUT':
+        if method in ['PUT', 'PATCH']:
             fields = [
                 coreapi.Field(
                     name='gender',
-                    required=True,
+                    required=False,
                     location="form",
                     schema=coreschema.String(title='gender',
-                                             default=1,
                                              description='user_gender'),
                     description='варианты M W'
                 ),
                 coreapi.Field(
                     name='birth_date',
-                    required=True,
+                    required=False,
                     location="form",
                     schema=coreschema.String(title='birth_date',
-                                             default='false',
                                              description='birth_date'),
                     description='формат  YYYY-MM-DD'
                 ),
                 coreapi.Field(
                     name='email',
-                    required=True,
+                    required=False,
                     location="form",
                     schema=coreschema.String(title='email',
-                                             default='false',
                                              description='email'),
                     description='email'
                 ),
                 coreapi.Field(
                     name='first_name',
-                    required=True,
+                    required=False,
                     location="form",
                     schema=coreschema.String(title='first_name',
-                                             default='false',
                                              description='first_name'),
                     description='Имя'
                 ),
                 coreapi.Field(
                     name='last_name',
-                    required=True,
+                    required=False,
                     location="form",
                     schema=coreschema.String(title='last_name',
-                                             default='false',
                                              description='last_name'),
                     description='Фамилия'
                 ),
                 coreapi.Field(
                     name='patronymic',
-                    required=True,
+                    required=False,
                     location="form",
                     schema=coreschema.String(title='patronymic',
-                                             default='false',
                                              description='patronymic'),
                     description='Отчество'
                 ),
                 coreapi.Field(
                     name='phone',
-                    required=True,
+                    required=False,
                     location="form",
                     schema=coreschema.String(title='Phone',
-                                             default='false',
                                              description='Phone'),
                     description='Телефон'
                 ),
                 coreapi.Field(
                     name='password',
-                    required=True,
+                    required=False,
                     location="form",
                     schema=coreschema.String(title='password',
-                                             default='false',
                                              description='password'),
                     description='Новый пароль'
                 ),
