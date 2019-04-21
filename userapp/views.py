@@ -6,6 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from authapp.models import User
+from authapp.models import UserContactList
 from .forms import GroupCreationForm
 from groupapp.models import Group, GroupUser
 
@@ -61,4 +62,32 @@ def removeuser(request, group_pk):
     group_user = get_object_or_404(GroupUser, user=request.user, group=group_pk)
     group_user.delete()
     return HttpResponseRedirect(reverse('userapp:userpage'))
+
+@login_required
+def view_user_contacts(request, user_pk):
+    '''
+    Просмотр списка друзей пользователя по его pk
+    '''
+
+    relations = UserContactList.objects.filter(user=user_pk)
+    contacts = map(lambda item: item.contact_user, relations)
+
+    content = {
+        'contacts': contacts,
+    }
+
+    return render(request, 'userapp/usercontacts.html', content)
+
+@login_required
+def addcontact(request, friend_pk):
+    me = get_object_or_404(User, pk=request.user.pk)
+    friend = get_object_or_404(User, pk=friend_pk)
+    me.add_contact(friend)
+    return HttpResponseRedirect(reverse('userapp:usersearch'))
+
+@login_required
+def removecontact(request, friend_pk):
+    group_user = get_object_or_404(UserContactList, contact_user=friend_pk)
+    group_user.delete()
+    return HttpResponseRedirect(reverse('userapp:usercontacts', args=[request.user.pk]))
 

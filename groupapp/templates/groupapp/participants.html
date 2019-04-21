@@ -7,8 +7,9 @@
             <div class="flex-block-wrapper-3">
                 <div class="btn mainpg">
                         <p id="p-purchase">Участники группы:</p>
+                        <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'groupapp:invite' group_pk=group_pk %}">Добавить</a></button>
                         <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'groupapp:groupmenu' group_pk=group_pk %}">Назад</a></button>
-                    </div>
+                </div>
                 <div class="hide-div" id="hide-groups">
                     {% for item in members %}
                         <div class="btn mainpg">
@@ -22,7 +23,7 @@
                                 </a>
                             </button>
                             <button class="btn-search" id="change-role" type="button">
-                                <a href="#">Исключить</a>
+                                <a href="{% url 'groupapp:removefromgroup' group_pk=group_pk friend_pk=item.pk %}">Исключить</a>
                             </button>
                         </div>
                     {% endfor %}
