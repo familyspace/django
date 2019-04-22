@@ -7,8 +7,9 @@ from .models import Event
 # Create your views here.
 
 def show_events(request, group_pk):
-    group = get_object_or_404(Group, pk=group_pk)
-    events = Event.objects.filter(group=group)
+    my_group = get_object_or_404(Group, pk=group_pk)
+    # events = Event.objects.filter(group=my_group)
+    events = my_group.events.all()
     content = {
         'events': events,
     }
