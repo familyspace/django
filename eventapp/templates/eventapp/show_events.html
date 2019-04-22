@@ -1,0 +1,24 @@
+{% extends "userapp/base.html" %}
+{% load static %}
+{% block body %}
+
+        <div class="flex-container-two" id="shop">
+
+            <div class="flex-block-wrapper-3">
+                <p>События группы: </p>
+                <div class="hide-div" id="hide-groups">
+                    {% for item in events %}
+                        <div class="btn mainpg">
+                            <button class="btn-group" type="button">
+                                <a href="#">{{ item.title }}</a>
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+
+        </div>
+
+{% endblock %}
