@@ -21,3 +21,5 @@ class Chat(models.Model):
                                        auto_now_add=True)
     text = models.CharField(max_length=500,
                             verbose_name='Текст сообщения')
+
+
