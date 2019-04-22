@@ -28,6 +28,16 @@ class UserProfileSerializer(serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
 
+class ContactListSerializer(serializers.ModelSerializer):
+    contact_user = UserProfileSerializer()
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = UserProfile
+        fields = ('id', 'contact_user', 'user')
+        read_only_fields = ('id',)
+
+
 class GetUserGroupsSerializer(serializers.ModelSerializer):
     group = GroupSerializer(read_only=True)
 
