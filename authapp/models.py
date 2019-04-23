@@ -56,15 +56,6 @@ class User(AbstractUser):
         friends = map(lambda item: item.user, contacts)
         return friends
 
-    def get_group(self):
-        membership = self.usergroups.all()
-        print(membership)
-        # for i in membership:
-        #     print(i)
-        # friends = map(lambda item: item.group, membership)
-
-        return membership
-
     def add_contact(self, friend_pk):
         UserContactList.objects.create(user=self, contact_user=friend_pk)
         comment = 'Участник добавлен'
