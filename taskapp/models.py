@@ -16,3 +16,6 @@ class Task(models.Model):
                                   related_name='taskusers')
     done = models.BooleanField(default=False,
                                verbose_name='Задача выполнена')
+
+    def __str__(self):
+        return self.title

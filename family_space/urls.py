@@ -13,7 +13,9 @@ urlpatterns = [
                   path('', include('api.apigroupapp.urls')),
                   path('docs/', include('api.apidocs.urls')),
                   path('auth/', include('authapp.urls', namespace='auth')),
-                  path('groupsapp/<group_pk>/shoppingapp/', include('shoppingapp.urls', namespace='shop'))
+                  path('groupsapp/<group_pk>/shoppingapp/', include('shoppingapp.urls', namespace='shop')),
+                  path('groupsapp/<group_pk>/chatapp/', include('chatapp.urls', namespace='chatapp')),
+                  path('groupsapp/<group_pk>/tasks/', include('taskapp.urls', namespace='taskapp')),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

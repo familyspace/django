@@ -82,7 +82,6 @@ class UserProfileSchema(AutoSchema):
                     description='Новый пароль'
                 ),
 
-
             ]
 
         return fields
@@ -96,3 +95,40 @@ class GetUserGroupsSchema(AutoSchema):
     def get_encoding(self, path, method):
         return 'application/json'
 
+
+class UserSearchSchema(AutoSchema):
+    def get_description(self, path, method):
+        if method == 'GET':
+            return 'Поиск пользователя'
+
+    def get_encoding(self, path, method):
+        return 'application/json'
+
+
+class ContactListSchema(AutoSchema):
+    def get_description(self, path, method):
+        if method == 'GET':
+            return 'Получить список контактов'
+        if method == 'DELETE':
+            return 'Удалить запись из контактов.'
+        if method == 'POST':
+            return 'Добавить контакт'
+
+    def get_encoding(self, path, method):
+        return 'application/json'
+
+    def get_serializer_fields(self, path, method):
+        fields = []
+        if method == 'POST':
+            fields = [
+                coreapi.Field(
+                    name='contact_user_id',
+                    required=True,
+                    location="form",
+                    schema=coreschema.Integer(title='contact_user_id',
+                                              description='contact_user_id'),
+                    description='ID контакта'
+                ),
+            ]
+
+        return fields

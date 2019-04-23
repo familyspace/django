@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from authapp.models import User
-from authapp.models import UserContactList
+from userapp.models import UserContactList
 from .forms import GroupCreationForm
 from groupapp.models import Group, GroupUser
 
@@ -30,10 +30,20 @@ def creategroup_page(request, user_pk):
 @login_required
 def usersearch(request):
         search = request.GET.get("query")
+        relations = UserContactList.objects.filter(user=request.user.pk)
+        friends = []
+        for i in relations:
+            friends.append(i.contact_user)
+
         if search:
             match = User.objects.filter(Q(username__icontains=search))
-            if match:
-                return render(request, 'userapp/usersearch.html', {'search': match})
+            excl = match.exclude(pk=request.user.pk)
+            for i in excl:
+                for j in friends:
+                    if i in friends:
+                        excl = excl.exclude(pk=i.pk)
+            if excl:
+                return render(request, 'userapp/usersearch.html', {'search': excl})
             else:
                 error(request, 'no results')
 
@@ -71,7 +81,6 @@ def view_user_contacts(request, user_pk):
 
     relations = UserContactList.objects.filter(user=user_pk)
     contacts = map(lambda item: item.contact_user, relations)
-
     content = {
         'contacts': contacts,
     }
@@ -82,7 +91,7 @@ def view_user_contacts(request, user_pk):
 def addcontact(request, friend_pk):
     me = get_object_or_404(User, pk=request.user.pk)
     friend = get_object_or_404(User, pk=friend_pk)
-    me.add_contact(friend)
+    UserContactList.objects.create(user=me, contact_user=friend)
     return HttpResponseRedirect(reverse('userapp:usersearch'))
 
 @login_required

@@ -8,7 +8,7 @@ body {
 }
 
 /* MEDIA QUERIES USER PAGE */
-/*tablets/mobiles*/
+/* TABLETS/MOBILES */
 
 .wrapper {
     background-color: #f3f3f3;
@@ -120,7 +120,7 @@ body {
     margin: 1% 1%;
     border: none;
     background: white;
-    width: 100%;
+    width: 60% !important;
     line-height: 300%;
     font-size: 14px;
     cursor: pointer;
@@ -200,7 +200,7 @@ body {
     margin: 1% 1%;
     border: none;
     background: #5f88b4;
-    width: 90%;
+    width: 30%;
     line-height: 300%;
     font-size: 14px;
     cursor: pointer;
@@ -229,7 +229,7 @@ body {
 }
 
 /* MEDIA QUERIES USER PAGE */
-/*DESKTOP*/
+/* DESKTOP */
 @media screen and (min-width: 768px) {
 
     .wrapper {
@@ -480,7 +480,7 @@ body {
 }
 
 /* MEDIA QUERIES LOGIN PAGE */
-/*DESKTOP*/
+/* DESKTOP */
 
 @media screen and (min-width: 768px) {
     .logo-wrapper {
@@ -514,7 +514,7 @@ body {
 /* END LOGIN PAGE */
 
 /* CREATEGROUP PAGE*/
-/*MOBILES/TABLETS*/
+/* MOBILES/TABLETS */
 
 .creategroup-form {
     max-width: 75%;
@@ -539,7 +539,7 @@ body {
 }
 
 /* CREATEGROUP PAGE*/
-/*DESKTOP*/
+/* DESKTOP */
 
 @media screen and (min-width: 768px) {
     .createpage-wrapper {
@@ -556,7 +556,7 @@ body {
 }
 
 /* SHOPPINGAPP PAGE*/
-/*DESKTOP*/
+/* DESKTOP */
 
 @media screen and (min-width: 768px) {
     #shop {
@@ -605,4 +605,92 @@ body {
     .buy-done {
         background-color: #56b45a;
     }
+}
+
+/* CHATAPP PAGE*/
+/* DESKTOP */
+
+@media screen and (min-width: 768px) {
+
+    .message-input {
+        position: relative;
+        height: 100%;
+        width: 100%;
+    }
+
+    .messages-box {
+        border: 1px solid #ebebeb;
+        height: 80%;
+        padding: 1%;
+        overflow-y: scroll;
+    }
+
+    .chat-messages {
+        float: left;
+        background-color: #efefef;
+        padding: 1%;
+        border-radius: 5px;
+        margin-top: 2%;
+        width: 70%;
+    }
+
+    .chat-messages-logged {
+        float: right;
+        background-color: #efefef;
+        padding: 1%;
+        border-radius: 5px;
+        margin-top: 2%;
+        width: 70%;
+    }
+
+    .message-text {
+        margin-top: 0 !important;
+        font-size: 15px !important;
+    }
+
+    .author-date {
+        font-size: 9px !important;
+        color: red !important;
+    }
+
+    .author-date-logged {
+        font-size: 9px !important;
+        color: #5e74ff !important;
+    }
+
+    #id_text {
+        margin-bottom: 1%;
+        margin-right: 16px;
+    }
+
+    .chat-input {
+        position: absolute;
+        bottom: 1%;
+        right: 1%;
+    }
+
+    .message-send {
+        float: right;
+    }
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
 }

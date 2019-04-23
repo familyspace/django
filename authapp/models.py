@@ -16,8 +16,7 @@ from datetime import datetime, timedelta
 import time
 
 from family_space import settings
-
-
+from userapp.models import UserContactList
 
 GENDER_CHOICES = (('M', _('M')),
                   ('W', _('W')))
@@ -55,15 +54,6 @@ class User(AbstractUser):
         contacts = UserContactList.objects.filter(contact_user=self.pk)
         friends = map(lambda item: item.user, contacts)
         return friends
-
-    def get_group(self):
-        membership = self.usergroups.all()
-        print(membership)
-        # for i in membership:
-        #     print(i)
-        # friends = map(lambda item: item.group, membership)
-
-        return membership
 
     def add_contact(self, friend_pk):
         UserContactList.objects.create(user=self, contact_user=friend_pk)
@@ -132,6 +122,7 @@ class User(AbstractUser):
         verbose_name = _('FamilySpace user')
         verbose_name_plural = _('FamilySpace users')
 
+
 class UserProfile(models.Model):
     """
     Профиль пользователя
@@ -191,16 +182,3 @@ class UserProfile(models.Model):
     class Meta:
         verbose_name = _('User profile')
         verbose_name_plural = _('Users profile')
-
-class UserContactList(models.Model):
-    user = models.ForeignKey(User,
-                             verbose_name='Пользователь',
-                             db_index=True,
-                             on_delete='CASCADE',
-                             related_name='contacts')
-    contact_user = models.ForeignKey(User,
-                                     verbose_name='Контакт пользователя',
-                                     on_delete='CASCADE')
-
-    def __str__(self):
-        return self.contact_user.username + ' является другом ' + self.user.username
