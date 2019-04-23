@@ -32,16 +32,22 @@ def create_event(request, group_pk):
             day = form.cleaned_data['day'].name
             hour = form.cleaned_data['hour'].name
             minute = form.cleaned_data['minute'].name
-            my_dt = datetime(int(year), int(month), int(day), int(hour), int(minute), tzinfo=pytz.UTC)
-
-            group = get_object_or_404(Group, pk=group_pk)
-            Event.objects.create(title=title, description=description, location=location, group=group, date=my_dt)
-
-            return HttpResponseRedirect(reverse('eventapp:show_events', kwargs={'group_pk': group_pk}))
+            try:
+                my_dt = datetime(int(year), int(month), int(day), int(hour), int(minute), tzinfo=pytz.UTC)
+                group = get_object_or_404(Group, pk=group_pk)
+                Event.objects.create(title=title, description=description, location=location, group=group, date=my_dt)
+                return HttpResponseRedirect(reverse('eventapp:show_events', kwargs={'group_pk': group_pk}))
+            except ValueError:
+                message = 'Вы ввели неправильную дату, исправьте, пожалуйста!'
+                content = {
+                    'event_form': form,
+                    'group_pk': group_pk,
+                    'message': message,
+                }
+                return render(request, 'eventapp/create_event.html', content)
 
     else:
         form = EventCreationForm()
-
 
     content = {
         'event_form': form,

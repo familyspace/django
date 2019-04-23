@@ -20,7 +20,6 @@ class Command(BaseCommand):
             i = i + 1
         print('Часы добавлены')
 
-
         Minute.objects.create(name='00')
         Minute.objects.create(name='15')
         Minute.objects.create(name='30')
