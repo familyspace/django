@@ -3,7 +3,7 @@ from .forms import EventCreationForm
 from django.urls import reverse
 from groupapp.models import Group
 from datetime import datetime, date, time
-from .models import Event
+from .models import Event, EventUser
 import pytz
 
 # Create your views here.
@@ -60,12 +60,44 @@ def create_event(request, group_pk):
 def read_event(request, event_pk):
     my_event = get_object_or_404(Event, pk=event_pk)
     eventusers = my_event.eventusers.all()
-    my_name = request.user.username
+
+    members = map(lambda item: item.user, eventusers)
+    is_participator = (request.user in members)
+
 
     content = {
         'event': my_event,
         'eventusers': eventusers,
-        'user': request.user,
+        'is_participator': is_participator,
+    }
+
+    return render(request, 'eventapp/read_event.html', content)
+
+def leave_event(request, event_pk):
+    my_event = get_object_or_404(Event, pk=event_pk)
+    my_user = get_object_or_404(EventUser, user=request.user, event=my_event)
+    my_user.delete()
+    eventusers = my_event.eventusers.all()
+    is_participator = False
+
+    content = {
+        'event': my_event,
+        'eventusers': eventusers,
+        'is_participator': is_participator,
+    }
+
+    return render(request, 'eventapp/read_event.html', content)
+
+def join_event(request, event_pk):
+    my_event = get_object_or_404(Event, pk=event_pk)
+    my_event.add_participants(request.user, 'PRT')
+    eventusers = my_event.eventusers.all()
+    is_participator = True
+
+    content = {
+        'event': my_event,
+        'eventusers': eventusers,
+        'is_participator': is_participator,
     }
 
     return render(request, 'eventapp/read_event.html', content)
