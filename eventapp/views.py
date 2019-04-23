@@ -12,6 +12,7 @@ def show_events(request, group_pk):
     events = my_group.events.all()
     content = {
         'events': events,
+        'group_pk': group_pk,
     }
 
     return render(request, 'eventapp/show_events.html', content)

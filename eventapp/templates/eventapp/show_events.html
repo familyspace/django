@@ -14,6 +14,11 @@
                             </button>
                         </div>
                     {% endfor %}
+                        <div class="btn mainpg">
+                            <button class="btn-group" type="button">
+                                <a href="{% url 'eventapp:create_event' group_pk %}">Создать событие</a>
+                            </button>
+                        </div>
                 </div>
 
             </div>
