@@ -13,7 +13,16 @@
                     {% for item in eventusers %}
                         <div class="btn mainpg">
                             <button class="btn-group" type="button">
-                                <a href="">{{ item.user.username }}</a>
+                                    <a href="">
+                                        {% if item.user  == user %}
+                                                Вы
+                                        {% else %}
+                                            {{ item.user.username }}
+                                        {% endif %}
+                                        {% if item.role == 'INT' %}
+                                            *
+                                        {% endif %}
+                                    </a>
                             </button>
                         </div>
                     {% endfor %}
