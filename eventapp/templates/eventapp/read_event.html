@@ -28,9 +28,9 @@
                     {% endfor %}
                         <div class="btn mainpg">
                             <button class="btn-group" type="button">
-                                {% if is_participator %}
+                                {% if is_participator and not is_initiator %}
                                     <a href="{% url 'eventapp:leave_event' event.pk %}">Уйти</a>
-                                {% else %}
+                                {% elif not is_participator %}
                                     <a href="{% url 'eventapp:join_event' event.pk %}">Участвовать</a>
                                 {% endif %}
 

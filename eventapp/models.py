@@ -31,7 +31,7 @@ class Event(models.Model):
         str_date = ' ' + str(self.date)
         return self.title + str_date
 
-    def add_participants(self, user, role):
+    def add_participant(self, user, role):
         EventUser.objects.create(user=user, event=self, role=role)
         comment = 'Участник добавлен'
         return comment

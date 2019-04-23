@@ -10,13 +10,11 @@ import pytz
 
 def show_events(request, group_pk):
     my_group = get_object_or_404(Group, pk=group_pk)
-    # events = Event.objects.filter(group=my_group)
     events = my_group.events.all()
     content = {
         'events': events,
         'group_pk': group_pk,
     }
-
     return render(request, 'eventapp/show_events.html', content)
 
 def create_event(request, group_pk):
@@ -36,7 +34,7 @@ def create_event(request, group_pk):
                 my_dt = datetime(int(year), int(month), int(day), int(hour), int(minute), tzinfo=pytz.UTC)
                 group = get_object_or_404(Group, pk=group_pk)
                 new_event = Event.objects.create(title=title, description=description, location=location, group=group, date=my_dt)
-                new_event.add_participants(request.user, 'INT')
+                new_event.add_participant(request.user, 'INT')
                 return HttpResponseRedirect(reverse('eventapp:show_events', kwargs={'group_pk': group_pk}))
             except ValueError:
                 message = 'Вы ввели неправильную дату, исправьте, пожалуйста!'
@@ -54,7 +52,6 @@ def create_event(request, group_pk):
         'event_form': form,
         'group_pk': group_pk,
     }
-
     return render(request, 'eventapp/create_event.html', content)
 
 def read_event(request, event_pk):
@@ -64,13 +61,16 @@ def read_event(request, event_pk):
     members = map(lambda item: item.user, eventusers)
     is_participator = (request.user in members)
 
+    if is_participator:
+        my_user = get_object_or_404(EventUser, user=request.user, event=my_event)
+        is_initiator = (my_user.role == 'INT')
 
     content = {
         'event': my_event,
         'eventusers': eventusers,
         'is_participator': is_participator,
+        'is_initiator': is_initiator
     }
-
     return render(request, 'eventapp/read_event.html', content)
 
 def leave_event(request, event_pk):
@@ -85,12 +85,11 @@ def leave_event(request, event_pk):
         'eventusers': eventusers,
         'is_participator': is_participator,
     }
-
     return render(request, 'eventapp/read_event.html', content)
 
 def join_event(request, event_pk):
     my_event = get_object_or_404(Event, pk=event_pk)
-    my_event.add_participants(request.user, 'PRT')
+    my_event.add_participant(request.user, 'PRT')
     eventusers = my_event.eventusers.all()
     is_participator = True
 
@@ -99,5 +98,4 @@ def join_event(request, event_pk):
         'eventusers': eventusers,
         'is_participator': is_participator,
     }
-
     return render(request, 'eventapp/read_event.html', content)
