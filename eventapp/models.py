@@ -31,8 +31,8 @@ class Event(models.Model):
         str_date = ' ' + str(self.date)
         return self.title + str_date
 
-    def add_participants(self, user):
-        EventUser.objects.create(user=user, event=self)
+    def add_participants(self, user, role):
+        EventUser.objects.create(user=user, event=self, role=role)
         comment = 'Участник добавлен'
         return comment
 
@@ -80,8 +80,7 @@ class EventUser(models.Model):
     user = models.ForeignKey(User, verbose_name='Пользователь', related_name='userevents', on_delete='CASCADE')
     role = models.CharField(verbose_name='Роль',
                             max_length=3,
-                            choices=[(item.name, item.value) for item in RoleChoice],
-                            default=RoleChoice.PRT.name)
+                            choices=[(item.name, item.value) for item in RoleChoice])
     event = models.ForeignKey(Event, related_name='eventusers', on_delete='CASCADE')
 
     def __str__(self):

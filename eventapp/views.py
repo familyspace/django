@@ -36,7 +36,7 @@ def create_event(request, group_pk):
                 my_dt = datetime(int(year), int(month), int(day), int(hour), int(minute), tzinfo=pytz.UTC)
                 group = get_object_or_404(Group, pk=group_pk)
                 new_event = Event.objects.create(title=title, description=description, location=location, group=group, date=my_dt)
-                new_event.add_participants(request.user)
+                new_event.add_participants(request.user, 'INT')
                 return HttpResponseRedirect(reverse('eventapp:show_events', kwargs={'group_pk': group_pk}))
             except ValueError:
                 message = 'Вы ввели неправильную дату, исправьте, пожалуйста!'
@@ -59,9 +59,11 @@ def create_event(request, group_pk):
 
 def read_event(request, event_pk):
     my_event = get_object_or_404(Event, pk=event_pk)
+    eventusers = my_event.eventusers.all()
 
     content = {
         'event': my_event,
+        'eventusers': eventusers,
     }
 
     return render(request, 'eventapp/read_event.html', content)

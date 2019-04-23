@@ -10,6 +10,13 @@
                     <p>{{ event.description }}</p>
                     <p>{{ event.location }}</p>
                     <p>{{ event.date }}</p>
+                    {% for item in eventusers %}
+                        <div class="btn mainpg">
+                            <button class="btn-group" type="button">
+                                <a href="">{{ item.user.username }}</a>
+                            </button>
+                        </div>
+                    {% endfor %}
                         <div class="btn mainpg">
                             <button class="btn-group" type="button">
                                 <a href="">Подтвердить участие</a>
