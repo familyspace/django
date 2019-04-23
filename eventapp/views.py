@@ -33,16 +33,12 @@ def create_event(request, group_pk):
             hour = form.cleaned_data['hour'].name
             minute = form.cleaned_data['minute'].name
             my_dt = datetime(int(year), int(month), int(day), int(hour), int(minute), tzinfo=pytz.UTC)
-            group = get_object_or_404(Group, pk=group_pk)
 
+            group = get_object_or_404(Group, pk=group_pk)
             Event.objects.create(title=title, description=description, location=location, group=group, date=my_dt)
 
-            # response = form.save(commit=True)
-            # response.group = get_object_or_404(Group, pk=group_pk)
-            # response.save()
             return HttpResponseRedirect(reverse('eventapp:show_events', kwargs={'group_pk': group_pk}))
-        else:
-            print('Форма невалидна')
+
     else:
         form = EventCreationForm()
 
