@@ -11,11 +11,11 @@ from django.shortcuts import render, get_object_or_404
 from django.utils.timezone import now
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-
 from datetime import datetime, timedelta
 import time
-
 from family_space import settings
+# from userapp.models import UserContactList
+
 
 
 
@@ -52,14 +52,8 @@ class User(AbstractUser):
                                                   verbose_name=_('Activation key expires'))
 
     def get_contacts(self):
-        contacts = UserContactList.objects.filter(contact_user=self.pk)
-        friends = map(lambda item: item.user, contacts)
+        friends = self.contacts.filter(user=self)
         return friends
-
-    def add_contact(self, friend_pk):
-        UserContactList.objects.create(user=self, contact_user=friend_pk)
-        comment = 'Участник добавлен'
-        return comment
 
     @property
     def token(self):

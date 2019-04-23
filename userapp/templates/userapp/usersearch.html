@@ -17,7 +17,7 @@
                                 {{ item.username }}
                             </a>
                         </button>
-                        {% if user in item.get_contacts %}
+                        {% if item in contacts %}
                             <button class="btn-search" type="button"><a href="#">Друг</a></button>
                         {% else %}
                             <button class="btn-search" type="button"><a href="{% url 'userapp:addcontact' friend_pk=item.pk %}">Добавить</a></button>
