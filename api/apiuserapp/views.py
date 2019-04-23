@@ -10,12 +10,13 @@ from rest_framework.permissions import IsAuthenticated
 from api.core import errorcodes
 from api.core import exceptions
 from api.core.renderrers import ApiJSONRenderer
-from authapp.models import UserProfile, User, UserContactList
+from authapp.models import UserProfile, User
 from api.apiuserapp.schemas import UserProfileSchema, GetUserGroupsSchema, UserSearchSchema, ContactListSchema
 from api.apiuserapp.serializers import UserProfileSerializer, GetUserGroupsSerializer, ContactListSerializer
 
 # Create your views here.
 from groupapp.models import GroupUser
+from userapp.models import UserContactList
 
 
 class UserProfileViewSet(ListModelMixin, UpdateModelMixin, viewsets.GenericViewSet):

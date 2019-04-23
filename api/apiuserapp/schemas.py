@@ -110,7 +110,7 @@ class ContactListSchema(AutoSchema):
         if method == 'GET':
             return 'Получить список контактов'
         if method == 'DELETE':
-            return 'Удалить запись из контактов'
+            return 'Удалить запись из контактов.'
         if method == 'POST':
             return 'Добавить контакт'
 
@@ -122,12 +122,12 @@ class ContactListSchema(AutoSchema):
         if method == 'POST':
             fields = [
                 coreapi.Field(
-                    name='user_id',
+                    name='contact_user_id',
                     required=True,
                     location="form",
-                    schema=coreschema.Integer(title='user_id',
-                                              description='user_id'),
-                    description='ID пользователя'
+                    schema=coreschema.Integer(title='contact_user_id',
+                                              description='contact_user_id'),
+                    description='ID контакта'
                 ),
             ]
 

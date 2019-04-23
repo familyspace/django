@@ -77,7 +77,7 @@ class UsersGroupsSerializer(serializers.ModelSerializer):
         # проверяю есть ли уже пользователь в группе
         if GroupUser.objects.filter(user=validated_data['user_id'],
                                     group=validated_data['group_id']):
-            raise exceptions.FamilySpaceException(**errorcodes.ERR_USER_ALREDY_IN_GROUP)
+            raise exceptions.FamilySpaceException(**errorcodes.ERR_USER_ALREADY_IN_GROUP)
         return super().create(validated_data)
 
     def update(self, instance, validated_data):

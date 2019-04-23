@@ -4,9 +4,11 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from groupapp.models import Group, get_groups_list, GroupUser
-from authapp.models import User, UserContactList
+from authapp.models import User
 from django.shortcuts import get_object_or_404
 # Create your views here.
+from userapp.models import UserContactList
+
 
 @login_required
 def view_all_groups(request):
