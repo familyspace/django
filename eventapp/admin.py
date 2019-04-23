@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Event, Hour, Minute, Day, Month, Year
+from .models import Event, Hour, Minute, Day, Month, Year, EventUser
 
 # Register your models here.
 
@@ -9,4 +9,5 @@ admin.site.register(Minute)
 admin.site.register(Day)
 admin.site.register(Month)
 admin.site.register(Year)
+admin.site.register(EventUser)
 
