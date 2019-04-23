@@ -2,7 +2,9 @@ from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 from .forms import EventCreationForm
 from django.urls import reverse
 from groupapp.models import Group
+from datetime import datetime, date, time
 from .models import Event
+import pytz
 
 # Create your views here.
 
@@ -22,14 +24,29 @@ def create_event(request, group_pk):
         form = EventCreationForm(request.POST)
 
         if form.is_valid():
-            response = form.save(commit=True)
-            response.group = get_object_or_404(Group, pk=group_pk)
-            response.save()
-            print(group_pk)
-            return HttpResponseRedirect(reverse('groupapp:view_one_group', kwargs={'group_pk': group_pk}))
-    else:
+            title = form.cleaned_data['title']
+            description = form.cleaned_data['description']
+            location = form.cleaned_data['location']
+            year = form.cleaned_data['year'].name
+            month = form.cleaned_data['month'].name
+            day = form.cleaned_data['day'].name
+            hour = form.cleaned_data['hour'].name
+            minute = form.cleaned_data['minute'].name
+            my_dt = datetime(int(year), int(month), int(day), int(hour), int(minute), tzinfo=pytz.UTC)
+            group = get_object_or_404(Group, pk=group_pk)
 
+            Event.objects.create(title=title, description=description, location=location, group=group, date=my_dt)
+
+            # response = form.save(commit=True)
+            # response.group = get_object_or_404(Group, pk=group_pk)
+            # response.save()
+            return HttpResponseRedirect(reverse('eventapp:show_events', kwargs={'group_pk': group_pk}))
+        else:
+            print('Форма невалидна')
+    else:
         form = EventCreationForm()
+
+
     content = {
         'event_form': form,
         'group_pk': group_pk,

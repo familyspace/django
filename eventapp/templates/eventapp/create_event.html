@@ -15,9 +15,7 @@
                 <div class="btn">
                     <form class="" action="{% url 'eventapp:create_event' group_pk %}" method="post">
                         {% csrf_token %}
-                        {% for item in event_form %}
-                                {{ item }}
-                        {% endfor %}
+                        {{ event_form.as_p }}
                         <input class="logo-input-submit" type="submit" value="Создать событие">
                     </form>
                 </div>
