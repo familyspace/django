@@ -5,23 +5,24 @@
         <div class="flex-container-two" id="shop">
 
             <div class="flex-block-wrapper-3">
-                <p>События группы: </p>
+                <p>{{ event.title }}</p>
                 <div class="hide-div" id="hide-groups">
-                    {% for item in events %}
+                    <p>{{ event.description }}</p>
+                    <p>{{ event.location }}</p>
+                    <p>{{ event.date }}</p>
                         <div class="btn mainpg">
                             <button class="btn-group" type="button">
-                                <a href="{% url 'eventapp:read_event' item.pk %}">{{ item.title }}</a>
+                                <a href="">Подтвердить участие</a>
                             </button>
                         </div>
-                    {% endfor %}
                         <div class="btn mainpg">
                             <button class="btn-group" type="button">
-                                <a href="{% url 'eventapp:create_event' group_pk %}">Создать событие</a>
+                                <a href="{% url 'eventapp:show_events' event.group.pk %}">Назад</a>
                             </button>
                         </div>
                 </div>
             </div>
-
+            
         </div>
 
 {% endblock %}

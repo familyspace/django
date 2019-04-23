@@ -55,3 +55,12 @@ def create_event(request, group_pk):
     }
 
     return render(request, 'eventapp/create_event.html', content)
+
+def read_event(request, event_pk):
+    my_event = get_object_or_404(Event, pk=event_pk)
+
+    content = {
+        'event': my_event,
+    }
+
+    return render(request, 'eventapp/read_event.html', content)
