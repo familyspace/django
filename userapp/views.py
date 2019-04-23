@@ -6,7 +6,6 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from authapp.models import User
-from authapp.models import UserContactList
 from .forms import GroupCreationForm
 from groupapp.models import Group, GroupUser
 
