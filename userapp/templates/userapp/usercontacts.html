@@ -10,10 +10,10 @@
                 <div class="hide-div" id="hide-groups">
                     {% for item in contacts %}
                         <div class="btn mainpg">
-                            <button class="btn-group" type="button"><a href="#">{{ item.contact_user.username }}</a></button>
+                            <button class="btn-group" type="button"><a href="#">{{ item.username }}</a></button>
 
                             <button class="btn-search" type="button">
-                                <a href="{% url 'userapp:removecontact' friend_pk=item.contact_user.pk %}">
+                                <a href="{% url 'userapp:removecontact' friend_pk=item.pk %}">
                                     Удалить
                                 </a>
                             </button>

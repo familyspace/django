@@ -30,10 +30,20 @@ def creategroup_page(request, user_pk):
 @login_required
 def usersearch(request):
         search = request.GET.get("query")
+        relations = UserContactList.objects.filter(user=request.user.pk)
+        friends = []
+        for i in relations:
+            friends.append(i.contact_user)
+
         if search:
             match = User.objects.filter(Q(username__icontains=search))
-            if match:
-                return render(request, 'userapp/usersearch.html', {'search': match})
+            excl = match.exclude(pk=request.user.pk)
+            for i in excl:
+                for j in friends:
+                    if i in friends:
+                        excl = excl.exclude(pk=i.pk)
+            if excl:
+                return render(request, 'userapp/usersearch.html', {'search': excl})
             else:
                 error(request, 'no results')
 
@@ -42,16 +52,10 @@ def usersearch(request):
 @login_required
 def groupsearch(request):
     search = request.GET.get("query")
-    test = User.get_contacts(request.user)
-    friends = []
-    for i in test:
-        friends.append(i.contact_user)
-
     if search:
         match = Group.objects.filter(Q(title__icontains=search))
         if match:
-
-            return render(request, 'userapp/groupsearch.html', {'search': match, 'contacts': friends})
+            return render(request, 'userapp/groupsearch.html', {'search': match})
         else:
             error(request, 'no results')
 
@@ -75,13 +79,10 @@ def view_user_contacts(request, user_pk):
     Просмотр списка друзей пользователя по его pk
     '''
 
-    test = User.get_contacts(request.user)
-    friends = []
-    for i in test:
-        friends.append(i.contact_user)
-    print(friends)
+    relations = UserContactList.objects.filter(user=user_pk)
+    contacts = map(lambda item: item.contact_user, relations)
     content = {
-        'contacts': test,
+        'contacts': contacts,
     }
 
     return render(request, 'userapp/usercontacts.html', content)

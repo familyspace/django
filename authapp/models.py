@@ -11,13 +11,12 @@ from django.shortcuts import render, get_object_or_404
 from django.utils.timezone import now
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+
 from datetime import datetime, timedelta
 import time
+
 from family_space import settings
-# from userapp.models import UserContactList
-
-
-
+from userapp.models import UserContactList
 
 GENDER_CHOICES = (('M', _('M')),
                   ('W', _('W')))
@@ -52,8 +51,14 @@ class User(AbstractUser):
                                                   verbose_name=_('Activation key expires'))
 
     def get_contacts(self):
-        friends = self.contacts.filter(user=self)
+        contacts = UserContactList.objects.filter(contact_user=self.pk)
+        friends = map(lambda item: item.user, contacts)
         return friends
+
+    def add_contact(self, friend_pk):
+        UserContactList.objects.create(user=self, contact_user=friend_pk)
+        comment = 'Участник добавлен'
+        return comment
 
     @property
     def token(self):
@@ -117,6 +122,7 @@ class User(AbstractUser):
         verbose_name = _('FamilySpace user')
         verbose_name_plural = _('FamilySpace users')
 
+
 class UserProfile(models.Model):
     """
     Профиль пользователя
@@ -176,5 +182,3 @@ class UserProfile(models.Model):
     class Meta:
         verbose_name = _('User profile')
         verbose_name_plural = _('Users profile')
-
-

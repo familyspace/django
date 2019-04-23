@@ -1,0 +1,42 @@
+{% extends "userapp/base.html" %}
+{% load static %}
+{% block body %}
+
+            <div class="flex-container-two" id="shop">
+
+                <div class="flex-block-wrapper-3" id="fbw3-div">
+                    <div class="btn mainpg">
+                        <p id="p-purchase">Список задач:</p>
+
+                            <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'taskapp:newtask' group_pk=group_pk %}">Добавить</a></button>
+                            <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'groupapp:groupmenu' group_pk=group_pk %}">Назад</a></button>
+
+                    </div>
+
+                    {% for item in todo %}
+                        <div class="btn mainpg">
+                            <button class="btn-group" type="button">
+                                <a href="{% url 'taskapp:taskedit' task_pk=item.pk group_pk=group_pk %}">{{ item.title }}</a>
+                            </button>
+                            <button class="btn-search" id="remove-purchase" type="button">
+                                <a href="{% url 'taskapp:taskremove' task_pk=item.pk group_pk=group_pk %}">Удалить</a>
+                            </button>
+                        </div>
+                    {% endfor %}
+                    {% for item in done %}
+                        <div class="btn mainpg">
+                            <button class="btn-group buy-done" type="button">
+                                <a href="{% url 'taskapp:taskedit' task_pk=item.pk group_pk=group_pk %}">{{ item.title }}</a>
+                            </button>
+                            <button class="btn-search" id="remove-purchase" type="button">
+                                <a href="{% url 'taskapp:taskremove' task_pk=item.pk group_pk=group_pk %}">Удалить</a>
+                            </button>
+                        </div>
+                    {% endfor %}
+
+
+                </div>
+
+            </div>
+
+{% endblock %}
