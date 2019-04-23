@@ -16,8 +16,7 @@ from datetime import datetime, timedelta
 import time
 
 from family_space import settings
-
-
+from userapp.models import UserContactList
 
 GENDER_CHOICES = (('M', _('M')),
                   ('W', _('W')))
@@ -123,6 +122,7 @@ class User(AbstractUser):
         verbose_name = _('FamilySpace user')
         verbose_name_plural = _('FamilySpace users')
 
+
 class UserProfile(models.Model):
     """
     Профиль пользователя
@@ -182,5 +182,3 @@ class UserProfile(models.Model):
     class Meta:
         verbose_name = _('User profile')
         verbose_name_plural = _('Users profile')
-
-
