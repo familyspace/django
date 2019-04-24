@@ -18,23 +18,28 @@ from api.core.renderrers import ApiJSONRenderer
 from groupapp.models import GroupUser, RoleChoice, Category, Group
 
 
-class UsersGroups(CreateModelMixin, ListModelMixin, UpdateModelMixin, DestroyModelMixin,
+class UserGroupsList(ListAPIView):
+    permission_classes = (IsAuthenticated,)
+    renderer_classes = (ApiJSONRenderer,)
+    serializer_class = UsersGroupsSerializer
+    schema = UsersGroupsSchema()
+
+    def get_queryset(self):
+        return GroupUser.objects.filter(group_id=self.kwargs['group_id'])
+
+    def permission_denied(self, request, message=None):
+        if not request.successful_authenticator:
+            raise exceptions.FamilySpaceException(**errorcodes.ERR_WRONG_TOKEN)
+        super().permission_denied(request, message=None)
+
+
+class UsersGroups(CreateModelMixin, UpdateModelMixin, DestroyModelMixin,
                   viewsets.GenericViewSet):
     permission_classes = (IsAuthenticated,)
     renderer_classes = (ApiJSONRenderer,)
     queryset = GroupUser.objects.all()
     serializer_class = UsersGroupsSerializer
     schema = UsersGroupsSchema()
-
-    def get_queryset(self):
-        # проверка наличия параметра group_id в адрессе запроса
-        if self.action == 'list':
-            if not 'group_id' in self.request.query_params or not str.isnumeric(
-                    self.request.query_params['group_id']):
-                raise exceptions.FamilySpaceException(**errorcodes.ERR_NO_GROUP_ID_IN_QUERY)
-            # выбираем пользователей группы с group_id
-            return GroupUser.objects.filter(group_id=self.request.query_params['group_id'])
-        return GroupUser.objects.all()
 
     def perform_destroy(self, instance):
         # проверка наличия прав
