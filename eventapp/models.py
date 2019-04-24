@@ -40,7 +40,11 @@ class Hour(models.Model):
     name = models.CharField(max_length=2)
 
     def __str__(self):
-        return self.name
+        if len(self.name) == 1:
+            vis_name = '0' + self.name
+        else:
+            vis_name = self.name
+        return vis_name
 
 class Minute(models.Model):
     name = models.CharField(max_length=2)
@@ -52,13 +56,21 @@ class Day(models.Model):
     name = models.CharField(max_length=2)
 
     def __str__(self):
-        return self.name
+        if len(self.name) == 1:
+            vis_name = '0' + self.name
+        else:
+            vis_name = self.name
+        return vis_name
 
 class Month(models.Model):
     name = models.CharField(max_length=2)
 
     def __str__(self):
-        return self.name
+        if len(self.name) == 1:
+            vis_name = '0' + self.name
+        else:
+            vis_name = self.name
+        return vis_name
 
 class Year(models.Model):
     name = models.CharField(max_length=4)

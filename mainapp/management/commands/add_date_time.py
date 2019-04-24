@@ -12,9 +12,6 @@ class Command(BaseCommand):
         print('Все данные удалены')
 
         i = 0
-        while i < 10:
-            Hour.objects.create(name='0' + str(i))
-            i = i + 1
         while i < 24:
             Hour.objects.create(name=str(i))
             i = i + 1
@@ -28,10 +25,6 @@ class Command(BaseCommand):
         print('Минуты добавлены')
 
         i = 0
-        while i < 9:
-            i = i + 1
-            Day.objects.create(name='0' + str(i))
-
         while i < 31:
             i = i + 1
             Day.objects.create(name=str(i))
@@ -39,10 +32,6 @@ class Command(BaseCommand):
         print('Дни добавлены')
 
         i = 0
-        while i < 9:
-            i = i + 1
-            Month.objects.create(name='0' + str(i))
-
         while i < 12:
             i = i + 1
             Month.objects.create(name=str(i))

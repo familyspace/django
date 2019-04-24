@@ -3,7 +3,7 @@ from .forms import EventCreationForm
 from django.urls import reverse
 from groupapp.models import Group
 from datetime import datetime, date, time
-from .models import Event, EventUser
+from .models import Event, EventUser, Hour, Minute, Day, Month, Year
 import pytz
 
 # Create your views here.
@@ -46,7 +46,16 @@ def create_event(request, group_pk):
                 return render(request, 'eventapp/create_event.html', content)
 
     else:
-        form = EventCreationForm()
+        current_moment = str(datetime.now().minute)
+        print(current_moment)
+        current_moment = str((int(current_moment))//15*15)
+        print(current_moment)
+        initial_moment = {'hour': Hour.objects.get(name=str(datetime.now().hour)).pk,
+                          'minute': Minute.objects.get(name=current_moment).pk,
+                          'day': Day.objects.get(name=str(datetime.now().day)).pk,
+                          'month': Month.objects.get(name=str(datetime.now().month)).pk,
+                          'year': Year.objects.get(name=str(datetime.now().year)).pk}
+        form = EventCreationForm(initial=initial_moment)
 
     content = {
         'event_form': form,

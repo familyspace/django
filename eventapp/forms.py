@@ -6,11 +6,11 @@ class EventCreationForm(forms.Form):
     title = forms.CharField(label='Краткое описание события', max_length=32)
     description = forms.CharField(label='Описание события', widget=forms.Textarea)
     location = forms.CharField(label='Место', max_length=32)
-    hour = forms.ModelChoiceField(queryset=Hour.objects.all(), initial='')
-    minute = forms.ModelChoiceField(queryset=Minute.objects.all(), initial='')
-    day = forms.ModelChoiceField(queryset=Day.objects.all(), initial='')
-    month = forms.ModelChoiceField(queryset=Month.objects.all(), initial='')
-    year = forms.ModelChoiceField(queryset=Year.objects.all(), initial='')
+    hour = forms.ModelChoiceField(queryset=Hour.objects.all())
+    minute = forms.ModelChoiceField(queryset=Minute.objects.all())
+    day = forms.ModelChoiceField(queryset=Day.objects.all())
+    month = forms.ModelChoiceField(queryset=Month.objects.all())
+    year = forms.ModelChoiceField(queryset=Year.objects.all())
 
     def __init__(self, *args, **kwargs):
         super(EventCreationForm, self).__init__(*args, **kwargs)
