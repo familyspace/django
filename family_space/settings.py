@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'api.apigroupapp',
     'api.apichatapp',
     'api.apitaskapp',
+    'api.apieventapp',
+    'api.apishopingapp',
     'api.core',
     'groupapp',
     'shoppingapp',
