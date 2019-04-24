@@ -46,15 +46,15 @@ def create_event(request, group_pk):
                 return render(request, 'eventapp/create_event.html', content)
 
     else:
-        current_moment = str(datetime.now().minute)
-        print(current_moment)
-        current_moment = str((int(current_moment))//15*15)
-        print(current_moment)
-        initial_moment = {'hour': Hour.objects.get(name=str(datetime.now().hour)).pk,
-                          'minute': Minute.objects.get(name=current_moment).pk,
-                          'day': Day.objects.get(name=str(datetime.now().day)).pk,
-                          'month': Month.objects.get(name=str(datetime.now().month)).pk,
-                          'year': Year.objects.get(name=str(datetime.now().year)).pk}
+        current_moment = datetime.now()
+        d_minutes = (current_moment.minute//15+1)*15-current_moment.minute
+        delta = datetime(2019, 4, 25, 0, d_minutes, 00) - datetime(2019, 4, 25, 0, 00, 00)
+        default_moment = current_moment + delta
+        initial_moment = {'hour': Hour.objects.get(name=str(default_moment.hour)).pk,
+                          'minute': Minute.objects.get(name=str(default_moment.minute)).pk,
+                          'day': Day.objects.get(name=str(default_moment.day)).pk,
+                          'month': Month.objects.get(name=str(default_moment.month)).pk,
+                          'year': Year.objects.get(name=str(default_moment.year)).pk}
         form = EventCreationForm(initial=initial_moment)
 
     content = {
