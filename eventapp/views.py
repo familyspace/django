@@ -47,6 +47,7 @@ def create_event(request, group_pk):
 
     else:
         current_moment = datetime.now()
+        # current_moment = datetime(2019, 2, 28, 23, 59, 59)
         d_minutes = (current_moment.minute//15+1)*15-current_moment.minute
         delta = datetime(2019, 4, 25, 0, d_minutes, 00) - datetime(2019, 4, 25, 0, 00, 00)
         default_moment = current_moment + delta
