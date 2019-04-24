@@ -11,6 +11,7 @@ urlpatterns = [
                   path('', include('api.apiuserapp.urls')),
                   path('', include('api.apigroupapp.urls')),
                   path('', include('api.apichatapp.urls')),
+                  path('', include('api.apitaskapp.urls')),
                   path('docs/', include('api.apidocs.urls')),
                   path('auth/', include('authapp.urls', namespace='auth')),
                   path('groupsapp/<group_pk>/shoppingapp/', include('shoppingapp.urls', namespace='shop')),

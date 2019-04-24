@@ -14,7 +14,3 @@ class ChatSerializer(serializers.ModelSerializer):
         fields = ('id', 'group_id', 'user_id', 'date_modify', 'date_create', 'user', 'text',)
         read_only_fields = ('id', 'date_modify', 'date_create', 'user_id',)
 
-    def create(self, validated_data):
-        user = validated_data['user']
-
-        return super().create(validated_data)
