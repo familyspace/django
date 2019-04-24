@@ -18,6 +18,22 @@ class EventCreationForm(forms.Form):
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'logo-input'
 
+class EventEditForm(forms.Form):
+    title = forms.CharField(label='Краткое описание события', max_length=32)
+    description = forms.CharField(label='Описание события', widget=forms.Textarea)
+    location = forms.CharField(label='Место', max_length=32)
+    hour = forms.ModelChoiceField(queryset=Hour.objects.all())
+    minute = forms.ModelChoiceField(queryset=Minute.objects.all())
+    day = forms.ModelChoiceField(queryset=Day.objects.all())
+    month = forms.ModelChoiceField(queryset=Month.objects.all())
+    year = forms.ModelChoiceField(queryset=Year.objects.all())
+
+    def __init__(self, *args, **kwargs):
+        super(EventEditForm, self).__init__(*args, **kwargs)
+
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'logo-input'
+
 # class EventCreationForm(forms.ModelForm):
 #     year_value = forms.ModelChoiceField(queryset=Year.objects.all(), initial='')
 #     month_value = forms.ModelChoiceField(queryset=Month.objects.all(), initial='')

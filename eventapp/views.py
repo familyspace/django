@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
-from .forms import EventCreationForm
+from .forms import EventCreationForm, EventEditForm
 from django.urls import reverse
 from groupapp.models import Group
 from datetime import datetime, date, time
@@ -109,3 +109,55 @@ def join_event(request, event_pk):
         'is_participator': is_participator,
     }
     return render(request, 'eventapp/read_event.html', content)
+
+def edit_event(request, event_pk):
+    print('Начинаем редактирование события')
+    my_event = get_object_or_404(Event, pk=event_pk)
+    group_pk = my_event.group.pk
+    if request.method == 'POST':
+        form = EventEditForm(request.POST)
+
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            description = form.cleaned_data['description']
+            location = form.cleaned_data['location']
+            year = form.cleaned_data['year'].name
+            month = form.cleaned_data['month'].name
+            day = form.cleaned_data['day'].name
+            hour = form.cleaned_data['hour'].name
+            minute = form.cleaned_data['minute'].name
+            try:
+                my_dt = datetime(int(year), int(month), int(day), int(hour), int(minute), tzinfo=pytz.UTC)
+                my_event.title = title
+                my_event.description = description
+                my_event.location = location
+                my_event.date = my_dt
+                my_event.save()
+                return HttpResponseRedirect(reverse('eventapp:show_events', kwargs={'group_pk': group_pk}))
+            except ValueError:
+                message = 'Вы ввели неправильную дату, исправьте, пожалуйста!'
+                content = {
+                    'event_form': form,
+                    'event_pk': event_pk,
+                    'message': message,
+                }
+                return render(request, 'eventapp/edit_event.html', content)
+
+    else:
+        event_moment = my_event.date
+        initial_moment = {'title': my_event.title,
+                          'description': my_event.description,
+                          'location': my_event.location,
+                          'hour': Hour.objects.get(name=str(event_moment.hour)).pk,
+                          'minute': Minute.objects.get(name=str(event_moment.minute)).pk,
+                          'day': Day.objects.get(name=str(event_moment.day)).pk,
+                          'month': Month.objects.get(name=str(event_moment.month)).pk,
+                          'year': Year.objects.get(name=str(event_moment.year)).pk}
+        form = EventEditForm(initial=initial_moment)
+
+    content = {
+        'event_form': form,
+        'event_pk': event_pk,
+        'group_pk': group_pk,
+    }
+    return render(request, 'eventapp/edit_event.html', content)
