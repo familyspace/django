@@ -32,9 +32,7 @@ class Event(models.Model):
                                    null=True)
     status = models.CharField(verbose_name='Статус',
                             max_length=3,
-                            choices=[(item.name, item.value) for item in StatusChoice],
-                                   blank=True,
-                                   null=True)
+                            choices=[(item.name, item.value) for item in StatusChoice])
 
     class Meta:
         ordering = ('-date',)
