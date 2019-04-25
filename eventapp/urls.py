@@ -13,4 +13,5 @@ urlpatterns = [
     path('edit_event/<event_pk>', eventapp.edit_event, name='edit_event'),
     path('leave_event/<event_pk>', eventapp.leave_event, name='leave_event'),
     path('join_event/<event_pk>', eventapp.join_event, name='join_event'),
+    path('copy_event/<event_pk>', eventapp.copy_event, name='copy_event'),
 ]

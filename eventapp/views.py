@@ -203,3 +203,57 @@ def edit_event(request, event_pk):
         'group_pk': group_pk,
     }
     return render(request, 'eventapp/edit_event.html', content)
+
+def copy_event(request, event_pk):
+    print('Создается новое события на основе старого')
+    my_event = get_object_or_404(Event, pk=event_pk)
+    group_pk = my_event.group.pk
+    if request.method == 'POST':
+        form = EventCreationForm(request.POST)
+
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            description = form.cleaned_data['description']
+            location = form.cleaned_data['location']
+            year = form.cleaned_data['year'].name
+            month = form.cleaned_data['month'].name
+            day = form.cleaned_data['day'].name
+            hour = form.cleaned_data['hour'].name
+            minute = form.cleaned_data['minute'].name
+            try:
+                my_dt = datetime(int(year), int(month), int(day), int(hour), int(minute), tzinfo=pytz.UTC)
+                group = get_object_or_404(Group, pk=group_pk)
+                new_event = Event.objects.create(title=title, description=description, location=location, group=group, date=my_dt, status='ACT')
+                new_event.add_participant(request.user, 'INT')
+                return HttpResponseRedirect(reverse('eventapp:show_events', kwargs={'group_pk': group_pk}))
+            except ValueError:
+                message = 'Вы ввели неправильную дату, исправьте, пожалуйста!'
+                content = {
+                    'event_form': form,
+                    'group_pk': group_pk,
+                    'message': message,
+                }
+                return render(request, 'eventapp/copy_event.html', content)
+
+    else:
+        current_moment = datetime.now()
+        d_minutes = (current_moment.minute//15+1)*15-current_moment.minute
+        delta = datetime(2019, 4, 25, 0, d_minutes, 00) - datetime(2019, 4, 25, 0, 00, 00)
+        default_moment = current_moment + delta
+        initial_data = {'title': my_event.title,
+                        'description': my_event.description,
+                        'location': my_event.location,
+                        'hour': Hour.objects.get(name=str(default_moment.hour)).pk,
+                        'minute': Minute.objects.get(name=str(default_moment.minute)).pk,
+                        'day': Day.objects.get(name=str(default_moment.day)).pk,
+                        'month': Month.objects.get(name=str(default_moment.month)).pk,
+                        'year': Year.objects.get(name=str(default_moment.year)).pk}
+        form = EventCreationForm(initial=initial_data)
+
+    content = {
+        'event_form': form,
+        'event_pk': event_pk,
+        'group_pk': group_pk,
+    }
+    return render(request, 'eventapp/copy_event.html', content)
+

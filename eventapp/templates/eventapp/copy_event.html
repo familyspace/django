@@ -1,0 +1,33 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <!--<link rel="stylesheet" href="/static/css/style_userapp.css">-->
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+    <div class="createpage-wrapper">
+        <div class="logo-wrapper">
+            <div class="flex-logo-wrapper">
+
+                <div class="btn">
+                    <form class="" action="{% url 'eventapp:copy_event' event_pk %}" method="post">
+                        {% csrf_token %}
+                        {{ event_form.as_p }}
+                        <input class="logo-input-submit" type="submit" value="Сохранить изменения">
+                    </form>
+                </div>
+                <div>{{ message }}</div>
+                <div class="btn">
+                    <button class="logo-signup-btn" type="button">
+                        <a href="{% url 'eventapp:show_events' group_pk %}">Назад</a>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
