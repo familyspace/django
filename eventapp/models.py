@@ -48,50 +48,50 @@ class Event(models.Model):
         return comment
 
 class Hour(models.Model):
-    name = models.CharField(max_length=2)
+    name = models.IntegerField()
 
     def __str__(self):
-        if len(self.name) == 1:
-            vis_name = '0' + self.name
+        if self.name < 10:
+            vis_name = '0' + str(self.name)
         else:
-            vis_name = self.name
+            vis_name = str(self.name)
         return vis_name
 
 class Minute(models.Model):
-    name = models.CharField(max_length=2)
+    name = models.IntegerField()
 
     def __str__(self):
-        if len(self.name) == 1:
-            vis_name = '0' + self.name
+        if self.name == 0:
+            vis_name = '00'
         else:
-            vis_name = self.name
+            vis_name = str(self.name)
         return ':' + vis_name
 
 class Day(models.Model):
-    name = models.CharField(max_length=2)
+    name = models.IntegerField()
 
     def __str__(self):
-        if len(self.name) == 1:
-            vis_name = '0' + self.name
+        if self.name < 10:
+            vis_name = '0' + str(self.name)
         else:
-            vis_name = self.name
+            vis_name = str(self.name)
         return vis_name
 
 class Month(models.Model):
-    name = models.CharField(max_length=2)
+    name = models.IntegerField()
 
     def __str__(self):
-        if len(self.name) == 1:
-            vis_name = '0' + self.name
+        if self.name < 10:
+            vis_name = '0' + str(self.name)
         else:
-            vis_name = self.name
+            vis_name = str(self.name)
         return vis_name
 
 class Year(models.Model):
-    name = models.CharField(max_length=4)
+    name = models.IntegerField()
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 class RoleChoice(Enum):
     '''

@@ -11,34 +11,29 @@ class Command(BaseCommand):
         Year.objects.all().delete()
         print('Все данные удалены')
 
-        i = 0
-        while i < 24:
-            Hour.objects.create(name=str(i))
-            i = i + 1
+        for i in range(0, 24):
+            Hour.objects.create(name=i)
+
         print('Часы добавлены')
 
-        Minute.objects.create(name='0')
-        Minute.objects.create(name='15')
-        Minute.objects.create(name='30')
-        Minute.objects.create(name='45')
+        Minute.objects.create(name=0)
+        Minute.objects.create(name=15)
+        Minute.objects.create(name=30)
+        Minute.objects.create(name=45)
 
         print('Минуты добавлены')
 
-        i = 0
-        while i < 31:
-            i = i + 1
-            Day.objects.create(name=str(i))
+        for i in range(1, 32):
+            Day.objects.create(name=i)
 
         print('Дни добавлены')
 
-        i = 0
-        while i < 12:
-            i = i + 1
-            Month.objects.create(name=str(i))
+        for i in range(1, 13):
+            Month.objects.create(name=i)
 
         print('Месяцы добавлены')
 
-        Year.objects.create(name='2019')
-        Year.objects.create(name='2020')
-        Year.objects.create(name='2021')
+        Year.objects.create(name=2019)
+        Year.objects.create(name=2020)
+        Year.objects.create(name=2021)
 

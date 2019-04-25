@@ -2,17 +2,35 @@ from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 from .forms import EventCreationForm, EventEditForm
 from django.urls import reverse
 from groupapp.models import Group
-from datetime import datetime, date, time
+from datetime import datetime
 from .models import Event, EventUser, Hour, Minute, Day, Month, Year
 import pytz
 
 # Create your views here.
 
+def get_event_form_data(form):
+    title = form.cleaned_data['title']
+    description = form.cleaned_data['description']
+    location = form.cleaned_data['location']
+    year = int(form.cleaned_data['year'].name)
+    month = int(form.cleaned_data['month'].name)
+    day = int(form.cleaned_data['day'].name)
+    hour = form.cleaned_data['hour'].name
+    minute = form.cleaned_data['minute'].name
+    data_dict = {'title': title, 'description': description, 'location': location, 'year': year, 'month': month, 'day': day, 'hour': hour, 'minute': minute}
+    return data_dict
+
+def set_date_time(data_dict):
+    date_time = datetime(data_dict['year'], data_dict['month'], data_dict['day'], data_dict['hour'], data_dict['minute'], tzinfo=pytz.UTC)
+    return date_time
+
 def show_events(request, group_pk):
     my_group = get_object_or_404(Group, pk=group_pk)
     all_events = my_group.events.all()
     current_moment = datetime.now()
+
     curr_data = datetime(current_moment.year, current_moment.month, current_moment.day, current_moment.hour, current_moment.minute, tzinfo=pytz.UTC)
+
     for item in all_events:
         if item.date < curr_data:
             item.status = 'INA'
@@ -43,18 +61,11 @@ def create_event(request, group_pk):
         form = EventCreationForm(request.POST)
 
         if form.is_valid():
-            title = form.cleaned_data['title']
-            description = form.cleaned_data['description']
-            location = form.cleaned_data['location']
-            year = form.cleaned_data['year'].name
-            month = form.cleaned_data['month'].name
-            day = form.cleaned_data['day'].name
-            hour = form.cleaned_data['hour'].name
-            minute = form.cleaned_data['minute'].name
+            event_info = get_event_form_data(form)
             try:
-                my_dt = datetime(int(year), int(month), int(day), int(hour), int(minute), tzinfo=pytz.UTC)
+                my_dt = set_date_time(event_info)
                 group = get_object_or_404(Group, pk=group_pk)
-                new_event = Event.objects.create(title=title, description=description, location=location, group=group, date=my_dt)
+                new_event = Event.objects.create(title=event_info['title'], description=event_info['description'], location=event_info['location'], group=group, date=my_dt)
                 new_event.add_participant(request.user, 'INT')
                 return HttpResponseRedirect(reverse('eventapp:show_events', kwargs={'group_pk': group_pk}))
             except ValueError:
@@ -68,7 +79,6 @@ def create_event(request, group_pk):
 
     else:
         current_moment = datetime.now()
-        # current_moment = datetime(2019, 2, 28, 23, 59, 59)
         d_minutes = (current_moment.minute//15+1)*15-current_moment.minute
         delta = datetime(2019, 4, 25, 0, d_minutes, 00) - datetime(2019, 4, 25, 0, 00, 00)
         default_moment = current_moment + delta
