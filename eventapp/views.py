@@ -54,7 +54,7 @@ def create_event(request, group_pk):
             try:
                 my_dt = datetime(int(year), int(month), int(day), int(hour), int(minute), tzinfo=pytz.UTC)
                 group = get_object_or_404(Group, pk=group_pk)
-                new_event = Event.objects.create(title=title, description=description, location=location, group=group, date=my_dt, status='ACT')
+                new_event = Event.objects.create(title=title, description=description, location=location, group=group, date=my_dt)
                 new_event.add_participant(request.user, 'INT')
                 return HttpResponseRedirect(reverse('eventapp:show_events', kwargs={'group_pk': group_pk}))
             except ValueError:
@@ -110,18 +110,9 @@ def read_archived_event(request, event_pk):
     my_event = get_object_or_404(Event, pk=event_pk)
     eventusers = my_event.eventusers.all()
 
-    # members = map(lambda item: item.user, eventusers)
-    # is_participator = (request.user in members)
-    #
-    # if is_participator:
-    #     my_user = get_object_or_404(EventUser, user=request.user, event=my_event)
-    #     is_initiator = (my_user.role == 'INT')
-
     content = {
         'event': my_event,
         'eventusers': eventusers,
-        # 'is_participator': is_participator,
-        # 'is_initiator': is_initiator,
     }
     return render(request, 'eventapp/read_archived_event.html', content)
 
@@ -223,7 +214,7 @@ def copy_event(request, event_pk):
             try:
                 my_dt = datetime(int(year), int(month), int(day), int(hour), int(minute), tzinfo=pytz.UTC)
                 group = get_object_or_404(Group, pk=group_pk)
-                new_event = Event.objects.create(title=title, description=description, location=location, group=group, date=my_dt, status='ACT')
+                new_event = Event.objects.create(title=title, description=description, location=location, group=group, date=my_dt)
                 new_event.add_participant(request.user, 'INT')
                 return HttpResponseRedirect(reverse('eventapp:show_events', kwargs={'group_pk': group_pk}))
             except ValueError:
