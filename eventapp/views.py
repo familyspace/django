@@ -17,7 +17,11 @@ def show_events(request, group_pk):
         if item.date < curr_data:
             item.status = 'INA'
             item.save()
-            print('Status_changed')
+            item_users = item.eventusers.all()
+            for member in item_users:
+                member.role = 'PRT'
+                member.save()
+
     events = my_group.events.filter(status='ACT')
     content = {
         'events': events,
