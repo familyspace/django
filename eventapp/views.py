@@ -12,9 +12,9 @@ def get_event_form_data(form):
     title = form.cleaned_data['title']
     description = form.cleaned_data['description']
     location = form.cleaned_data['location']
-    year = int(form.cleaned_data['year'].name)
-    month = int(form.cleaned_data['month'].name)
-    day = int(form.cleaned_data['day'].name)
+    year = form.cleaned_data['year'].name
+    month = form.cleaned_data['month'].name
+    day = form.cleaned_data['day'].name
     hour = form.cleaned_data['hour'].name
     minute = form.cleaned_data['minute'].name
     data_dict = {'title': title, 'description': description, 'location': location, 'year': year, 'month': month, 'day': day, 'hour': hour, 'minute': minute}
@@ -28,7 +28,6 @@ def show_events(request, group_pk):
     my_group = get_object_or_404(Group, pk=group_pk)
     all_events = my_group.events.all()
     current_moment = datetime.now()
-
     curr_data = datetime(current_moment.year, current_moment.month, current_moment.day, current_moment.hour, current_moment.minute, tzinfo=pytz.UTC)
 
     for item in all_events:
@@ -39,7 +38,6 @@ def show_events(request, group_pk):
             for member in item_users:
                 member.role = 'PRT'
                 member.save()
-
     events = my_group.events.filter(status='ACT')
     content = {
         'events': events,
