@@ -105,6 +105,10 @@ class EventUser(models.Model):
     '''
     Таблица участников в событии
     '''
+
+    class Meta:
+        unique_together = ('user', 'event')
+
     user = models.ForeignKey(User, verbose_name='Пользователь', related_name='userevents', on_delete='CASCADE')
     role = models.CharField(verbose_name='Роль',
                             max_length=3,
