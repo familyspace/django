@@ -10,7 +10,7 @@
                     {% for item in events %}
                         <div class="btn mainpg">
                             <button class="btn-group" type="button">
-                                <a href="{% url 'eventapp:read_event' item.pk %}">{{ item.title}} {{ item.date|date:'d-m-Y'}}</a>
+                                <a href="{% url 'eventapp:read_archived_event' item.pk %}">{{ item.title}} {{ item.date|date:'d-m-Y'}}</a>
                             </button>
                         </div>
                     {% endfor %}

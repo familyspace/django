@@ -10,7 +10,7 @@ import pytz
 
 def show_events(request, group_pk):
     my_group = get_object_or_404(Group, pk=group_pk)
-    events = my_group.events.all()
+    events = my_group.events.filter(status='ACT')
     content = {
         'events': events,
         'group_pk': group_pk,
@@ -19,7 +19,7 @@ def show_events(request, group_pk):
 
 def archived_events(request, group_pk):
     my_group = get_object_or_404(Group, pk=group_pk)
-    events = my_group.events.all()
+    events = my_group.events.filter(status='INA')
     content = {
         'events': events,
         'group_pk': group_pk,
@@ -91,6 +91,25 @@ def read_event(request, event_pk):
         'is_initiator': is_initiator,
     }
     return render(request, 'eventapp/read_event.html', content)
+
+def read_archived_event(request, event_pk):
+    my_event = get_object_or_404(Event, pk=event_pk)
+    eventusers = my_event.eventusers.all()
+
+    # members = map(lambda item: item.user, eventusers)
+    # is_participator = (request.user in members)
+    #
+    # if is_participator:
+    #     my_user = get_object_or_404(EventUser, user=request.user, event=my_event)
+    #     is_initiator = (my_user.role == 'INT')
+
+    content = {
+        'event': my_event,
+        'eventusers': eventusers,
+        # 'is_participator': is_participator,
+        # 'is_initiator': is_initiator,
+    }
+    return render(request, 'eventapp/read_archived_event.html', content)
 
 def leave_event(request, event_pk):
     my_event = get_object_or_404(Event, pk=event_pk)
