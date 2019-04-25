@@ -79,7 +79,7 @@ def read_event(request, event_pk):
         'event': my_event,
         'eventusers': eventusers,
         'is_participator': is_participator,
-        'is_initiator': is_initiator
+        'is_initiator': is_initiator,
     }
     return render(request, 'eventapp/read_event.html', content)
 
@@ -145,15 +145,15 @@ def edit_event(request, event_pk):
 
     else:
         event_moment = my_event.date
-        initial_moment = {'title': my_event.title,
-                          'description': my_event.description,
-                          'location': my_event.location,
-                          'hour': Hour.objects.get(name=str(event_moment.hour)).pk,
-                          'minute': Minute.objects.get(name=str(event_moment.minute)).pk,
-                          'day': Day.objects.get(name=str(event_moment.day)).pk,
-                          'month': Month.objects.get(name=str(event_moment.month)).pk,
-                          'year': Year.objects.get(name=str(event_moment.year)).pk}
-        form = EventEditForm(initial=initial_moment)
+        initial_data = {'title': my_event.title,
+                        'description': my_event.description,
+                        'location': my_event.location,
+                        'hour': Hour.objects.get(name=str(event_moment.hour)).pk,
+                        'minute': Minute.objects.get(name=str(event_moment.minute)).pk,
+                        'day': Day.objects.get(name=str(event_moment.day)).pk,
+                        'month': Month.objects.get(name=str(event_moment.month)).pk,
+                        'year': Year.objects.get(name=str(event_moment.year)).pk}
+        form = EventEditForm(initial=initial_data)
 
     content = {
         'event_form': form,

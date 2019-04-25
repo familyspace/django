@@ -6,6 +6,13 @@ from enum import Enum
 
 # Create your models here.
 
+class StatusChoice(Enum):
+    '''
+    Задание списка перечесления для поля таблицы через класс
+    '''
+    ACT = 'Активно'
+    INA = 'Неактивно'
+
 class Event(models.Model):
     title = models.CharField(verbose_name='Краткое описание события',
                              max_length=255)
@@ -21,6 +28,11 @@ class Event(models.Model):
     location = models.CharField(max_length=255,
                                 verbose_name='Место проведения')
     date = models.DateTimeField(verbose_name='Дата и время проведения',
+                                   blank=True,
+                                   null=True)
+    status = models.CharField(verbose_name='Статус',
+                            max_length=3,
+                            choices=[(item.name, item.value) for item in StatusChoice],
                                    blank=True,
                                    null=True)
 
