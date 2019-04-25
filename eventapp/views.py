@@ -17,6 +17,15 @@ def show_events(request, group_pk):
     }
     return render(request, 'eventapp/show_events.html', content)
 
+def archived_events(request, group_pk):
+    my_group = get_object_or_404(Group, pk=group_pk)
+    events = my_group.events.all()
+    content = {
+        'events': events,
+        'group_pk': group_pk,
+    }
+    return render(request, 'eventapp/archived_events.html', content)
+
 def create_event(request, group_pk):
     if request.method == 'POST':
         form = EventCreationForm(request.POST)
