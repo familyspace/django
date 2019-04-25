@@ -14,5 +14,5 @@ class ShopingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ShopingItem
-        fields = ('id', 'group_id', 'title', 'done', 'price', 'comment')
+        fields = ('id', 'group_id', 'title', 'done', 'price', 'comment', 'user')
         read_only_fields = ('id',)

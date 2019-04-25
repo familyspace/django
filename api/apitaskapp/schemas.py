@@ -37,6 +37,14 @@ class TaskSchema(AutoSchema):
                                              description="Название задачи"),
                     description='Название задачи',
                 ),
+                coreapi.Field(
+                    name="user",
+                    required=True,
+                    location="form",
+                    schema=coreschema.Array(title="user",
+                                             description="Юзеры в задаче"),
+                    description='Юзеры в задаче',
+                ),
             ]
         if method == 'PUT':
             fields = [
@@ -55,6 +63,14 @@ class TaskSchema(AutoSchema):
                     schema=coreschema.String(title="title",
                                              description="Название задачи"),
                     description='Название задачи',
+                ),
+                coreapi.Field(
+                    name="user",
+                    required=True,
+                    location="form",
+                    schema=coreschema.Array(title="user",
+                                            description="Юзеры в задаче"),
+                    description='Юзеры в задаче',
                 ),
             ]
 

@@ -53,6 +53,14 @@ class ShopingSchema(AutoSchema):
                                              description="Комментарий"),
                     description='Комментарий',
                 ),
+                coreapi.Field(
+                    name="user",
+                    required=True,
+                    location="form",
+                    schema=coreschema.Array(title="user",
+                                            description="Юзеры в покупке"),
+                    description='Юзеры в покупке',
+                ),
             ]
         if method == 'PUT':
             fields = [
@@ -87,6 +95,14 @@ class ShopingSchema(AutoSchema):
                     schema=coreschema.String(title="comment",
                                              description="Комментарий"),
                     description='Комментарий',
+                ),
+                coreapi.Field(
+                    name="user",
+                    required=True,
+                    location="form",
+                    schema=coreschema.Array(title="user",
+                                            description="Юзеры в покупке"),
+                    description='Юзеры в покупке',
                 ),
             ]
 
