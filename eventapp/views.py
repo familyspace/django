@@ -95,6 +95,8 @@ def read_event(request, event_pk):
     if is_participator:
         my_user = get_object_or_404(EventUser, user=request.user, event=my_event)
         is_initiator = (my_user.role == 'INT')
+    else:
+        is_initiator = False
 
     content = {
         'event': my_event,
