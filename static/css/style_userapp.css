@@ -78,6 +78,7 @@ body {
     width: 100%;
     align-items: center;
     justify-content: center;
+    z-index: 1000;
 }
 
 .btn-menu {
@@ -160,19 +161,45 @@ body {
     flex-flow: column;
     /*justify-content: center;*/
     align-items: center;
+    position: relative;
 }
 
-.hide-div {
-    width: 100%;
-    height: 100%;
-    background: white;
-    display: flex;
+.hide-menu {
+
+    width: 40%;
+    /*height: 100%;*/
+    background: #b9fffd;
+    display: none;
     flex-flow: column;
     /*justify-content: center;*/
     text-align: center;
     align-items: center;
+    z-index: 1100;
+    position: absolute;
+    top: 13%;
 
 }
+
+
+.hide-menu ul li {
+    list-style: none;
+}
+
+.hide-menu ul li a {
+    text-decoration: none;
+    display: block;
+    color: black;
+}
+
+
+.hide-menu ul li:hover {
+    background-color: #333333;
+}
+
+.hide-menu ul li a:hover {
+    color: white;
+}
+
 
 #hide-groups {
     display: flex;
@@ -517,7 +544,7 @@ body {
 /* MOBILES/TABLETS */
 
 .creategroup-form {
-    max-width: 75%;
+    max-width: 90%;
     margin: 10px auto;
     position: relative;
     text-align: center;
@@ -577,6 +604,7 @@ body {
     #p-purchase {
         width: 60%;
         margin: 2% 5% 1% 3%;
+        font-size: 16px;
     }
 
     #remove-purchase {

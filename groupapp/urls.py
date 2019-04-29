@@ -4,7 +4,7 @@ import groupapp.views as groupapp
 
 app_name = 'groupapp'
 urlpatterns = [
-    path('', groupapp.view_all_groups, name='view_all_groups'),
+    path('', groupapp.userpage, name='userpage'),
     path('<int:group_pk>/participants/', groupapp.view_one_group, name='view_one_group'), #participants
     path('<int:group_pk>/', groupapp.group_menu, name='groupmenu'),
     path('<int:group_pk>/participants/invite/', groupapp.invite_user, name='invite'),

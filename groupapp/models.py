@@ -32,7 +32,7 @@ class Group(models.Model):
                                     default=True)
     category = models.ForeignKey(Category,
                                  verbose_name='Категория группы',
-                                 on_delete='PROTECT')
+                                 on_delete=models.PROTECT)
 
     def __str__(self):
         return self.title + ' ' + self.category.name

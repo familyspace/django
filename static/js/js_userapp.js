@@ -1,14 +1,14 @@
 const slideMenu = function() {
 
     const navBlock = document.querySelector('#drop-menu');
-    let toggleStatus = 1;
+    let toggleStatus = 0;
 
     const toggleMenu = function() {
         if (toggleStatus === 1) {
-            document.querySelector('#hide-groups').style.display = 'none';
+            document.querySelector('.hide-menu').style.display = 'none';
             toggleStatus = 0;
         } else if (toggleStatus === 0) {
-            document.querySelector('#hide-groups').style.display = 'flex';
+            document.querySelector('.hide-menu').style.display = 'flex';
             toggleStatus = 1;
         }
     }

@@ -103,6 +103,7 @@ def removeitem(request, item_pk, group_pk):
         return HttpResponseForbidden()
 
     item = get_object_or_404(ShopingItem, pk=item_pk)
+    print(item)
     item.delete()
     return HttpResponseRedirect(reverse('shop:shoppinglist', args=[group_pk]))
 

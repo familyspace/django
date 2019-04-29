@@ -11,17 +11,17 @@ from userapp.models import UserContactList
 
 
 @login_required
-def view_all_groups(request):
+def userpage(request):
     '''
-    Просмотр списка всех групп
+    Стартовая страница с меню приложения
     '''
-    groups = get_groups_list(request)
+    # groups = get_groups_list(request)
+    #
+    # content = {
+    #     'groups': groups,
+    # }
 
-    content = {
-        'groups': groups,
-    }
-
-    return render(request, 'userapp/userpage.html', content)
+    return render(request, 'userapp/userpage.html')
 
 @login_required
 def view_one_group(request, group_pk):

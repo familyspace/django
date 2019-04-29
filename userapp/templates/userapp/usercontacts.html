@@ -6,19 +6,23 @@
         <div class="flex-container-two">
 
             <div class="flex-block-wrapper-3">
-                <p>Контакты: </p>
+                <div class="btn mainpg">
+                    <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'userapp:userpage' %}">Главная</a></button>
+                    <p id="p-purchase">Ваши контакты:</p>
+                    <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'userapp:usersearch' %}">Поиск</a></button>
+                </div>
                 <div class="hide-div" id="hide-groups">
                     {% for item in contacts %}
-                        <div class="btn mainpg">
-                            <button class="btn-group" type="button"><a href="#">{{ item.username }}</a></button>
 
-                            <button class="btn-search" type="button">
-                                <a href="{% url 'userapp:removecontact' friend_pk=item.pk %}">
-                                    Удалить
-                                </a>
-                            </button>
+                        <button class="btn-group" type="button"><a href="#">{{ item.username }}</a></button>
+                        <p>Телефон: {{ item.telephone }}</p>
+                        <p>Почта: {{ item.email }}</p>
+                        <button class="btn-search" type="button">
+                            <a href="{% url 'userapp:removecontact' friend_pk=item.pk %}">
+                                Удалить
+                            </a>
+                        </button>
 
-                        </div>
                     {% endfor %}
                 </div>
             </div>

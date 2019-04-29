@@ -5,16 +5,23 @@
     <div class="flex-container-two">
 
         <div class="flex-block-wrapper-3">
+            <div class="btn mainpg">
+                <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'userapp:userpage' %}">Главная</a></button>
+                <p id="p-purchase">Поиск групп:</p>
+                <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'userapp:usergroups' user.pk %}">Мои гр.</a></button>
+            </div>
             <form class="search" method="get" action="{% url 'userapp:groupsearch' %}">
                 <input type="text" name="query" placeholder="введите название группы"/>
                 <input class="search-btn" type="submit" value="поиск"/>
             </form>
             <div class="hide-div" id="hide-groups">
                 {% for item in search %}
-                    <div class="btn mainpg">
+
                         <button class="btn-group" type="button">
                             <a href="{% url 'groupapp:view_one_group' item.pk %}">{{ item.title }}</a>
                         </button>
+                        <p>Описание группы:</p>
+                        <p>{{ item.description }}</p>
                         {% if user in item.get_users %}
                             <button class="btn-search" type="button">
                                 <a href="{% url 'userapp:removeuser' item.pk %}">
@@ -25,7 +32,7 @@
                         {% else %}
                             <button class="btn-search" type="button"><a href="{% url 'userapp:adduser' item.pk %}">Вступить</a></button>
                         {% endif %}
-                    </div>
+
                 {% endfor %}
             </div>
         </div>

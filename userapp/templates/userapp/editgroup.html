@@ -13,11 +13,11 @@
             <div class="flex-logo-wrapper">
 
                 <div class="btn">
-                    <form class="creategroup-form" action="{% url 'userapp:creategroups' user.pk %}" method="post">
+                    <form class="creategroup-form" action="{% url 'userapp:editgroup' group_pk=group_pk %}" method="post">
                         {% csrf_token %}
                         <div class="btn mainpg">
                             <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'userapp:userpage' %}">Главная</a></button>
-                            <p id="p-purchase">Создание группы:</p>
+                            <p id="p-purchase">Редактирование группы:</p>
                             <input class="btn-search" id="btn-add-purchase" type="submit" value="OK">
                         </div>
                         {% for item in group_form %}
