@@ -6,13 +6,19 @@
 
         <div class="flex-block-wrapper-3">
             <div class="btn mainpg">
-                <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'userapp:userpage' %}">Главная</a></button>
                 <p id="p-purchase">Поиск групп:</p>
-                <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'userapp:usergroups' user.pk %}">Мои гр.</a></button>
+                <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'userapp:usergroups' %}">Мои гр.</a></button>
             </div>
             <form class="search" method="get" action="{% url 'userapp:groupsearch' %}">
+                <select name="category">
+                    {% for i in categories %}
+                        <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+
                 <input type="text" name="query" placeholder="введите название группы"/>
                 <input class="search-btn" type="submit" value="поиск"/>
+
             </form>
             <div class="hide-div" id="hide-groups">
                 {% for item in search %}

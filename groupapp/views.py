@@ -1,27 +1,15 @@
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
+from groupapp.forms import RoleEdit
 from groupapp.models import Group, get_groups_list, GroupUser
 from authapp.models import User
 from django.shortcuts import get_object_or_404
 # Create your views here.
 from userapp.models import UserContactList
-
-
-@login_required
-def userpage(request):
-    '''
-    Стартовая страница с меню приложения
-    '''
-    # groups = get_groups_list(request)
-    #
-    # content = {
-    #     'groups': groups,
-    # }
-
-    return render(request, 'userapp/userpage.html')
 
 @login_required
 def view_one_group(request, group_pk):
@@ -33,8 +21,7 @@ def view_one_group(request, group_pk):
     if not friendlyuser:
         return HttpResponseForbidden()
 
-    my_group = get_object_or_404(Group, pk=group_pk)
-    members = my_group.get_users()
+    members = GroupUser.objects.filter(group=group_pk)
     content = {
         'members': members,
         'group_pk': group_pk
@@ -43,12 +30,12 @@ def view_one_group(request, group_pk):
     return render(request, 'groupapp/participants.html', content)
 
 @login_required
-def view_user_groups(request, user_pk):
+def view_user_groups(request):
     '''
     Просмотр списка групп пользователя по его pk
     '''
 
-    relations = GroupUser.objects.filter(user=user_pk)
+    relations = GroupUser.objects.filter(user=request.user.pk)
     groups = map(lambda item: item.group, relations)
 
     content = {
@@ -56,22 +43,6 @@ def view_user_groups(request, user_pk):
     }
 
     return render(request, 'groupapp/groupspage.html', content)
-
-@login_required
-def group_menu(request, group_pk):
-    '''
-    Просмотр функционала группы
-    '''
-
-    friendlyuser = GroupUser.objects.filter(group=group_pk, user=request.user.pk)
-    if not friendlyuser:
-        return HttpResponseForbidden()
-
-    content = {
-        'group_pk': group_pk
-    }
-
-    return render(request, 'groupapp/groupmenu.html', content)
 
 @login_required
 def invite_user(request, group_pk):
@@ -102,7 +73,7 @@ def addtogroup(request, group_pk, friend_pk):
     '''
     my_group = get_object_or_404(Group, pk=group_pk)
     my_friend = get_object_or_404(User, pk=friend_pk)
-    my_group.add_user(my_friend)
+    GroupUser.objects.create(user=my_friend, group=my_group, role='USR')
     return HttpResponseRedirect(reverse('groupapp:invite', args=[group_pk]))
 
 @login_required
@@ -114,3 +85,30 @@ def removefromgroup(request, group_pk, friend_pk):
     group_user = get_object_or_404(GroupUser, user=my_friend, group=group_pk)
     group_user.delete()
     return HttpResponseRedirect(reverse('groupapp:view_one_group', args=[group_pk]))
+
+@transaction.atomic
+def roleedit(request, group_pk, participant_pk):
+    '''
+    Редактирование роли участника
+    '''
+
+    friendlyuser = GroupUser.objects.filter(group=group_pk, user=request.user.pk, role='ADM')
+    if not friendlyuser:
+        return HttpResponseForbidden()
+
+    group = get_object_or_404(GroupUser, user=participant_pk, group=group_pk)
+    form = RoleEdit(request.POST, instance=group)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('groupapp:view_one_group', args=[group_pk]))
+    else:
+        form = RoleEdit(instance=group)
+
+    content = {
+        'edit_form': form,
+        'group_pk': group_pk,
+        'participant_pk': participant_pk,
+    }
+
+    return render(request, 'groupapp/roleedit.html', content)

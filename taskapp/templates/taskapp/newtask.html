@@ -15,20 +15,18 @@
 
                         <form class="creategroup-form" action="{% url 'taskapp:newtask' group_pk=group_pk %}" method="post">
                             {% csrf_token %}
+                            <div class="btn mainpg">
+                                <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'taskapp:taskslist' group_pk=group_pk %}">Назад</a></button>
+                                <p id="p-purchase">Новая задача:</p>
+                                <input class="btn-search" id="btn-add-purchase" type="submit" value="OK">
+                            </div>
                             {% for item in newtask_form %}
                                 {{ item }}
                             {% endfor %}
-                            <input class="logo-input-submit" type="submit" value="Сохранить">
                         </form>
 
                     </div>
-                    <div class="btn">
 
-                        <button class="logo-signup-btn" type="button">
-                            <a href="{% url 'taskapp:taskslist' group_pk=group_pk %}">Отмена</a>
-                        </button>
-
-                    </div>
             </div>
         </div>
     </div>

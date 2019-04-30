@@ -189,7 +189,7 @@ SWAGGER_SETTINGS = {
 AUTH_USER_MODEL = 'authapp.User'
 
 LOGIN_URL = 'authapp:signin'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'userapp:usergroups'
 LOGOUT_REDIRECT_URL = 'authapp:signin'
 
 DOMAIN_NAME = 'http://localhost:8000'

@@ -9,7 +9,7 @@ class ShopingItem(models.Model):
                              max_length=255)
     group = models.ForeignKey(Group,
                               verbose_name='Группа',
-                              on_delete='CASCADE',
+                              on_delete=models.CASCADE,
                               related_name='shopingitems')
     user = models.ManyToManyField(User, verbose_name='Пользователи в закупке')
     done = models.BooleanField(default=False,

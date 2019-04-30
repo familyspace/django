@@ -11,24 +11,20 @@
     <div class="createpage-wrapper">
         <div class="logo-wrapper">
             <div class="flex-logo-wrapper">
-                    <div class="btn">
+                <div class="btn">
 
-                        <form class="creategroup-form" action="{% url 'shop:purchasecreation' group_pk=group_pk %}" method="post">
-                            {% csrf_token %}
-                            {% for item in purchase_form %}
-                                {{ item }}
-                            {% endfor %}
-                            <input class="logo-input-submit" type="submit" value="Сохранить">
-                        </form>
-
-                    </div>
-                    <div class="btn">
-
-                        <button class="logo-signup-btn" type="button">
-                            <a href="{% url 'shop:shoppinglist' group_pk=group_pk %}">Отмена</a>
-                        </button>
-
-                    </div>
+                    <form class="creategroup-form" action="{% url 'shop:purchasecreation' group_pk=group_pk %}" method="post">
+                        {% csrf_token %}
+                        <div class="btn mainpg">
+                            <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'shop:shoppinglist' group_pk=group_pk %}">Назад</a></button>
+                            <p id="p-purchase">Новая покупка:</p>
+                            <input class="btn-search" id="btn-add-purchase" type="submit" value="OK">
+                        </div>
+                        {% for item in purchase_form %}
+                            {{ item }}
+                        {% endfor %}
+                    </form>
+                </div>
             </div>
         </div>
     </div>

@@ -6,24 +6,26 @@
 
             <div class="flex-block-wrapper-3">
                 <div class="btn mainpg">
-                        <p id="p-purchase">Участники группы:</p>
-                        <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'groupapp:invite' group_pk=group_pk %}">Добавить</a></button>
-                        <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'groupapp:groupmenu' group_pk=group_pk %}">Назад</a></button>
+                    <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'chatapp:chatpage' group_pk=group_pk %}">Назад</a></button>
+                    <p id="p-purchase">Участники группы:</p>
+                    <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'groupapp:invite' group_pk=group_pk %}">Добавить</a></button>
+
                 </div>
                 <div class="hide-div" id="hide-groups">
                     {% for item in members %}
                         <div class="btn mainpg">
                             <button class="btn-group" type="button">
-                                <a href="#">{{ item.username }}</a>
+                                <a href="#">{{ item.user.username }}</a>
+                            </button>
+
+                            <button class="btn-search" id="change-role" type="button">
+                                <a href="{% url 'groupapp:removefromgroup' group_pk=group_pk friend_pk=item.user.pk %}">Исключить</a>
                             </button>
                             <button class="btn-search" type="button">
-                                <a href="#">
-                                    <span class="sr-nm">Роль</span>&nbsp;
+                                <a href="{% url 'groupapp:roleedit' group_pk=group_pk participant_pk=item.user.pk %}">
+                                    <span class="sr-nm">{{ item.role }}</span>&nbsp;
                                     <span class="add">Изменить</span>
                                 </a>
-                            </button>
-                            <button class="btn-search" id="change-role" type="button">
-                                <a href="{% url 'groupapp:removefromgroup' group_pk=group_pk friend_pk=item.pk %}">Исключить</a>
                             </button>
                         </div>
                     {% endfor %}

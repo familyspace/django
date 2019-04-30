@@ -9,7 +9,7 @@ class Task(models.Model):
                              max_length=255)
     group = models.ForeignKey(Group,
                               verbose_name='Группа',
-                              on_delete='CASCADE',
+                              on_delete=models.CASCADE,
                               related_name='grouptasks')
     user = models.ManyToManyField(User,
                                   verbose_name='Пользователи в задаче',

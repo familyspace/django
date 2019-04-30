@@ -9,16 +9,16 @@
                 <p>Меню: </p>
                 <div class="hide-div" id="hide-groups">
                     <div class="btn mainpg">
-                        <button class="btn-menu" type="button"><a href="{% url 'userapp:usergroups' user.pk %}">Ваши группы</a></button>
+                        <button class="btn-menu" type="button"><a href="{% url 'userapp:usergroups' %}">Ваши группы</a></button>
                     </div>
                     <div class="btn mainpg">
-                        <button class="btn-menu" type="button"><a href="{% url 'userapp:creategroups' user.pk %}">Создать группу</a></button>
+                        <button class="btn-menu" type="button"><a href="{% url 'userapp:creategroups' %}">Создать группу</a></button>
                     </div>
                     <div class="btn mainpg">
                         <button class="btn-menu" type="button"><a href="{% url 'userapp:groupsearch' %}">Найти группу</a></button>
                     </div>
                     <div class="btn mainpg">
-                        <button class="btn-menu" type="button"><a href="{% url 'userapp:usercontacts' user.pk %}">Контакты</a></button>
+                        <button class="btn-menu" type="button"><a href="{% url 'userapp:usercontacts' %}">Контакты</a></button>
                     </div>
                     <div class="btn mainpg">
                         <button class="btn-menu" type="button"><a href="{% url 'userapp:usersearch' %}">Поиск контактов</a></button>

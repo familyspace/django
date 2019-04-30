@@ -12,7 +12,7 @@ class Event(models.Model):
                                    null=True)
     group = models.ForeignKey(Group,
                               verbose_name='Группа',
-                              on_delete='CASCADE',
+                              on_delete=models.CASCADE,
                               related_name='events')
     location = models.CharField(max_length=255,
                                 verbose_name='Место проведения')

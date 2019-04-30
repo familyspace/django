@@ -1,22 +1,14 @@
-<!DOCTYPE html>
+{% extends "userapp/base.html" %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome</title>
-    <link rel="stylesheet" href="/static/css/style_userapp.css">
-    <meta name="viewport" content="width=device-width">
-</head>
-<body>
-    <div class="createpage-wrapper">
-        <div class="logo-wrapper">
-            <div class="flex-logo-wrapper">
+{% block body %}
+    <div class="flex-container-two">
+        <div class="flex-block-wrapper-3">
 
                 <div class="btn">
                     <form class="creategroup-form" action="{% url 'userapp:editgroup' group_pk=group_pk %}" method="post">
                         {% csrf_token %}
                         <div class="btn mainpg">
-                            <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'userapp:userpage' %}">Главная</a></button>
+                            <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'chatapp:chatpage' group_pk=group_pk %}">Назад</a></button>
                             <p id="p-purchase">Редактирование группы:</p>
                             <input class="btn-search" id="btn-add-purchase" type="submit" value="OK">
                         </div>
@@ -35,5 +27,4 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+{% endblock %}
