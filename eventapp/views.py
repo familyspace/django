@@ -57,7 +57,6 @@ def archived_events(request, group_pk):
 def create_event(request, group_pk):
     if request.method == 'POST':
         form = EventCreationForm(request.POST)
-
         if form.is_valid():
             event_info = get_event_form_data(form)
             try:
@@ -80,11 +79,11 @@ def create_event(request, group_pk):
         d_minutes = (current_moment.minute//15+1)*15-current_moment.minute
         delta = datetime(2019, 4, 25, 0, d_minutes, 00) - datetime(2019, 4, 25, 0, 00, 00)
         default_moment = current_moment + delta
-        initial_moment = {'hour': Hour.objects.get(name=str(default_moment.hour)).pk,
-                          'minute': Minute.objects.get(name=str(default_moment.minute)).pk,
-                          'day': Day.objects.get(name=str(default_moment.day)).pk,
-                          'month': Month.objects.get(name=str(default_moment.month)).pk,
-                          'year': Year.objects.get(name=str(default_moment.year)).pk}
+        initial_moment = {'hour': Hour.objects.get(name=default_moment.hour).pk,
+                          'minute': Minute.objects.get(name=default_moment.minute).pk,
+                          'day': Day.objects.get(name=default_moment.day).pk,
+                          'month': Month.objects.get(name=default_moment.month).pk,
+                          'year': Year.objects.get(name=default_moment.year).pk}
         form = EventCreationForm(initial=initial_moment)
 
     content = {
