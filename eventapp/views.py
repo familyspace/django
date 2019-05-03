@@ -67,12 +67,6 @@ def create_event(request, group_pk):
                 return HttpResponseRedirect(reverse('eventapp:show_events', kwargs={'group_pk': group_pk}))
             except ValueError:
                 message = 'Вы ввели неправильную дату, исправьте, пожалуйста!'
-                content = {
-                    'event_form': form,
-                    'group_pk': group_pk,
-                    'message': message,
-                }
-                return render(request, 'eventapp/create_event.html', content)
 
     else:
         current_moment = datetime.now()
@@ -85,10 +79,12 @@ def create_event(request, group_pk):
                           'month': Month.objects.get(name=default_moment.month).pk,
                           'year': Year.objects.get(name=default_moment.year).pk}
         form = EventCreationForm(initial=initial_moment)
+        message = ''
 
     content = {
         'event_form': form,
         'group_pk': group_pk,
+        'message': message,
     }
     return render(request, 'eventapp/create_event.html', content)
 
@@ -176,12 +172,6 @@ def edit_event(request, event_pk):
                 return HttpResponseRedirect(reverse('eventapp:show_events', kwargs={'group_pk': group_pk}))
             except ValueError:
                 message = 'Вы ввели неправильную дату, исправьте, пожалуйста!'
-                content = {
-                    'event_form': form,
-                    'event_pk': event_pk,
-                    'message': message,
-                }
-                return render(request, 'eventapp/edit_event.html', content)
 
     else:
         event_moment = my_event.date
@@ -194,11 +184,13 @@ def edit_event(request, event_pk):
                         'month': Month.objects.get(name=str(event_moment.month)).pk,
                         'year': Year.objects.get(name=str(event_moment.year)).pk}
         form = EventEditForm(initial=initial_data)
+        message = ''
 
     content = {
         'event_form': form,
         'event_pk': event_pk,
         'group_pk': group_pk,
+        'message': message,
     }
     return render(request, 'eventapp/edit_event.html', content)
 
@@ -226,12 +218,6 @@ def copy_event(request, event_pk):
                 return HttpResponseRedirect(reverse('eventapp:show_events', kwargs={'group_pk': group_pk}))
             except ValueError:
                 message = 'Вы ввели неправильную дату, исправьте, пожалуйста!'
-                content = {
-                    'event_form': form,
-                    'group_pk': group_pk,
-                    'message': message,
-                }
-                return render(request, 'eventapp/copy_event.html', content)
 
     else:
         current_moment = datetime.now()
@@ -247,11 +233,13 @@ def copy_event(request, event_pk):
                         'month': Month.objects.get(name=str(default_moment.month)).pk,
                         'year': Year.objects.get(name=str(default_moment.year)).pk}
         form = EventCreationForm(initial=initial_data)
+        message = ''
 
     content = {
         'event_form': form,
         'event_pk': event_pk,
         'group_pk': group_pk,
+        'message': message,
     }
     return render(request, 'eventapp/copy_event.html', content)
 
