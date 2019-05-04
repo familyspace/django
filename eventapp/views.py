@@ -55,6 +55,7 @@ def archived_events(request, group_pk):
     return render(request, 'eventapp/archived_events.html', content)
 
 def create_event(request, group_pk):
+    message = ''
     if request.method == 'POST':
         form = EventCreationForm(request.POST)
         if form.is_valid():
@@ -64,9 +65,14 @@ def create_event(request, group_pk):
                 group = get_object_or_404(Group, pk=group_pk)
                 new_event = Event.objects.create(title=event_info['title'], description=event_info['description'], location=event_info['location'], group=group, date=my_dt)
                 new_event.add_participant(request.user, 'INT')
+                print('Новое событие создано')
                 return HttpResponseRedirect(reverse('eventapp:show_events', kwargs={'group_pk': group_pk}))
+                message = 'Новое событие создано'
             except ValueError:
+                print('Новое событие не создано')
                 message = 'Вы ввели неправильную дату, исправьте, пожалуйста!'
+        else:
+            print("Форма не валидна")
 
     else:
         current_moment = datetime.now()
@@ -80,6 +86,7 @@ def create_event(request, group_pk):
                           'year': Year.objects.get(name=default_moment.year).pk}
         form = EventCreationForm(initial=initial_moment)
         message = ''
+        print('message: ', message)
 
     content = {
         'event_form': form,
@@ -148,6 +155,7 @@ def join_event(request, event_pk):
 
 def edit_event(request, event_pk):
     print('Начинаем редактирование события')
+    message = ''
     my_event = get_object_or_404(Event, pk=event_pk)
     group_pk = my_event.group.pk
     if request.method == 'POST':
@@ -184,7 +192,7 @@ def edit_event(request, event_pk):
                         'month': Month.objects.get(name=str(event_moment.month)).pk,
                         'year': Year.objects.get(name=str(event_moment.year)).pk}
         form = EventEditForm(initial=initial_data)
-        message = ''
+
 
     content = {
         'event_form': form,

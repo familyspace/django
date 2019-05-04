@@ -22,6 +22,7 @@ class EventCreationForm(forms.Form):
         self.fields['day'].widget.attrs['class'] = 'form-control'
         self.fields['month'].widget.attrs['class'] = 'form-control'
         self.fields['year'].widget.attrs['class'] = 'form-control'
+        self.fields['description'].widget.attrs['style'] = "height:120px"
 
 
 class EventEditForm(forms.Form):
