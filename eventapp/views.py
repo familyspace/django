@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
-from .forms import EventCreationForm, EventEditForm
+from .forms import EventForm
 from django.urls import reverse
 from groupapp.models import Group
 from datetime import datetime
@@ -57,7 +57,7 @@ def archived_events(request, group_pk):
 def create_event(request, group_pk):
     message = ''
     if request.method == 'POST':
-        form = EventCreationForm(request.POST)
+        form = EventForm(request.POST)
         if form.is_valid():
             event_info = get_event_form_data(form)
             try:
@@ -84,7 +84,7 @@ def create_event(request, group_pk):
                           'day': Day.objects.get(name=default_moment.day).pk,
                           'month': Month.objects.get(name=default_moment.month).pk,
                           'year': Year.objects.get(name=default_moment.year).pk}
-        form = EventCreationForm(initial=initial_moment)
+        form = EventForm(initial=initial_moment)
         message = ''
         print('message: ', message)
 
@@ -159,7 +159,7 @@ def edit_event(request, event_pk):
     my_event = get_object_or_404(Event, pk=event_pk)
     group_pk = my_event.group.pk
     if request.method == 'POST':
-        form = EventEditForm(request.POST)
+        form = EventForm(request.POST)
 
         if form.is_valid():
             title = form.cleaned_data['title']
@@ -191,8 +191,7 @@ def edit_event(request, event_pk):
                         'day': Day.objects.get(name=str(event_moment.day)).pk,
                         'month': Month.objects.get(name=str(event_moment.month)).pk,
                         'year': Year.objects.get(name=str(event_moment.year)).pk}
-        form = EventEditForm(initial=initial_data)
-
+        form = EventForm(initial=initial_data)
 
     content = {
         'event_form': form,
@@ -207,7 +206,7 @@ def copy_event(request, event_pk):
     my_event = get_object_or_404(Event, pk=event_pk)
     group_pk = my_event.group.pk
     if request.method == 'POST':
-        form = EventCreationForm(request.POST)
+        form = EventForm(request.POST)
 
         if form.is_valid():
             title = form.cleaned_data['title']
@@ -240,7 +239,7 @@ def copy_event(request, event_pk):
                         'day': Day.objects.get(name=str(default_moment.day)).pk,
                         'month': Month.objects.get(name=str(default_moment.month)).pk,
                         'year': Year.objects.get(name=str(default_moment.year)).pk}
-        form = EventCreationForm(initial=initial_data)
+        form = EventForm(initial=initial_data)
         message = ''
 
     content = {
