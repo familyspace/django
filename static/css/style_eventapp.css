@@ -1,0 +1,9 @@
+.event_field {
+    text-align: right;
+    width: 12;
+}
+
+.event_line {
+    margin: auto;
+    background-color: red;
+}

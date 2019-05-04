@@ -17,6 +17,12 @@ class EventCreationForm(forms.Form):
 
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'logo-input'
+        self.fields['hour'].widget.attrs['class'] = 'form-control'
+        self.fields['minute'].widget.attrs['class'] = 'form-control'
+        self.fields['day'].widget.attrs['class'] = 'form-control'
+        self.fields['month'].widget.attrs['class'] = 'form-control'
+        self.fields['year'].widget.attrs['class'] = 'form-control'
+
 
 class EventEditForm(forms.Form):
     title = forms.CharField(label='Краткое описание события', max_length=32)
@@ -33,6 +39,7 @@ class EventEditForm(forms.Form):
 
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'logo-input'
+
 
 # class EventCreationForm(forms.ModelForm):
 #     year_value = forms.ModelChoiceField(queryset=Year.objects.all(), initial='')

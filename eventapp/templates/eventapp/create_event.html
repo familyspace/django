@@ -1,24 +1,29 @@
-<!DOCTYPE html>
+{% extends "eventapp/base.html" %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome</title>
-    <!--<link rel="stylesheet" href="/static/css/style_userapp.css">-->
-    <meta name="viewport" content="width=device-width">
-</head>
-<body>
-    <div class="createpage-wrapper">
-        <div class="logo-wrapper">
+{% block body %}
+
+
             <div class="flex-logo-wrapper">
 
-                <div class="btn">
-                    <form class="" action="{% url 'eventapp:create_event' group_pk %}" method="post">
+                <div class="btn"><form class="" action="{% url 'eventapp:create_event' group_pk %}" method="post">
                         {% csrf_token %}
-                        {{ event_form.as_p }}
+                        <div class="event_line">{{ event_form.title }}</div>
+                        <div class="event_text">{{ event_form.description }}</div>
+                        <div class="event_line">{{ event_form.location }}</div>
+                        <div class="event_line">
+                            {{ event_form.hour }}
+                            {{ event_form.minute }}
+                        </div>
+                        <div class="event_line">
+                            {{ event_form.day }}
+                            {{ event_form.month }}
+                            {{ event_form.year }}
+                        </div>
+
                         <input class="logo-input-submit" type="submit" value="Создать событие">
                     </form>
                 </div>
+
                 <div>{{ message }}</div>
                 <div class="btn">
                     <button class="logo-signup-btn" type="button">
@@ -28,7 +33,4 @@
 
             </div>
 
-        </div>
-    </div>
-</body>
-</html>
+{% endblock %}
