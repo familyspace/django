@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from django.http import HttpResponseForbidden, HttpResponseRedirect
+from django.http import HttpResponseForbidden, HttpResponseRedirect, Http404, JsonResponse
 from django.shortcuts import render, get_object_or_404
+from django.template.loader import render_to_string
 from django.urls import reverse
 from authapp.models import User
 from groupapp.models import GroupUser, Group
@@ -30,6 +31,35 @@ def view_tasks_list(request, group_pk):
     }
 
     return render(request, 'taskapp/taskslist.html', content)
+
+@login_required
+def checkbox_tasks_list(request, task_pk, group_pk):
+    '''
+    Функция меняет статут выполнено/невыполнено через чекбокс без захода на страницу редактирования
+    '''
+
+    if request.is_ajax():
+        task_item = Task.objects.get(pk=task_pk)
+        if task_item.done == False:
+            task_item.done = True
+            task_item.save()
+        else:
+            task_item.done = False
+            task_item.save()
+
+        donelist = Task.objects.filter(group=group_pk, done=True)
+        todolist = Task.objects.filter(group=group_pk, done=False)
+
+        content = {
+            'group_pk': group_pk,
+            'done': donelist,
+            'todo': todolist,
+        }
+
+        result = render_to_string('taskapp/includes/inc_task_ajax.html', content)
+        return JsonResponse({'result': result})
+    else:
+        return Http404
 
 @login_required
 def newtaskpage(request, group_pk):

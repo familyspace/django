@@ -1,14 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponseForbidden, JsonResponse, Http404
 from django.shortcuts import render, get_object_or_404
+from django.template.loader import render_to_string
 from django.urls import reverse
 from authapp.models import User
 from groupapp.models import Group, GroupUser
 from shoppingapp.forms import PurchaseCreationForm, PurchaseEditForm
 from shoppingapp.models import ShopingItem
-from django.views.generic.edit import CreateView, DeleteView
-from django.urls import reverse_lazy
 
 @login_required
 def view_group_purchases(request, group_pk):
@@ -30,6 +29,35 @@ def view_group_purchases(request, group_pk):
     }
 
     return render(request, 'shoppingapp/shoppinglist.html', content)
+
+@login_required
+def checkbox_shop_list(request, item_pk, group_pk):
+    '''
+    Функция меняет статут выполнено/невыполнено через чекбокс без захода на страницу редактирования
+    '''
+
+    if request.is_ajax():
+        shop_item = ShopingItem.objects.get(pk=item_pk)
+        if shop_item.done == False:
+            shop_item.done = True
+            shop_item.save()
+        else:
+            shop_item.done = False
+            shop_item.save()
+
+        donelist = ShopingItem.objects.filter(group=group_pk, done=True)
+        tobuylist = ShopingItem.objects.filter(group=group_pk, done=False)
+
+        content = {
+            'done': donelist,
+            'todo': tobuylist,
+            'group_pk': group_pk
+        }
+
+        result = render_to_string('shoppingapp/includes/inc_shop_ajax.html', content)
+        return JsonResponse({'result': result})
+    else:
+        return Http404
 
 @login_required
 def purchasecreation_page(request, group_pk):

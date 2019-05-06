@@ -1,0 +1,24 @@
+{% for item in todo %}
+    <div class="btn mainpg">
+        <input type="checkbox" class="taskcheckbox" name="{{ item.pk }}">
+        <button class="btn-group" type="button">
+            <a href="{% url 'shop:purchasedetails' item_pk=item.pk group_pk=group_pk %}">{{ item.title }} {{ item.price }}р.</a>
+        </button>
+    </div>
+    <button class="btn-search" id="remove-purchase" type="button">
+        <a href="{% url 'shop:purchaseremove' item_pk=item.pk group_pk=group_pk %}">Удалить</a>
+    </button>
+    <p>Комментарий: {{ item.comment }}</p>
+{% endfor %}
+{% for item in done %}
+    <div class="btn mainpg">
+        <input type="checkbox" class="taskcheckbox" name="{{ item.pk }}" checked>
+        <button class="btn-group buy-done" type="button">
+            <a href="{% url 'shop:purchasedetails' item_pk=item.pk group_pk=group_pk %}">{{ item.title }}</a>
+        </button>
+    </div>
+    <button class="btn-search" id="remove-purchase" type="button">
+        <a href="{% url 'shop:purchaseremove' item_pk=item.pk group_pk=group_pk %}">Удалить</a>
+    </button>
+    <p>Комментарий: {{ item.comment }}</p>
+{% endfor %}

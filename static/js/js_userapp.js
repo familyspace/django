@@ -17,6 +17,27 @@ const slideMenu = function() {
 
 };
 
+$(document).ready(function(){
+    $('.taskcheckbox').on('change', function (event) {
+        console.log('Привет');
+        var target_href = event.target;
+        if (target_href) {
+            $.ajax({
+                url: "checkbox/" + target_href.name + "/",
+                success: function (data) {
+                    $('.taskcheckbox').html(data.result);
+
+                },
+                complete: function() {
+                    window.location.reload();
+                },
+            });
+        }
+        event.preventDefault();
+    });
+});
+
+
 window.onload = function() {
     slideMenu();
 };

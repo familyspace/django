@@ -1,27 +1,25 @@
 {% extends "userapp/base.html" %}
 {% load static %}
 {% block body %}
-
-            <div class="flex-container-two" id="shop">
-                <div class="flex-block-wrapper-3" id="fbw3-div">
-                    <div class="btn">
-                        <form class="creategroup-form" action="{% url 'shop:purchasedetails' item_pk=item_pk group_pk=group_pk %}" method="post">
-                            {% csrf_token %}
-                            <div class="btn mainpg">
-                                <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'shop:shoppinglist' group_pk=group_pk %}">Назад</a></button>
-                                <p id="p-purchase">Редактирование:</p>
-                                <input class="btn-search" id="btn-add-purchase" type="submit" value="OK">
-                            </div>
-                            {% for item in edit_form %}
-                                {% if 'done' in item.as_widget %}
-                                    <p id="purchase-done">Покупка совершена: {{ item }}</p>
-                                {% else %}
-                                    {{ item }}
-                                {% endif %}
-                            {% endfor %}
-                        </form>
+    <div class="flex-container-two" id="shop">
+        <div class="flex-block-wrapper-3" id="fbw3-div">
+            <div class="btn">
+                <form class="creategroup-form" action="{% url 'shop:purchasedetails' item_pk=item_pk group_pk=group_pk %}" method="post">
+                    {% csrf_token %}
+                    <div class="btn mainpg">
+                        <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'shop:shoppinglist' group_pk=group_pk %}">Назад</a></button>
+                        <p id="p-purchase">Редактирование:</p>
+                        <input class="btn-search" id="btn-add-purchase" type="submit" value="OK">
                     </div>
-                </div>
+                    {% for item in edit_form %}
+                        {% if 'done' in item.as_widget %}
+                            <p id="purchase-done">Покупка совершена: {{ item }}</p>
+                        {% else %}
+                            {{ item }}
+                        {% endif %}
+                    {% endfor %}
+                </form>
             </div>
-
+        </div>
+    </div>
 {% endblock %}

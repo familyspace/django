@@ -1,41 +1,14 @@
 {% extends "userapp/base.html" %}
 {% load static %}
 {% block body %}
-
-            <div class="flex-container-two" id="shop">
-
-                <div class="flex-block-wrapper-3" id="fbw3-div">
-                    <div class="btn mainpg">
-                        <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'chatapp:chatpage' group_pk=group_pk %}">Назад</a></button>
-                        <p id="p-purchase">Список покупок:</p>
-                        <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'shoppingapp:purchasecreation' group_pk=group_pk %}">Добавить</a></button>
-                    </div>
-                    {% for item in todo %}
-                        <div class="btn mainpg">
-                            <button class="btn-group" type="button">
-                                <a href="{% url 'shop:purchasedetails' item_pk=item.pk group_pk=group_pk %}">{{ item.title }} {{ item.price }}р.</a>
-                            </button>
-                        </div>
-                        <button class="btn-search" id="remove-purchase" type="button">
-                            <a href="{% url 'shop:purchaseremove' item_pk=item.pk group_pk=group_pk %}">Удалить</a>
-                        </button>
-                        <p>Комментарий: {{ item.comment }}</p>
-                    {% endfor %}
-                    {% for item in done %}
-                        <div class="btn mainpg">
-                            <button class="btn-group buy-done" type="button">
-                                <a href="{% url 'shop:purchasedetails' item_pk=item.pk group_pk=group_pk %}">{{ item.title }}</a>
-                            </button>
-                        </div>
-                        <button class="btn-search" id="remove-purchase" type="button">
-                            <a href="{% url 'shop:purchaseremove' item_pk=item.pk group_pk=group_pk %}">Удалить</a>
-                        </button>
-                        <p>Комментарий: {{ item.comment }}</p>
-                    {% endfor %}
-
-
-                </div>
-
+    <div class="flex-container-two" id="shop">
+        <div class="flex-block-wrapper-3" id="fbw3-div">
+            <div class="btn mainpg">
+                <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'chatapp:chatpage' group_pk=group_pk %}">Назад</a></button>
+                <p id="p-purchase">Список покупок:</p>
+                <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'shoppingapp:purchasecreation' group_pk=group_pk %}">Добавить</a></button>
             </div>
-
+            {% include 'shoppingapp/includes/inc_shop_ajax.html' %}
+        </div>
+    </div>
 {% endblock %}

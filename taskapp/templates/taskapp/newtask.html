@@ -1,34 +1,21 @@
-<!DOCTYPE html>
+{% extends "userapp/base.html" %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>New Task</title>
-    <link rel="stylesheet" href="/static/css/style_userapp.css">
-    <meta name="viewport" content="width=device-width">
-</head>
-<body>
-    <div class="createpage-wrapper">
-        <div class="logo-wrapper">
-            <div class="flex-logo-wrapper">
-                    <div class="btn">
-
-                        <form class="creategroup-form" action="{% url 'taskapp:newtask' group_pk=group_pk %}" method="post">
-                            {% csrf_token %}
-                            <div class="btn mainpg">
-                                <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'taskapp:taskslist' group_pk=group_pk %}">Назад</a></button>
-                                <p id="p-purchase">Новая задача:</p>
-                                <input class="btn-search" id="btn-add-purchase" type="submit" value="OK">
-                            </div>
-                            {% for item in newtask_form %}
-                                {{ item }}
-                            {% endfor %}
-                        </form>
-
+{% block body %}
+    <div class="flex-container-two" id="shop">
+        <div class="flex-block-wrapper-3" id="fbw3-div">
+            <div class="btn">
+                <form class="creategroup-form" action="{% url 'taskapp:newtask' group_pk=group_pk %}" method="post">
+                    {% csrf_token %}
+                    <div class="btn mainpg">
+                        <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'taskapp:taskslist' group_pk=group_pk %}">Назад</a></button>
+                        <p id="p-purchase">Новая задача:</p>
+                        <input class="btn-search" id="btn-add-purchase" type="submit" value="OK">
                     </div>
-
+                    {% for item in newtask_form %}
+                        {{ item }}
+                    {% endfor %}
+                </form>
             </div>
         </div>
     </div>
-</body>
-</html>
+{% endblock %}
