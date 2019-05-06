@@ -95,7 +95,7 @@ def create_event(request, group_pk):
     }
     return render(request, 'eventapp/create_event.html', content)
 
-def read_event(request, event_pk):
+def read_event(request, event_pk, group_pk):
     my_event = get_object_or_404(Event, pk=event_pk)
     eventusers = my_event.eventusers.all()
 
@@ -109,6 +109,8 @@ def read_event(request, event_pk):
         is_initiator = False
 
     content = {
+        'group_pk': group_pk,
+        'event_pk': event_pk,
         'event': my_event,
         'eventusers': eventusers,
         'is_participator': is_participator,
@@ -116,17 +118,18 @@ def read_event(request, event_pk):
     }
     return render(request, 'eventapp/read_event.html', content)
 
-def read_archived_event(request, event_pk):
+def read_archived_event(request, event_pk, group_pk):
     my_event = get_object_or_404(Event, pk=event_pk)
     eventusers = my_event.eventusers.all()
 
     content = {
+        'group_pk': group_pk,
         'event': my_event,
         'eventusers': eventusers,
     }
     return render(request, 'eventapp/read_archived_event.html', content)
 
-def leave_event(request, event_pk):
+def leave_event(request, event_pk, group_pk):
     my_event = get_object_or_404(Event, pk=event_pk)
     my_user = get_object_or_404(EventUser, user=request.user, event=my_event)
     my_user.delete()
@@ -134,30 +137,32 @@ def leave_event(request, event_pk):
     is_participator = False
 
     content = {
+        'group_pk': group_pk,
         'event': my_event,
         'eventusers': eventusers,
         'is_participator': is_participator,
     }
     return render(request, 'eventapp/read_event.html', content)
 
-def join_event(request, event_pk):
+def join_event(request, event_pk, group_pk):
     my_event = get_object_or_404(Event, pk=event_pk)
     my_event.add_participant(request.user, 'PRT')
     eventusers = my_event.eventusers.all()
     is_participator = True
 
     content = {
+        'group_pk': group_pk,
         'event': my_event,
         'eventusers': eventusers,
         'is_participator': is_participator,
     }
     return render(request, 'eventapp/read_event.html', content)
 
-def edit_event(request, event_pk):
+def edit_event(request, event_pk, group_pk):
     print('Начинаем редактирование события')
     message = ''
     my_event = get_object_or_404(Event, pk=event_pk)
-    group_pk = my_event.group.pk
+    # group_pk = my_event.group.pk
     if request.method == 'POST':
         form = EventForm(request.POST)
 
@@ -177,7 +182,7 @@ def edit_event(request, event_pk):
                 my_event.location = location
                 my_event.date = my_dt
                 my_event.save()
-                return HttpResponseRedirect(reverse('eventapp:show_events', kwargs={'group_pk': group_pk}))
+                return HttpResponseRedirect(reverse('eventapp:read_event', kwargs={'group_pk': group_pk, 'event_pk': event_pk}))
             except ValueError:
                 message = 'Вы ввели неправильную дату, исправьте, пожалуйста!'
 
@@ -201,7 +206,7 @@ def edit_event(request, event_pk):
     }
     return render(request, 'eventapp/edit_event.html', content)
 
-def copy_event(request, event_pk):
+def copy_event(request, event_pk, group_pk):
     print('Создается новое события на основе старого')
     my_event = get_object_or_404(Event, pk=event_pk)
     group_pk = my_event.group.pk

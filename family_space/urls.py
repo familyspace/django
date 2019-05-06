@@ -7,7 +7,6 @@ urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('', include('userapp.urls', namespace='userapp')),
                   path('groupsapp/', include('groupapp.urls', namespace='groupapp')),
-                  path('eventsapp/', include('eventapp.urls', namespace='eventapp')),
                   path('auth_api/', include('api.apiauthapp.urls')),
                   path('', include('api.apiuserapp.urls')),
                   path('', include('api.apigroupapp.urls')),
@@ -20,6 +19,7 @@ urlpatterns = [
                   path('groupsapp/<group_pk>/shoppingapp/', include('shoppingapp.urls', namespace='shop')),
                   path('groupsapp/<group_pk>/chatapp/', include('chatapp.urls', namespace='chatapp')),
                   path('groupsapp/<group_pk>/tasks/', include('taskapp.urls', namespace='taskapp')),
+                  path('groupsapp/<group_pk>/eventsapp/', include('eventapp.urls', namespace='eventapp')),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
