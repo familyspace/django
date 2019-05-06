@@ -1,0 +1,29 @@
+{% extends "userapp/base.html" %}
+{% load static %}
+{% block body %}
+
+        <div class="flex-container-two" id="shop">
+
+            <div class="flex-block-wrapper-3">
+                <div class="btn mainpg">
+                    <p id="p-purchase">Архив событий:</p>
+
+                    <button class="btn-search" id="btn-add-purchase" type="button">
+                        <a href="{% url 'eventapp:show_events' group_pk %}">Назад</a>
+                    </button>
+                </div>
+                <div class="hide-div" id="hide-groups">
+                    {% for item in events %}
+                        <div class="btn mainpg">
+                            <button class="btn-group" type="button">
+                                <a href="{% url 'eventapp:read_archived_event' item.pk %}">{{ item.title}} {{ item.date|date:'d-m-Y'}}</a>
+                            </button>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+
+        </div>
+
+{% endblock %}

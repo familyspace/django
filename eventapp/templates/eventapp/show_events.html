@@ -1,0 +1,37 @@
+{% extends "userapp/base.html" %}
+{% load static %}
+{% block body %}
+
+        <div class="flex-container-two" id="shop">
+
+            <div class="flex-block-wrapper-3">
+                <div class="btn mainpg">
+                    <p id="p-purchase">События группы: </p>
+                    <button class="btn-search" id="btn-add-purchase" type="button">
+                        <a href="{% url 'groupapp:groupmenu' group_pk %}">Назад</a>
+                    </button>
+                </div>
+                <div class="hide-div" id="hide-groups">
+                    {% for item in events %}
+                        <div class="btn mainpg">
+                            <button class="btn-group" type="button">
+                                <a href="{% url 'eventapp:read_event' item.pk %}">{{ item.title }}</a>
+                            </button>
+                        </div>
+                    {% endfor %}
+                        <div class="btn mainpg">
+                            <button class="btn-group" type="button">
+                                <a href="{% url 'eventapp:archived_events' group_pk %}">Архив событий</a>
+                            </button>
+                        </div>
+                        <div class="btn mainpg">
+                            <button class="btn-group" type="button">
+                                <a href="{% url 'eventapp:create_event' group_pk %}">Создать событие</a>
+                            </button>
+                        </div>
+                </div>
+            </div>
+
+        </div>
+
+{% endblock %}
