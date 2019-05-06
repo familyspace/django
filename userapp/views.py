@@ -146,5 +146,5 @@ def addcontact(request, friend_pk):
 def removecontact(request, friend_pk):
     group_user = get_object_or_404(UserContactList, contact_user=friend_pk)
     group_user.delete()
-    return HttpResponseRedirect(reverse('userapp:usercontacts', args=[request.user.pk]))
+    return HttpResponseRedirect(reverse('userapp:usercontacts'))
 
