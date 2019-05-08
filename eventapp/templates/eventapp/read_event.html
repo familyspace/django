@@ -10,8 +10,14 @@
 
                 <div class="container-login100-form m-b-43">
                     <span class="login100-form-main m-b-16">
-                        <p class="txt3" id="fordropdownmenu">Детали события</p>
+                        <p class="txt3">Детали события</p>
+                    </span>
+                </div>
+<div class="container-login100-form m-b-16">
+<button class="login100-form-btn">
                         <a href="{% url 'eventapp:show_events' group_pk=event.group.pk %}" class="txt3" id="">Назад</a>
+</button>
+    <button class="login100-form-btn">
                             {% if is_initiator %}
                                 <a href="{% url 'eventapp:edit_event' event_pk=event.pk group_pk=group_pk %}" class="txt3">Редактировать</a>
                             {% elif is_participator %}
@@ -19,16 +25,19 @@
                             {% else %}
                                 <a href="{% url 'eventapp:join_event' event_pk=event.pk group_pk=group_pk %}" class="txt3">Участвовать</a>
                             {% endif %}
+    </button>
 
-                    </span>
-                </div>
-
-
+</div>
+<div class="container-login100-form m-b-16">
                     <p class="txt3">Дата: {{ event.date.date|date:"d.m.Y" }}</p>
                     <p class="txt3">Время: {{ event.date.time }}</p>
                     <p class="txt3">Название: {{ event.title }}</p>
                     <p class="txt3">Описание: {{ event.description }}</p>
-                <p class="txt3">Пользователи:</p>
+</div>
+                <div class="container-login100-form m-b-16">
+                <p class="txt3">Участники:</p>
+                </div>
+
 
                     {% for item in eventusers %}
                         <div class="container-login100-form-btn  m-b-16">

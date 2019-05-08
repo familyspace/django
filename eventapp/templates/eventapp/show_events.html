@@ -8,7 +8,7 @@
 
                 <span class="login100-form-title">FamilySpace
                 </span>
-                                <div class="container-login100-form m-b-43">
+                <div class="container-login100-form m-b-43">
                     <span class="login100-form-main m-b-16">
                         <p class="txt3">События группы</p>
                     </span>
@@ -29,18 +29,12 @@
 
                 </div>
 
-
-
-                 <div class="container-login100-form m-b-43">
-
+                 <div class="container-login100-form m-b-16">
             {% for item in events %}
-
                     <button class="login100-form-btn">
                         <a href="{% url 'eventapp:read_event' event_pk=item.pk group_pk=group_pk %}" class="txt3">{{ item.title }}</a>
                     </button>
-
     {% endfor %}
-
                  </div>
             </form>
         </div>
