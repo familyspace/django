@@ -1,29 +1,31 @@
-{% extends "userapp/base.html" %}
+{% extends "userapp/base_new.html" %}
 {% load static %}
 {% block body %}
-    <div class="flex-container-two">
-        <div class="flex-block-wrapper-3">
-
-                <div class="btn">
-                    <form class="creategroup-form" action="{% url 'userapp:editgroup' group_pk=group_pk %}" method="post">
-                        {% csrf_token %}
-                        <div class="btn mainpg">
-                            <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'chatapp:chatpage' group_pk=group_pk %}">Назад</a></button>
-                            <p id="p-purchase">Редактирование группы:</p>
-                            <input class="btn-search" id="btn-add-purchase" type="submit" value="OK">
-                        </div>
-                        {% for item in group_form %}
-                            {% if 'is_public' in item.as_widget %}
-                                <p>Публичная группа: {{ item }}</p>
-                            {% else %}
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form p-l-40 p-r-40 p-t-58" action="{% url 'userapp:editgroup' group_pk=group_pk %}" method="post" enctype="multipart/form-data">
+                    <span class="login100-form-title">FamilySpace</span>
+                    <div class="btn mainpg">
+                        <button class="login100-form-btn creategroup-btn" type="button"><a href="{% url 'chatapp:chatpage' group_pk=group_pk %}" class="txt4">Назад</a></button>
+                        <p class="txt3 creategroup-p">Редактирование группы:</p>
+                        <input class="login100-form-btn creategroup-btn" type="submit" value="OK">
+                    </div>
+                    {% csrf_token %}
+                    {% for item in group_form %}
+                        {% if 'is_public' in item.as_widget %}
+                            <p class="txt3 publickcheckbox">Публичная группа:</p>{{ item }}
+                        {% elif 'description' in item.as_widget %}
+                            <div class="wrap-input100 validate-input m-b-16 m-t-26">
                                 {{ item }}
-                            {% endif %}
-                        {% endfor %}
-
-                    </form>
-                </div>
-
-
+                            </div>
+                        {% else %}
+                            <div class="wrap-input100 validate-input m-b-16 m-t-26">
+                                {{ item }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </form>
             </div>
         </div>
     </div>
