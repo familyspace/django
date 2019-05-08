@@ -1,24 +1,29 @@
-{% extends 'authapp/base.html' %}
+{% extends 'authapp/base_new.html' %}
 {% load static %}
 {% load i18n %}
-{% block title %}
-    {% trans "Sign up" %}
-{% endblock title %}
-
-{% block css %}
-    <link href="{% static 'css/authapp.css'%}" rel="stylesheet">
-{% endblock %}
 
 {% block content %}
-
-    <form class="form-signup" action="{% url 'authapp:signup' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <h1 class="h3 mb-3 font-weight-normal">{% trans "Sign up"%}</h1>
-        {{ form.as_p }}
-
-        <button class="btn btn-lg btn-primary btn-block" type="submit">{% trans "Sign up" %}</button>
-        <a class="text-right" href="{% url 'authapp:signin' %}">{% trans "Sign In" %}</a>
-        <p class="mt-5 mb-3 text-muted">&copy FamilySpace 2019</p>
-    </form>
-
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form p-l-40 p-r-40 p-t-78" action="{% url 'authapp:signup' %}" method="post" enctype="multipart/form-data">
+                    <span class="login100-form-title">FamilySpace</span>
+                    {% csrf_token %}
+                    {% for i in form %}
+                        <div class="wrap-input100 validate-input m-b-16 m-t-26">
+                            {{ i }}
+                            <span class="focus-input100"></span>
+                        </div>
+                    {% endfor %}
+                    <div class="container-login100-form-btn">
+                        <button type="submit" class="login100-form-btn">{% trans "Sign up" %}</button>
+                    </div>
+                    <div class="flex-col-c p-t-10 p-b-30">
+                        <span class="txt1 p-b-9">или</span>
+                        <a href="{% url 'authapp:signin' %}" class="txt3">{% trans "Sign In" %}</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

@@ -164,19 +164,28 @@ body {
     position: relative;
 }
 
-.hide-menu {
+#drop-menu {
+    float: right !important;
+    margin-right: 15px !important;
+}
+#fordropdownmenu {
+    float: left !important;
+    margin-left: 15px !important;
+}
 
+.hide-menu {
+    border-radius: 10px;
     width: 40%;
-    /*height: 100%;*/
-    background: #b9fffd;
+    background: #95d4ff;
     display: none;
     flex-flow: column;
-    /*justify-content: center;*/
     text-align: center;
     align-items: center;
     z-index: 1100;
     position: absolute;
-    top: 13%;
+    top: 17%;
+    left: 40%;
+
 
 }
 

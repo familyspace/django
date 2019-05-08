@@ -1,23 +1,41 @@
-{% extends 'authapp/base.html' %}
+{% extends 'authapp/base_new.html' %}
 {% load static %}
 {% load i18n %}
-{% block title %}
-    {% trans "Edit profile" %}
-{% endblock title %}
-
-{% block css %}
-    <link href="{% static 'css/authapp.css' %}" rel="stylesheet">
-{% endblock %}
 
 {% block content %}
-
-    <form class="form-signup" action="{% url 'authapp:edit' user.pk %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <h1 class="h3 mb-3 font-weight-normal">{% trans "Edit profile" %}</h1>
-        {{ user_form.as_p }}
-        {{ userprofile_form.as_p }}
-        <button class="btn btn-lg btn-primary btn-block" type="submit">{% trans "Save" %}</button>
-        <p class="mt-5 mb-3 text-muted">&copy FamilySpace 2019</p>
-    </form>
-
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form p-l-40 p-r-40 p-t-78" action="{% url 'authapp:edit' user.pk %}" method="post" enctype="multipart/form-data">
+                    <div class="container-login100-form">
+                        <span class="login100-form-title">FamilySpace</span>
+                    </div>
+                    <div class="container-login100-form m-b-19">
+                        <span class="login100-form-main m-b-16">Мой профиль</span>
+                    </div>
+                    {% for i in user_form %}
+                        <div class="wrap-input100 validate-input m-b-16 m-t-46">
+                            {{ i }}
+                            <span class="focus-input100"></span>
+                        </div>
+                    {% endfor %}
+                    {% for i in userprofile_form %}
+                        <div class="birth-input m-b-16 m-t-16">
+                            {{ i }}
+                            <span class="focus-input100"></span>
+                        </div>
+                    {% endfor %}
+                    <div class="container-login100-form-btn p-t-5 m-b-16">
+                        <button type="submit" class="login100-form-btn">{% trans "Save" %}</button>
+                    </div>
+                    <div class="container-login100-form-btn p-t-5 m-b-16">
+                        <button type="submit" class="login100-form-btn">
+                            <a href="{% url 'userapp:usergroups' %}" class="txt3">{% trans "Отмена" %}</a>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
+

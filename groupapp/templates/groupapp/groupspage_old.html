@@ -1,0 +1,31 @@
+{% extends "userapp/base.html" %}
+{% load static %}
+{% block body %}
+
+        <div class="flex-container-two" id="shop">
+
+            <div class="flex-block-wrapper-3">
+                <div class="btn mainpg">
+                        <p id="p-purchase">Ваши группы:</p>
+                        <button class="btn-search" id="drop-menu" type="button"><a href="#">Меню</a></button>
+                </div>
+                <div class="hide-menu">
+                    <ul>
+                        <li><a href="{% url 'userapp:creategroups' %}">Создать группу</a></li>
+                        <li><a href="{% url 'userapp:groupsearch' %}">Поиск групп</a></li>
+                        <li><a href="{% url 'userapp:usercontacts' %}">Мои контакты</a></li>
+                        <li><a href="{% url 'userapp:usersearch' %}">Поиск контактов</a></li>
+                        <li><a href="{% url 'authapp:edit' user.pk %}">Профиль</a></li>
+                        <li><a href="{% url 'authapp:signout' %}">Выйти</a></li>
+                    </ul>
+                </div>
+
+                {% for group in groups %}
+                    <div class="btn mainpg">
+                        <button class="btn-group" type="button"><a href="{% url 'chatapp:chatpage' group_pk=group.pk %}">{{ group.title }}</a></button>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+{% endblock %}
