@@ -154,6 +154,9 @@ iframe {
           /*#57b846;*/
   line-height: 1.4;
   text-transform: uppercase;
+  /* мои правки в следующих строчках */
+  width: 240px;
+  margin: auto;
 }
 
 .txt4 {

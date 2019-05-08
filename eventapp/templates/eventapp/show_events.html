@@ -1,21 +1,39 @@
-{% extends "userapp/base.html" %}
+{% extends "userapp/base_new.html" %}
 {% load static %}
 {% block body %}
-    <div class="flex-container-two" id="shop">
-        <div class="flex-block-wrapper-3">
-            <div class="btn mainpg">
-                <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'chatapp:chatpage' group_pk=group_pk %}">Назад</a></button>
-                <p id="p-purchase">События группы:</p>
-                <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'eventapp:archived_events' group_pk=group_pk %}">Архив</a></button>
-                <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'eventapp:create_event' group_pk=group_pk %}">Добавить</a></button>
-            </div>
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <form class="login100-form validate-form p-l-40 p-r-40 p-t-78">
+
+                <span class="login100-form-title">FamilySpace</span>
+                <div class="container-login100-form m-b-43">
+                    <span class="login100-form-main m-b-16">
+                        <p class="txt3" id="fordropdownmenu">События группы</p>
+
+                        <a href="{% url 'chatapp:chatpage' group_pk=group_pk %}" class="txt3" id="">Назад</a>
+
+
+                        <a href="{% url 'eventapp:archived_events' group_pk=group_pk %}" class="txt3">Архив</a>
+
+
+                        <a href="{% url 'eventapp:create_event' group_pk=group_pk %}" class="txt3">Добавить</a>
+
+                    </span>
+
+                </div>
+
+
             {% for item in events %}
-                <div class="btn mainpg">
-                    <button class="btn-group" type="button">
-                        <a href="{% url 'eventapp:read_event' event_pk=item.pk group_pk=group_pk %}">{{ item.title }}</a>
+                <div class="container-login100-form-btn  m-b-16">
+                    <button class="login100-form-btn">
+                        <a href="{% url 'eventapp:read_event' event_pk=item.pk group_pk=group_pk %}" class="txt3">{{ item.title }}</a>
                     </button>
                 </div>
             {% endfor %}
+
+            </form>
         </div>
     </div>
+</div>
 {% endblock %}
