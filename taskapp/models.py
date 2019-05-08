@@ -17,5 +17,9 @@ class Task(models.Model):
     done = models.BooleanField(default=False,
                                verbose_name='Задача выполнена')
 
+    description = models.CharField(max_length=255,
+                               verbose_name='Коментарий к покупке',
+                               blank=True)
+
     def __str__(self):
         return self.title
