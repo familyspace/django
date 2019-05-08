@@ -6,32 +6,42 @@
         <div class="wrap-login100">
             <form class="login100-form validate-form p-l-40 p-r-40 p-t-78">
 
-                <span class="login100-form-title">FamilySpace</span>
-                <div class="container-login100-form m-b-43">
+                <span class="login100-form-title">FamilySpace
+                </span>
+                                <div class="container-login100-form m-b-43">
                     <span class="login100-form-main m-b-16">
-                        <p class="txt3" id="fordropdownmenu">События группы</p>
-
-                        <a href="{% url 'chatapp:chatpage' group_pk=group_pk %}" class="txt3" id="">Назад</a>
-
-
-                        <a href="{% url 'eventapp:archived_events' group_pk=group_pk %}" class="txt3">Архив</a>
-
-
-                        <a href="{% url 'eventapp:create_event' group_pk=group_pk %}" class="txt3">Добавить</a>
-
+                        <p class="txt3">События группы</p>
                     </span>
+                </div>
+
+                <div class="container-login100-form m-b-43">
+
+<button class="login100-form-btn">
+                        <a href="{% url 'chatapp:chatpage' group_pk=group_pk %}" class="txt3" id="">Назад</a>
+</button>
+
+<button class="login100-form-btn">
+                        <a href="{% url 'eventapp:archived_events' group_pk=group_pk %}" class="txt3">Архив</a>
+</button>
+<button class="login100-form-btn">
+                        <a href="{% url 'eventapp:create_event' group_pk=group_pk %}" class="txt3">Добавить</a>
+</button>
 
                 </div>
 
 
+
+                 <div class="container-login100-form m-b-43">
+
             {% for item in events %}
-                <div class="container-login100-form-btn  m-b-16">
+
                     <button class="login100-form-btn">
                         <a href="{% url 'eventapp:read_event' event_pk=item.pk group_pk=group_pk %}" class="txt3">{{ item.title }}</a>
                     </button>
-                </div>
-            {% endfor %}
 
+    {% endfor %}
+
+                 </div>
             </form>
         </div>
     </div>
