@@ -19,7 +19,7 @@ class NewTaskForm(forms.ModelForm):
 class TaskEditForm(forms.ModelForm):
     class Meta:
             model = Task
-            fields = ('title', 'user', 'done')
+            fields = ('title', 'user', 'description', 'done')
 
     def __init__(self, *args, **kwargs):
         super(TaskEditForm, self).__init__(*args, **kwargs)
