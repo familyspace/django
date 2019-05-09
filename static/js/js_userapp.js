@@ -1,4 +1,4 @@
-const slideMenu = function() {
+const dropMenu = function() {
 
     const navBlock = document.querySelector('#drop-menu');
     let toggleStatus = 0;
@@ -16,6 +16,25 @@ const slideMenu = function() {
     navBlock.addEventListener('click', () => toggleMenu());
 
 };
+
+// const dropInfo = function() {
+//
+//     const navBlock = document.querySelector('#drop-info');
+//     let toggleStatus = 0;
+//
+//     const toggleMenu = function() {
+//         if (toggleStatus === 1) {
+//             document.querySelector('#hide-info').style.display = 'none';
+//             toggleStatus = 0;
+//         } else if (toggleStatus === 0) {
+//             document.querySelector('#hide-info').style.display = 'block';
+//             toggleStatus = 1;
+//         }
+//     }
+//
+//     navBlock.addEventListener('click', () => toggleMenu());
+//
+// };
 
 $(document).ready(function(){
     $('.taskcheckbox').on('change', function (event) {
@@ -39,5 +58,6 @@ $(document).ready(function(){
 
 
 window.onload = function() {
-    slideMenu();
+    dropMenu();
+    dropInfo();
 };

@@ -1,39 +1,37 @@
-{% extends "userapp/base.html" %}
+{% extends "userapp/base_new.html" %}
 {% load static %}
 {% block body %}
-
-        <div class="flex-container-two" id="shop">
-
-            <div class="flex-block-wrapper-3">
-                <div class="btn mainpg">
-                    <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'chatapp:chatpage' group_pk=group_pk %}">Назад</a></button>
-                    <p id="p-purchase">Участники группы:</p>
-                    <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'groupapp:invite' group_pk=group_pk %}">Добавить</a></button>
-
-                </div>
-                <div class="hide-div" id="hide-groups">
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form p-l-30 p-r-30 p-t-58">
+                    <span class="login100-form-title">FamilySpace</span>
+                    <div class="btn mainpg btn-backbutton-contacts">
+                        <button class="login100-form-btn backbutton-search" type="button"><a href="{% url 'chatapp:chatpage' group_pk=group_pk %}" class="txt5">Назад</a></button>
+                        <p class="txt3 creategroup-p">Участники группы:</p>
+                        <button class="login100-form-btn backbutton-add-participant" type="button"><a href="{% url 'groupapp:invite' group_pk=group_pk %}" class="txt5">Добавить</a></button>
+                    </div>
                     {% for item in members %}
-                        <div class="btn mainpg">
-                            <button class="btn-group" type="button">
-                                <a href="#">{{ item.user.username }}</a>
-                            </button>
+                        <div class="container-login100-form-btn  m-b-16">
+                            <div class="participants-button">
+                                <div class="role-username txt3">
+                                    {{ item.user.username }}
+                                </div>
+                                <div class="role-change">
+                                    <a class="txt7" href="{% url 'groupapp:roleedit' group_pk=group_pk participant_pk=item.user.pk %}">
+                                        <span class="sr-nm">{{ item.role }}</span>
+                                        <span class="add">Изменить</span>
+                                    </a>
+                                </div>
+                                <div class="role-takeout">
+                                    <a class="txt7" href="{% url 'groupapp:removefromgroup' group_pk=group_pk friend_pk=item.user.pk %}">Исключить</a>
+                                </div>
 
-                            <button class="btn-search" id="change-role" type="button">
-                                <a href="{% url 'groupapp:removefromgroup' group_pk=group_pk friend_pk=item.user.pk %}">Исключить</a>
-                            </button>
-                            <button class="btn-search" type="button">
-                                <a href="{% url 'groupapp:roleedit' group_pk=group_pk participant_pk=item.user.pk %}">
-                                    <span class="sr-nm">{{ item.role }}</span>&nbsp;
-                                    <span class="add">Изменить</span>
-                                </a>
-                            </button>
+                            </div>
                         </div>
                     {% endfor %}
-                </div>
-
+                </form>
             </div>
-
-
         </div>
-
+    </div>
 {% endblock %}
