@@ -5,39 +5,33 @@
 <div class="limiter">
     <div class="container-login100">
         <div class="wrap-login100">
-            <form class="login100-form validate-form p-l-40 p-r-40 p-t-78">
+            <form class="login100-form validate-form p-l-30 p-r-30 p-t-58">
                 <span class="login100-form-title">FamilySpace</span>
 
-                <div class="container-login100-form m-b-43">
-                    <span class="login100-form-main m-b-16">
-                        <p class="txt3">Детали события</p>
-                    </span>
-                </div>
-<div class="container-login100-form m-b-16">
-<button class="login100-form-btn">
-                        <a href="{% url 'eventapp:show_events' group_pk=event.group.pk %}" class="txt3" id="">Назад</a>
-</button>
-    <button class="login100-form-btn">
-                            {% if is_initiator %}
-                                <a href="{% url 'eventapp:edit_event' event_pk=event.pk group_pk=group_pk %}" class="txt3">Редактировать</a>
-                            {% elif is_participator %}
-                                <a href="{% url 'eventapp:leave_event' event_pk=event.pk group_pk=group_pk %}" class="txt3">Уйти</a>
-                            {% else %}
-                                <a href="{% url 'eventapp:join_event' event_pk=event.pk group_pk=group_pk %}" class="txt3">Участвовать</a>
-                            {% endif %}
-    </button>
+                <div class="btn mainpg btn-backbutton-contacts">
+                        <button class="login100-form-btn backbutton-search" type="button"><a href="{% url 'eventapp:show_events' group_pk=group_pk %}" class="txt5">Назад</a></button>
+                        <p class="txt3 creategroup-p">Детали события:</p>
 
-</div>
-<div class="container-login100-form m-b-16">
+                        <button class="login100-form-btn backbutton-add-participant" type="button">
+                            {% if is_initiator %}
+                                <a href="{% url 'eventapp:edit_event' event_pk=event.pk group_pk=group_pk %}" class="txt5">Изменить</a>
+                            {% elif is_participator %}
+                                <a href="{% url 'eventapp:leave_event' event_pk=event.pk group_pk=group_pk %}" class="txt5">Уйти</a>
+                            {% else %}
+                                <a href="{% url 'eventapp:join_event' event_pk=event.pk group_pk=group_pk %}" class="txt5">Участвовать</a>
+                            {% endif %}
+                        </button>
+                </div>
+
+        <div class="container-login100-form m-b-16">
                     <p class="txt3">Дата: {{ event.date.date|date:"d.m.Y" }}</p>
                     <p class="txt3">Время: {{ event.date.time }}</p>
                     <p class="txt3">Название: {{ event.title }}</p>
                     <p class="txt3">Описание: {{ event.description }}</p>
-</div>
+        </div>
                 <div class="container-login100-form m-b-16">
                 <p class="txt3">Участники:</p>
                 </div>
-
 
                     {% for item in eventusers %}
                         <div class="container-login100-form-btn  m-b-16">
