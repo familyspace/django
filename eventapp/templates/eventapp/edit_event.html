@@ -1,19 +1,26 @@
-{% extends "userapp/base.html" %}
+{% extends "userapp/base_new.html" %}
 {% load static %}
 {% block body %}
-    <div class="flex-container-two" id="shop">
-        <div class="flex-block-wrapper-3">
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <form class="login100-form validate-form p-l-30 p-r-30 p-t-58">
+                <span class="login100-form-title">FamilySpace</span>
+            </form>
+
             <div class="btn">
                 <form class="" action="{% url 'eventapp:edit_event' event_pk=event_pk group_pk=group_pk %}" method="post">
                     <div class="btn mainpg">
-                        <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'eventapp:read_event' event_pk=event_pk group_pk=group_pk %}">Назад</a></button>
-                        <p id="p-purchase">Редактирование события: </p>
-                        <input class="btn-search" id="btn-add-purchase" type="submit" value="OK">
+                        <button class="login100-form-btn backbutton-search" type="button"><a href="{% url 'eventapp:read_event' event_pk=event_pk group_pk=group_pk %}" class="txt5">Назад</a></button>
+                        <p class="txt3">Редактировать событие</p>
+                        <input class="login100-form-btn backbutton-search" type="submit" value="OK">
                     </div>
                         {% include 'eventapp/inc/inc_event_form.html' %}
                 </form>
             </div>
             <div>{{ message }}</div>
+            <!--</form>-->
         </div>
     </div>
+</div>
 {% endblock %}

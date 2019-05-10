@@ -17,11 +17,11 @@ class EventForm(forms.Form):
 
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'logo-input'
-        self.fields['hour'].widget.attrs['class'] = 'form-control'
-        self.fields['minute'].widget.attrs['class'] = 'form-control'
-        self.fields['day'].widget.attrs['class'] = 'form-control'
-        self.fields['month'].widget.attrs['class'] = 'form-control'
-        self.fields['year'].widget.attrs['class'] = 'form-control'
+        self.fields['hour'].widget.attrs['class'] = ''
+        self.fields['minute'].widget.attrs['class'] = ''
+        self.fields['day'].widget.attrs['class'] = ''
+        self.fields['month'].widget.attrs['class'] = ''
+        self.fields['year'].widget.attrs['class'] = ''
         self.fields['description'].widget.attrs['style'] = "height:120px"
 
 

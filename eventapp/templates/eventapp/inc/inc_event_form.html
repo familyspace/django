@@ -1,21 +1,21 @@
                         {% csrf_token %}
                         <div class="event_line">
-                            <p>Название</p>
+                            <p class="txt5">Название</p>
                             {{ event_form.title }}</div>
                         <div class="event_text">
-                            <p>Подробное описание</p>
+                            <p class="txt5">Подробное описание</p>
                             {{ event_form.description }}</div>
                         <div class="event_line">
-                            <p>Место, адрес:</p>
+                            <p class="txt5">Место, адрес:</p>
                             {{ event_form.location }}
                         </div>
                         <div class="event_line">
-                            <p>Время:</p>
+                            <p class="txt5">Время:</p>
                             {{ event_form.hour }}
                             {{ event_form.minute }}
                         </div>
                         <div class="event_line">
-                            <p>Дата:</p>
+                            <p class="txt5">Дата:</p>
                             {{ event_form.day }}
                             {{ event_form.month }}
                             {{ event_form.year }}
