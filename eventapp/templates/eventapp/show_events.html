@@ -4,29 +4,19 @@
 <div class="limiter">
     <div class="container-login100">
         <div class="wrap-login100">
-            <form class="login100-form validate-form p-l-40 p-r-40 p-t-78">
+            <form class="login100-form validate-form p-l-30 p-r-30 p-t-58">
 
-                <span class="login100-form-title">FamilySpace
-                </span>
-                <div class="container-login100-form m-b-43">
-                    <span class="login100-form-main m-b-16">
-                        <p class="txt3">События группы</p>
-                    </span>
+                <span class="login100-form-title">FamilySpace</span>
+                <div class="btn mainpg btn-backbutton-contacts">
+                        <button class="login100-form-btn backbutton-search" type="button"><a href="{% url 'chatapp:chatpage' group_pk=group_pk %}" class="txt5">Назад</a></button>
+                        <p class="txt3 creategroup-p">События группы:</p>
+                        <button class="login100-form-btn backbutton-add-participant" type="button"><a href="{% url 'eventapp:create_event' group_pk=group_pk %}" class="txt5">Добавить</a></button>
                 </div>
 
                 <div class="container-login100-form m-b-43">
-
-<button class="login100-form-btn">
-                        <a href="{% url 'chatapp:chatpage' group_pk=group_pk %}" class="txt3" id="">Назад</a>
-</button>
-
-<button class="login100-form-btn">
-                        <a href="{% url 'eventapp:archived_events' group_pk=group_pk %}" class="txt3">Архив</a>
-</button>
-<button class="login100-form-btn">
-                        <a href="{% url 'eventapp:create_event' group_pk=group_pk %}" class="txt3">Добавить</a>
-</button>
-
+    <button class="login100-form-btn">
+        <a href="{% url 'eventapp:archived_events' group_pk=group_pk %}" class="txt3">Архив событий</a>
+    </button>
                 </div>
 
                  <div class="container-login100-form m-b-16">
