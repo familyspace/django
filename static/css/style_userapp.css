@@ -77,6 +77,16 @@ body {
     justify-content: left !important;
 }
 
+.btn-backbutton-contacts {
+    justify-content: center !important;
+    margin-bottom: 20px;
+}
+
+.btn-backbutton-partic-add {
+    justify-content: left !important;
+    margin-bottom: 20px;
+}
+
 .btn {
     display: flex;
     width: 100%;
@@ -171,6 +181,7 @@ body {
 #drop-menu {
     float: right !important;
     margin-right: 15px !important;
+    cursor: pointer !important;
 }
 #fordropdownmenu {
     float: left !important;
@@ -189,6 +200,11 @@ body {
     position: absolute;
     top: 17%;
     left: 40%;
+}
+
+.chat-menu {
+    top: 20%;
+    left: 34%;
 }
 
 .hide-menu ul li {
@@ -254,6 +270,10 @@ body {
     background: #88b456;
 }
 
+.del:hover {
+    background: #b42117 !important;
+}
+
 .btn-search a {
     text-decoration: none;
     color: #ffffff;
@@ -274,6 +294,217 @@ body {
 .enroll {
     float: right !important;
 }
+
+.btn-role {
+    /*display: block !important;*/
+    width: 70px !important;
+    font-size: 11px;
+    /*margin: 0 !important;*/
+    /*margin-right: -100px !important;*/
+    float: right !important;
+}
+
+.participants-button {
+    width: 450px;
+    height: 50px;
+    border: none !important;
+    border-radius: 25px !important;
+    background: #052A6E;
+}
+
+.role-username {
+    float: left !important;
+    line-height: 50px;
+    padding-left: 30px;
+    cursor: initial;
+}
+
+.role-takeout {
+    float: right !important;
+    line-height: 50px;
+    padding-right: 5px;
+    padding-left: 5px;
+    cursor: pointer;
+}
+
+.role-change {
+    width: 80px;
+    float: right !important;
+    line-height: 50px;
+    padding-right: 5px;
+    padding-left: 5px;
+    cursor: pointer;
+    border: none;
+    border-top-right-radius: 25px !important;
+    border-bottom-right-radius: 25px !important;
+    text-align: center;
+}
+
+.role-change:hover {
+    background: #56b45a;
+}
+
+.role-change:hover a {
+    color: white;
+}
+
+.role-username:hover {
+    color: white;
+    cursor: default;
+}
+
+.role-takeout:hover a {
+    color: white;
+}
+
+.role-takeout:hover {
+    background: red;
+}
+
+.add {
+    display: none;
+}
+.sr-nm {
+    display: inline;
+}
+
+.role-change:hover .add {
+    display: inline;
+}
+
+.role-change:hover .sr-nm {
+    display: none;
+}
+
+.tasks-div {
+    width: 450px;
+    height: 50px;
+    border: none !important;
+    border-radius: 25px !important;
+    background: #052A6E;
+    z-index: 3000;
+}
+
+.task-done {
+    background: #56b45a;
+}
+
+.tasks-checkbox-div {
+    float: left !important;
+    line-height: 50px;
+    padding-left: 30px;
+    cursor: initial;
+}
+
+.task-title-div {
+    float: right !important;
+    line-height: 50px;
+    padding-right: 15px;
+    padding-left: 15px;
+    cursor: pointer;
+}
+
+.task-del-div {
+    float: left !important;
+    padding: 20px;
+}
+
+.task-description-div {
+    align-items: center !important;
+    padding-top: 5px;
+}
+
+.task-description-p {
+    font-family: Arial;
+}
+
+.task-del-div a {
+    color: #272727 !important;
+}
+
+.task-title-div:hover a {
+    color: white !important;
+}
+
+.task-title-div:hover .add {
+    display: inline;
+}
+
+.task-title-div:hover .sr-nm {
+    display: none;
+}
+
+.task-del-div:hover a {
+    color: white !important;
+    transition: 0s !important;
+}
+
+.task-del-div:hover {
+    background: red;
+    border-bottom-left-radius: 10px;
+}
+
+#id_user {
+    border: none !important;
+    width: 280px !important;
+    padding-top: 5px;
+    overflow-y: visible;
+}
+
+#id_user::-webkit-scrollbar {
+    display: none;
+}
+
+.shop-div {
+    width: 450px;
+    height: 50px;
+    border: none !important;
+    border-radius: 25px !important;
+    background: #052A6E;
+    z-index: 3000;
+}
+
+.shop-price-div {
+    float: right !important;
+    line-height: 50px;
+    padding-right: 15px;
+    padding-left: 15px;
+    color: white;
+}
+
+.shop-checkbox-div {
+    float: left !important;
+    line-height: 50px;
+    padding-left: 30px;
+    cursor: initial;
+}
+
+.shop-title-div {
+    width: 160px;
+    line-height: 50px;
+    padding-right: 15px;
+    cursor: pointer;
+    margin-left: 50px;
+    text-align: center;
+}
+
+.shop-price-div:hover a {
+    color: white;
+    cursor: default;
+}
+
+.shop-title-div:hover a {
+    color: white !important;
+}
+
+.shop-title-div:hover .add {
+    display: inline;
+}
+
+.shop-title-div:hover .sr-nm {
+    display: none;
+}
+
 
 /* MEDIA QUERIES USER PAGE */
 /* DESKTOP */
@@ -579,11 +810,15 @@ body {
     margin: 1% 0 2%;
 }
 
-#id_is_public {
+#id_is_public, #id_done {
     width: 30px;
     height: 20px;
     margin: 0;
 
+}
+
+#id_role {
+    border-radius: 10px !important;
 }
 
 /* CREATEGROUP PAGE*/
@@ -640,14 +875,10 @@ body {
         font-size: 22px;
     }
 
-    #id_done {
-        width: 30px;
-        height: 15px;
-        margin: 0;
-    }
-
-    #id_group, #id_user {
-        width: 249px;
+    #id_group {
+        width: 280px;
+        padding-left: 20px;
+        padding-right: 3px;
 
     }
 
@@ -669,9 +900,10 @@ body {
 
     .messages-box {
         border: 1px solid #ebebeb;
-        height: 80%;
+        height: 300px;
         padding: 1%;
         overflow-y: scroll;
+        background: white;
     }
 
     .chat-messages {
@@ -709,7 +941,9 @@ body {
 
     #id_text {
         margin-bottom: 1%;
-        margin-right: 16px;
+        margin-right: 0;
+        margin-left: 0 !important;
+        float: right;
     }
 
     .chat-input {
@@ -720,6 +954,14 @@ body {
 
     .message-send {
         float: right;
+        border: none;
+        background-color: #052A6E;
+        color: white;
+        cursor: pointer;
+        line-height: 20px;
+        padding: 1% 5%;
+        border-radius: 10px;
+        margin-top: 10px;
     }
 
     /* width */

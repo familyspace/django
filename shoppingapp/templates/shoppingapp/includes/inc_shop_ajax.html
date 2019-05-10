@@ -1,24 +1,49 @@
 {% for item in todo %}
-    <div class="btn mainpg">
-        <input type="checkbox" class="taskcheckbox" name="{{ item.pk }}">
-        <button class="btn-group" type="button">
-            <a href="{% url 'shop:purchasedetails' item_pk=item.pk group_pk=group_pk %}">{{ item.title }} {{ item.price }}р.</a>
-        </button>
+    <div class="container-login100-form-btn  m-b-16">
+        <div class="shop-div">
+            <div class="tasks-checkbox-div txt3">
+                <input type="checkbox" class="taskcheckbox" name="{{ item.pk }}">
+            </div>
+            <div class="shop-price-div">
+                <a class="txt7" href="">{{ item.price }} руб.</a>
+            </div>
+            <div class="shop-title-div">
+                <a class="txt7" href="{% url 'shop:purchasedetails' item_pk=item.pk group_pk=group_pk %}">
+                    <span class="sr-nm">{{ item.title }}</span>
+                    <span class="add">Редактировать</span>
+                </a>
+            </div>
+        </div>
+        <div class="search-group-drop-info" id="hide-info">
+            <div class="task-del-div">
+                <a class="txt7" href="{% url 'shop:purchaseremove' item_pk=item.pk group_pk=group_pk %}">Удалить</a>
+            </div>
+            <div class="task-description-div">Комментарий:
+                <p class="task-description-p">{{ item.comment }}</p>
+            </div>
+        </div>
     </div>
-    <button class="btn-search" id="remove-purchase" type="button">
-        <a href="{% url 'shop:purchaseremove' item_pk=item.pk group_pk=group_pk %}">Удалить</a>
-    </button>
-    <p>Комментарий: {{ item.comment }}</p>
 {% endfor %}
 {% for item in done %}
-    <div class="btn mainpg">
-        <input type="checkbox" class="taskcheckbox" name="{{ item.pk }}" checked>
-        <button class="btn-group buy-done" type="button">
-            <a href="{% url 'shop:purchasedetails' item_pk=item.pk group_pk=group_pk %}">{{ item.title }}</a>
-        </button>
+    <div class="container-login100-form-btn  m-b-16">
+        <div class="tasks-div task-done">
+            <div class="tasks-checkbox-div txt3">
+                <input type="checkbox" class="taskcheckbox" name="{{ item.pk }}" checked>
+            </div>
+            <div class="task-title-div">
+                <a class="txt7" href="{% url 'shop:purchasedetails' item_pk=item.pk group_pk=group_pk %}">
+                    <span class="sr-nm">{{ item.title }}</span>
+                    <span class="add">Редактировать</span>
+                </a>
+            </div>
+        </div>
+        <div class="search-group-drop-info" id="hide-info">
+            <div class="task-del-div">
+                <a class="txt7" href="{% url 'shop:purchaseremove' item_pk=item.pk group_pk=group_pk %}">Удалить</a>
+            </div>
+            <div class="task-description-div">Комментарий:
+                <p class="task-description-p">{{ item.comment }}</p>
+            </div>
+        </div>
     </div>
-    <button class="btn-search" id="remove-purchase" type="button">
-        <a href="{% url 'shop:purchaseremove' item_pk=item.pk group_pk=group_pk %}">Удалить</a>
-    </button>
-    <p>Комментарий: {{ item.comment }}</p>
 {% endfor %}
