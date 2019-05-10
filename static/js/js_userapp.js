@@ -38,7 +38,6 @@ const dropMenu = function() {
 
 $(document).ready(function(){
     $('.taskcheckbox').on('change', function (event) {
-        console.log('Привет');
         var target_href = event.target;
         if (target_href) {
             $.ajax({

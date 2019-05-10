@@ -12,7 +12,7 @@ class NewTaskForm(forms.ModelForm):
         self.fields['description'].widget.attrs['placeholder'] = "Комментарий"
 
         for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'logo-input'
+            self.fields[field].widget.attrs['class'] = 'input100'
             self.fields[field].label = ""
 
 
@@ -27,5 +27,5 @@ class TaskEditForm(forms.ModelForm):
         self.fields['description'].widget.attrs['placeholder'] = "Комментарий"
 
         for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'logo-input'
+            self.fields[field].widget.attrs['class'] = 'input100'
             self.fields[field].label = ""

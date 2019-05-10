@@ -1,21 +1,28 @@
-{% extends "userapp/base.html" %}
+{% extends "userapp/base_new.html" %}
 {% load static %}
 {% block body %}
-    <div class="flex-container-two" id="shop">
-        <div class="flex-block-wrapper-3" id="fbw3-div">
-            <div class="btn">
-                <form class="creategroup-form" action="{% url 'taskapp:taskedit' task_pk=task_pk group_pk=group_pk %}" method="post">
-                    {% csrf_token %}
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form p-l-40 p-r-40 p-t-58" action="{% url 'taskapp:taskedit' task_pk=task_pk group_pk=group_pk %}" method="post" enctype="multipart/form-data">
+                    <span class="login100-form-title">FamilySpace</span>
                     <div class="btn mainpg">
-                        <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'taskapp:taskslist' group_pk=group_pk %}">Назад</a></button>
-                        <p id="p-purchase">Редактирование:</p>
-                        <input class="btn-search" id="btn-add-purchase" type="submit" value="OK">
+                        <button class="login100-form-btn creategroup-btn" type="button"><a href="{% url 'taskapp:taskslist' group_pk=group_pk %}" class="txt4">Назад</a></button>
+                        <p class="txt3 creategroup-p">Редактирование:</p>
+                        <input class="login100-form-btn creategroup-btn" type="submit" value="OK">
                     </div>
+                    {% csrf_token %}
                     {% for item in taskedit_form %}
-                        {% if 'done' in item.as_widget %}
-                            <p id="purchase-done">Задача выполнена: {{ item }}</p>
+                        {% if 'description' in item.as_widget %}
+                            <div class="wrap-input100 validate-input m-b-16 m-t-26">
+                                <textarea name="description" cols="40" rows="10" placeholder="Описание задачи" class="input100" id="id_description"></textarea>
+                            </div>
+                        {% elif 'done' in item.as_widget %}
+                            <p class="txt3 publickcheckbox">Задача выполнена:</p>{{ item }}
                         {% else %}
-                            {{ item }}
+                            <div class="wrap-input100 validate-input m-b-16 m-t-26">
+                                {{ item }}
+                            </div>
                         {% endif %}
                     {% endfor %}
                 </form>
