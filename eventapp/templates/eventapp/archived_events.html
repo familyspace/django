@@ -1,28 +1,28 @@
-{% extends "userapp/base.html" %}
+{% extends "userapp/base_new.html" %}
 {% load static %}
 {% block body %}
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <form class="login100-form validate-form p-l-30 p-r-30 p-t-58">
 
-        <div class="flex-container-two" id="shop">
+                <span class="login100-form-title">FamilySpace</span>
+                <div class="btn mainpg btn-backbutton-contacts">
+                        <button class="login100-form-btn backbutton-search" type="button"><a href="{% url 'eventapp:show_events' group_pk=group_pk %}" class="txt5">Назад</a></button>
+                        <p class="txt3 creategroup-p">Архив событий:</p>
+                </div>
 
-            <div class="flex-block-wrapper-3">
-                <div class="btn mainpg">
-                    <button class="btn-search" id="btn-add-purchase" type="button">
-                        <a href="{% url 'eventapp:show_events' group_pk=group_pk %}">Назад</a>
+                <div class="container-login100-form m-b-16">
+            {% for item in events %}
+                    <button class="login100-form-btn">
+                        <a href="{% url 'eventapp:read_archived_event' event_pk=item.pk group_pk=group_pk %}" class="txt3">{{ item.title }} {{ item.date|date:'d-m-Y'}}</a>
                     </button>
-                    <p id="p-purchase">Архив событий:</p>
-                </div>
-                <div class="hide-div" id="hide-groups">
-                    {% for item in events %}
-                        <div class="btn mainpg">
-                            <button class="btn-group" type="button">
-                                <a href="{% url 'eventapp:read_archived_event' event_pk=item.pk group_pk=group_pk %}">{{ item.title}} {{ item.date|date:'d-m-Y'}}</a>
-                            </button>
-                        </div>
-                    {% endfor %}
-
-                </div>
-            </div>
-
+    {% endfor %}
+                 </div>
+            </form>
         </div>
+    </div>
+
+</div>
 
 {% endblock %}
