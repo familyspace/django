@@ -1,35 +1,41 @@
-{% extends "userapp/base.html" %}
+{% extends "userapp/base_new.html" %}
 {% load static %}
 {% block body %}
-    <div class="flex-container-two" id="shop">
-        <div class="flex-block-wrapper-3">
-            <div class="btn mainpg">
-                <button class="btn-search" id="btn-add-purchase" type="button">
-                    <a href="{% url 'eventapp:archived_events' group_pk=event.group.pk %}">Назад</a>
-                </button>
-                <p id="p-purchase">Детали события архива: </p>
-                <button class="btn-search" id="btn-add-purchase" type="button">
-                    <a href="{% url 'eventapp:copy_event' event_pk=event.pk group_pk=group_pk %}">Дублировать</a>
-                </button>
-            </div>
-            <div class="hide-div" id="hide-groups">
-                <p>Дата: {{ event.date.date|date:"d.m.Y" }}</p>
-                <p>Время: {{ event.date.time }}</p>
-                <p>Название: {{ event.title }}</p>
-                <p>Описание: {{ event.description }}</p>
-                {% for item in eventusers %}
-                    <div class="btn mainpg">
-                        <button class="btn-group" type="button">
-                                <a href="">Роль:
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form p-l-30 p-r-30 p-t-58">
+                    <span class="login100-form-title">FamilySpace</span>
+                    <div class="btn mainpg btn-backbutton-contacts">
+                        <button class="login100-form-btn backbutton-search" type="button">
+                            <a href="{% url 'eventapp:archived_events' group_pk=group_pk %}" class="txt5">Назад</a>
+                        </button>
+                        <p class="txt3 creategroup-p">Архивное событие:</p>
+                        <button class="login100-form-btn backbutton-add-participant" type="button">
+                            <a href="{% url 'eventapp:copy_event' event_pk=event.pk group_pk=group_pk %}" class="txt5">Копия</a>
+                        </button>
+                    </div>
+                    <p class="txt3">Дата: {{ event.date.date|date:"d.m.Y" }}</p>
+                    <p class="txt3">Время: {{ event.date.time }}</p>
+                    <p class="txt3">Название: {{ event.title }}</p>
+                    <p class="txt3">Описание: {{ event.description }}</p>
+                    <div class="btn mainpg btn-backbutton-contacts">
+                        <p class="txt3">Участники:</p>
+                    </div>
+                    {% for item in eventusers %}
+                        <div class="container-login100-form m-b-16">
+                            <button class="login100-form-btn">
+                                <a href="" class="txt3">
                                     {% if item.user  == request.user %}
                                             Вы
                                     {% else %}
                                         {{ item.user.username }}
                                     {% endif %}
                                 </a>
-                        </button>
-                    </div>
-                {% endfor %}
+                            </button>
+                        </div>
+                    {% endfor %}
+                </form>
             </div>
         </div>
     </div>

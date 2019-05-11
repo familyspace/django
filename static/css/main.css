@@ -479,6 +479,16 @@ iframe {
   height: 100%;
 }
 
+#id_comment {
+  padding-top: 15px;
+  height: 100%;
+}
+
+#id_comment::-webkit-input-placeholder {
+  /*padding-top: 15px;*/
+  color: rgba(67, 105, 196, 0.77);
+}
+
 .login100-form-btn:hover {
   background-color: #1047A9;
 }

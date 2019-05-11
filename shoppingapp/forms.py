@@ -18,6 +18,8 @@ class PurchaseCreationForm(forms.ModelForm):
 
 
 class PurchaseEditForm(forms.ModelForm):
+    comment = forms.CharField(widget=forms.Textarea(attrs={'rows': 10, 'cols': 40}))
+
     class Meta:
             model = ShopingItem
             fields = ('title', 'group', 'user', 'price', 'done', 'comment')

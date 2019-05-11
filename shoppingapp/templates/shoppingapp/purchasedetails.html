@@ -17,7 +17,7 @@
                             <p class="txt3 publickcheckbox">Покупка совершена:</p>{{ item }}
                         {% elif 'comment' in item.as_widget %}
                             <div class="wrap-input100 validate-input m-b-16 m-t-26">
-                                <textarea name="comment" cols="40" rows="10" placeholder="Комментарий" class="input100" id="id_description"></textarea>
+                                {{ item }}
                             </div>
                         {% else %}
                             <div class="wrap-input100 validate-input m-b-16 m-t-26">

@@ -17,6 +17,8 @@ class NewTaskForm(forms.ModelForm):
 
 
 class TaskEditForm(forms.ModelForm):
+    description = forms.CharField(widget=forms.Textarea(attrs={'rows': 10, 'cols': 40}))
+
     class Meta:
             model = Task
             fields = ('title', 'user', 'description', 'done')

@@ -14,9 +14,14 @@ class EventForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(EventForm, self).__init__(*args, **kwargs)
+        self.fields['title'].widget.attrs['placeholder'] = "Событие"
+        self.fields['description'].widget.attrs['placeholder'] = "Описание"
+        self.fields['location'].widget.attrs['placeholder'] = "Место действия"
 
         for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'logo-input'
+            self.fields[field].widget.attrs['class'] = 'input100'
+            self.fields[field].label = ""
+
         self.fields['hour'].widget.attrs['class'] = 'form-control'
         self.fields['minute'].widget.attrs['class'] = 'form-control'
         self.fields['day'].widget.attrs['class'] = 'form-control'

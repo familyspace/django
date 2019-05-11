@@ -234,6 +234,7 @@ body {
 }
 
 .search-input {
+    width: 200px !important;
     border-radius: 10px;
     padding: 1%;
     margin-top: 5px;
@@ -505,6 +506,38 @@ body {
     display: none;
 }
 
+#id_minute {
+    border-radius: 25px !important;
+    margin: 2% 0;
+}
+
+#id_hour {
+    border-radius: 25px;
+    margin: 2% 0;
+}
+
+#id_day {
+    border-radius: 25px;
+    margin: 2% 0;
+}
+
+#id_month {
+    border-radius: 25px;
+    margin: 2% 0;
+}
+
+#id_year {
+    border-radius: 25px;
+    margin: 2% 0 8%;
+}
+
+.arch-event-btn:hover a {
+    color: white;
+}
+
+.arch-event-btn:hover {
+    cursor: pointer;
+}
 
 /* MEDIA QUERIES USER PAGE */
 /* DESKTOP */
