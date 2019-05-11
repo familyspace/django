@@ -38,10 +38,30 @@ def show_events(request, group_pk):
             for member in item_users:
                 member.role = 'PRT'
                 member.save()
-    events = my_group.events.filter(status='ACT')
+    events = my_group.events.filter(status='ACT').order_by('date')
+
+    events_day = []
+    events_day.append(events[0])
+
+    box_one = 0
+    while box_one < len(events):
+
+        for i in events:
+            box_one = box_one + 1
+            box_two = 0
+            for k in events_day:
+                if i.date.day == k.date.day and i.date.month == k.date.month and i.date.year == k.date.year:
+                    box_two = box_two + 1
+            if box_two < 1:
+                events_day.append(i)
+
+    test = set(events_day)
+    print(test)
+
     content = {
         'events': events,
         'group_pk': group_pk,
+        'events_day': events_day
     }
     return render(request, 'eventapp/show_events.html', content)
 

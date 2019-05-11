@@ -22,24 +22,23 @@
                     {% for item in search %}
                         <div class="container-login100-form-btn  m-b-16">
                             <button class="login100-form-btn" type="button">
-                                <a class="txt3" href="{% url 'groupapp:view_one_group' item.pk %}">{{ item.title }}</a>
+                                <a class="txt3" href="#">{{ item.title }}</a>
                             </button>
                             <div class="search-group-drop-info">
                                 <p class="search-group-description description-titile">Описание группы:</p>
                                 <p class="search-group-description">{{ item.description }}</p>
                                 {% if user in item.get_users %}
-                                    <button class="btn-search enroll" type="button">
-                                        <a href="{% url 'userapp:removeuser' item.pk %}">
+                                    <button class="btn-search enroll del" type="button">
+                                        <a href="{% url 'userapp:removeuser' group_pk=item.pk %}" class="txt7">
                                             <span class="sr-nm">Вы в группе</span>&nbsp;
                                             <span class="add">Выйти из группы</span>
                                         </a>
                                     </button>
                                 {% else %}
-                                    <button class="btn-search" type="button"><a href="{% url 'userapp:adduser' item.pk %}">Вступить</a></button>
+                                    <button class="btn-search enroll" type="button"><a href="{% url 'userapp:adduser' group_pk=item.pk %}" class="txt7">Вступить</a></button>
                                 {% endif %}
                             </div>
                         </div>
-
                     {% endfor %}
                 </form>
             </div>

@@ -1,24 +1,46 @@
 {% for item in todo %}
-    <div class="btn mainpg">
-        <input type="checkbox" class="taskcheckbox" name="{{ item.pk }}">
-        <button class="btn-group" type="button">
-            <a href="{% url 'taskapp:taskedit' task_pk=item.pk group_pk=group_pk %}">{{ item.title }}</a>
-        </button>
+    <div class="container-login100-form-btn  m-b-16">
+        <div class="tasks-div">
+            <div class="tasks-checkbox-div txt3">
+                <input type="checkbox" class="taskcheckbox" name="{{ item.pk }}">
+            </div>
+            <div class="task-title-div">
+                <a class="txt7" href="{% url 'taskapp:taskedit' task_pk=item.pk group_pk=group_pk %}">
+                    <span class="sr-nm">{{ item.title }}</span>
+                    <span class="add">Редактировать</span>
+                </a>
+            </div>
+        </div>
+        <div class="search-group-drop-info" id="hide-info">
+            <div class="task-del-div">
+                <a class="txt7" href="{% url 'taskapp:taskremove' task_pk=item.pk group_pk=group_pk %}">Удалить</a>
+            </div>
+            <div class="task-description-div">Описание:
+                <p class="task-description-p">{{ item.description }}</p>
+            </div>
+        </div>
     </div>
-    <button class="btn-search" id="change-role" type="button">
-        <a href="{% url 'taskapp:taskremove' task_pk=item.pk group_pk=group_pk %}">Удалить задачу</a>
-    </button>
-    <p>Описание: {{ item.description }}</p>
 {% endfor %}
 {% for item in done %}
-    <div class="btn mainpg">
-    <input type="checkbox" class="taskcheckbox" name="{{ item.pk }}" checked>
-        <button class="btn-group buy-done" type="button">
-            <a href="{% url 'taskapp:taskedit' task_pk=item.pk group_pk=group_pk %}">{{ item.title }}</a>
-        </button>
+    <div class="container-login100-form-btn  m-b-16">
+        <div class="tasks-div task-done">
+            <div class="tasks-checkbox-div txt3">
+                <input type="checkbox" class="taskcheckbox" name="{{ item.pk }}" checked>
+            </div>
+            <div class="task-title-div">
+                <a class="txt7" href="{% url 'taskapp:taskedit' task_pk=item.pk group_pk=group_pk %}">
+                    <span class="sr-nm">{{ item.title }}</span>
+                    <span class="add">Редактировать</span>
+                </a>
+            </div>
+        </div>
+        <div class="search-group-drop-info" id="hide-info">
+            <div class="task-del-div">
+                <a class="txt7" href="{% url 'taskapp:taskremove' task_pk=item.pk group_pk=group_pk %}">Удалить</a>
+            </div>
+            <div class="task-description-div">Описание:
+                <p class="task-description-p">{{ item.description }}</p>
+            </div>
+        </div>
     </div>
-    <button class="btn-search" id="change-role" type="button">
-        <a href="{% url 'taskapp:taskremove' task_pk=item.pk group_pk=group_pk %}">Удалить задачу</a>
-    </button>
-    <p>Описание: {{ item.description }}</p>
 {% endfor %}

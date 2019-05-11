@@ -1,46 +1,45 @@
-{% extends "userapp/base.html" %}
+{% extends "userapp/base_new.html" %}
 {% load static %}
 {% block body %}
-    <div class="flex-container-two" id="shop">
-        <div class="flex-block-wrapper-3" id="fbw3-div">
-            <div class="btn mainpg">
-                <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'userapp:usergroups' %}">Назад</a></button>
-                <p id="p-purchase">Чат:</p>
-                <button class="btn-search" id="drop-menu" type="button"><a href="#">Меню</a></button>
-            </div>
-            <div class="hide-menu">
-                <ul>
-                    <li><a href="{% url 'groupapp:view_one_group' group_pk=group_pk %}">Участники</a></li>
-                    <li><a href="{% url 'shop:shoppinglist' group_pk=group_pk %}">Покупки</a></li>
-                    <li><a href="{% url 'taskapp:taskslist' group_pk=group_pk %}">Задачи</a></li>
-                    <li><a href="{% url 'eventapp:show_events' group_pk=group_pk %}">События</a></li>
-                    <li><a href="{% url 'userapp:editgroup' group_pk=group_pk %}">Редактировать группу</a></li>
-                    <li><a href="{% url 'userapp:removegroup' group_pk=group_pk %}">Удалить группу</a></li>
-                </ul>
-            </div>
-            <div class="message-input">
-                <div class="messages-box">
-                    {% for item in messages %}
-                        {% if item.user == user %}
-                            <div class="chat-messages-logged">
-                                <p class="message-text">{{ item.text }}</p>
-                                <p class="author-date-logged">{{ item.user }} {{ item.date_create }}</p>
-                            </div>
-                        {% else %}
-                            <div class="chat-messages">
-                                <p class="message-text">{{ item.text }}</p>
-                                <p class="author-date">{{ item.user }} {{ item.date_create }}</p>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                <div class="chat-input">
-                    <form action="{% url 'chatapp:chatpage' group_pk=group_pk %}" method="post">
-                        {% csrf_token %}
-                        {{ chatform.as_p }}
-                        <input class="message-send" type="submit" value="Отправить">
-                    </form>
-                </div>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form p-l-10 p-r-10 p-t-58" action="{% url 'chatapp:chatpage' group_pk=group_pk %}" method="post">
+                    <span class="login100-form-title">FamilySpace</span>
+                    <div class="btn mainpg btn-backbutton-contacts">
+                        <button class="login100-form-btn backbutton-search" type="button"><a href="{% url 'userapp:usergroups' %}" class="txt5">Назад</a></button>
+                        <p class="txt3 creategroup-chat">Чат:</p>
+                        <a href="#" class="txt3" id="drop-menu">Меню</a>
+                    </div>
+                    <div class="hide-menu chat-menu">
+                        <ul>
+                            <li><a href="{% url 'groupapp:view_one_group' group_pk=group_pk %}" class="txt3">Участники</a></li>
+                            <li><a href="{% url 'shop:shoppinglist' group_pk=group_pk %}" class="txt3">Покупки</a></li>
+                            <li><a href="{% url 'taskapp:taskslist' group_pk=group_pk %}" class="txt3">Задачи</a></li>
+                            <li><a href="{% url 'eventapp:show_events' group_pk=group_pk %}" class="txt3">События</a></li>
+                            <li><a href="{% url 'userapp:editgroup' group_pk=group_pk %}" class="txt3">Редактировать группу</a></li>
+                            <li><a href="{% url 'userapp:removegroup' group_pk=group_pk %}" class="txt3">Удалить группу</a></li>
+                        </ul>
+                    </div>
+                    <div class="messages-box">
+                        {% for item in messages %}
+                            {% if item.user == user %}
+                                <div class="chat-messages-logged">
+                                    <p class="message-text">{{ item.text }}</p>
+                                    <p class="author-date-logged">{{ item.user }} {{ item.date_create }}</p>
+                                </div>
+                            {% else %}
+                                <div class="chat-messages">
+                                    <p class="message-text">{{ item.text }}</p>
+                                    <p class="author-date">{{ item.user }} {{ item.date_create }}</p>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% csrf_token %}
+                    {{ chatform.as_p }}
+                    <input class="message-send" type="submit" value="Отправить">
+                </form>
             </div>
         </div>
     </div>

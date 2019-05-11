@@ -1,32 +1,35 @@
-{% extends "userapp/base.html" %}
+{% extends "userapp/base_new.html" %}
 {% load static %}
 {% block body %}
-
-
-        <div class="flex-container-two">
-
-            <div class="flex-block-wrapper-3">
-                <div class="btn mainpg">
-                    <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'userapp:usergroups' %}">Главная</a></button>
-                    <p id="p-purchase">Ваши контакты:</p>
-                    <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'userapp:usersearch' %}">Поиск</a></button>
-                </div>
-                <div class="hide-div" id="hide-groups">
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form p-l-40 p-r-40 p-t-58">
+                    <span class="login100-form-title">FamilySpace</span>
+                    <div class="btn mainpg btn-backbutton-contacts">
+                        <button class="login100-form-btn backbutton-search" type="button"><a href="{% url 'userapp:usergroups' %}" class="txt5">Назад</a></button>
+                        <p class="txt3 creategroup-p">Ваши контакты:</p>
+                        <button class="login100-form-btn backbutton-search" type="button"><a href="{% url 'userapp:usersearch' %}" class="txt5">Поиск</a></button>
+                    </div>
                     {% for item in contacts %}
-
-                        <button class="btn-group" type="button"><a href="#">{{ item.username }}</a></button>
-                        <p>Телефон: {{ item.telephone }}</p>
-                        <p>Почта: {{ item.email }}</p>
-                        <button class="btn-search" type="button">
-                            <a href="{% url 'userapp:removecontact' friend_pk=item.pk %}">
-                                Удалить
-                            </a>
-                        </button>
-
+                        <div class="container-login100-form-btn  m-b-16">
+                            <button class="login100-form-btn" id="drop-info" type="button">
+                                <a class="txt3" href="#">{{ item.username }}</a>
+                            </button>
+                            <div class="search-group-drop-info" id="hide-info">
+                                <p class="search-group-description">Телефон: {{ item.telephone }}</p>
+                                <p class="search-group-description">Почта: {{ item.email }}</p>
+                                <button class="btn-search enroll del" type="button">
+                                    <a href="{% url 'userapp:removecontact' friend_pk=item.pk %}" class="txt7">
+                                        Удалить
+                                    </a>
+                                </button>
+                            </div>
+                        </div>
                     {% endfor %}
-                </div>
+                </form>
             </div>
-
         </div>
-
+    </div>
 {% endblock %}
+

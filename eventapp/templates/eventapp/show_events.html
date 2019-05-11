@@ -1,21 +1,56 @@
-{% extends "userapp/base.html" %}
+{% extends "userapp/base_new.html" %}
 {% load static %}
 {% block body %}
-    <div class="flex-container-two" id="shop">
-        <div class="flex-block-wrapper-3">
-            <div class="btn mainpg">
-                <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'chatapp:chatpage' group_pk=group_pk %}">Назад</a></button>
-                <p id="p-purchase">События группы:</p>
-                <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'eventapp:archived_events' group_pk=group_pk %}">Архив</a></button>
-                <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'eventapp:create_event' group_pk=group_pk %}">Добавить</a></button>
-            </div>
-            {% for item in events %}
-                <div class="btn mainpg">
-                    <button class="btn-group" type="button">
-                        <a href="{% url 'eventapp:read_event' event_pk=item.pk group_pk=group_pk %}">{{ item.title }}</a>
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <form class="login100-form validate-form p-l-30 p-r-30 p-t-58">
+
+                <span class="login100-form-title">FamilySpace</span>
+                <div class="btn mainpg btn-backbutton-contacts">
+                    <button class="login100-form-btn backbutton-search" type="button"><a href="{% url 'chatapp:chatpage' group_pk=group_pk %}" class="txt5">Назад</a></button>
+                    <p class="txt3 creategroup-p">События группы:</p>
+                    <button class="login100-form-btn backbutton-add-participant" type="button"><a href="{% url 'eventapp:create_event' group_pk=group_pk %}" class="txt5">Добавить</a></button>
+                </div>
+
+                <div class="container-login100-form m-b-0">
+                    <button class="login100-form-btn">
+                        <a href="{% url 'eventapp:archived_events' group_pk=group_pk %}" class="txt3">- - - Перейти в архив - - -</a>
                     </button>
                 </div>
-            {% endfor %}
+
+                {% for item in events_day %}
+                    <div class="tasks-checkbox-div txt3">
+                        {{ item.date.day }} {{ item.date|date:"F"}}
+                    </div>
+                    {% for ev in events %}
+                        {% if ev.date.day == item.date.day and ev.date.month == item.date.month and ev.date.year == item.date.year %}
+                            <div class="container-login100-form-btn  m-b-16">
+
+                                <div class="tasks-div">
+                                    <div class="tasks-checkbox-div txt3">
+                                        {{ ev.date.time }}
+                                    </div>
+                                    <div class="task-title-div">
+                                        <a class="txt7" href="{% url 'eventapp:read_event' event_pk=ev.pk group_pk=group_pk %}">
+                                            <span class="sr-nm">{{ ev.title }}</span>
+                                            <span class="add">Подробно</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="search-group-drop-info" id="hide-info">
+                                    <div class="task-description-div">Описание:
+                                        <p class="task-description-p">{{ ev.description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                {% endfor %}
+
+            </form>
         </div>
     </div>
+</div>
 {% endblock %}

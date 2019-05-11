@@ -113,13 +113,13 @@ def groupsearch(request):
 def adduser(request, group_pk):
     my_group = get_object_or_404(Group, pk=group_pk)
     my_group.add_user(request.user)
-    return HttpResponseRedirect(reverse('groupapp:view_one_group', args=[group_pk]))
+    return HttpResponseRedirect(reverse('userapp:usergroups'))
 
 @login_required
 def removeuser(request, group_pk):
     group_user = get_object_or_404(GroupUser, user=request.user, group=group_pk)
     group_user.delete()
-    return HttpResponseRedirect(reverse('groupapp:view_one_group', args=[group_pk]))
+    return HttpResponseRedirect(reverse('userapp:usergroups'))
 
 @login_required
 def view_user_contacts(request):

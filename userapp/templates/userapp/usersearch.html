@@ -1,38 +1,37 @@
-{% extends "userapp/base.html" %}
+{% extends "userapp/base_new.html" %}
 {% load static %}
 {% block body %}
-
-    <div class="flex-container-two">
-
-        <div class="flex-block-wrapper-3">
-                <div class="btn mainpg">
-                    <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'userapp:usergroups' %}">Главная</a></button>
-                    <p id="p-purchase">Поиск контактов:</p>
-                    <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'userapp:usercontacts' %}">Контакты</a></button>
-                </div>
-            <form class="search" method="get" action="{% url 'userapp:usersearch' %}">
-                <input type="text" name="query" placeholder="кого будем искать"/>
-                <input class="search-btn" type="submit" value="поиск"/>
-            </form>
-            <div class="hide-div" id="hide-groups">
-                {% for item in search %}
-                    <div class="btn mainpg">
-                        <button class="btn-search" type="button">
-                            <a class="search-name" href="#">
-                                {{ item.username }}
-                            </a>
-                        </button>
-                        {% if user in item.get_contacts %}
-                            <button class="btn-search" type="button"><a href="#">Друг</a></button>
-                        {% else %}
-                            <button class="btn-search" type="button"><a href="{% url 'userapp:addcontact' friend_pk=item.pk %}">Добавить</a></button>
-                        {% endif %}
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form p-l-40 p-r-40 p-t-58" method="get" action="{% url 'userapp:usersearch' %}">
+                    <span class="login100-form-title">FamilySpace</span>
+                    <div class="btn mainpg btn-backbutton-contacts">
+                        <button class="login100-form-btn backbutton-search" type="button"><a href="{% url 'userapp:usergroups' %}" class="txt5">Назад</a></button>
+                        <p class="txt3 creategroup-p">Поиск контактов:</p>
+                        <button class="login100-form-btn backbutton-search" type="button"><a href="{% url 'userapp:usercontacts' %}" class="txt5">Друзья</a></button>
                     </div>
-                {% endfor %}
+                    <input class="search-input" type="text" name="query" placeholder="поиск по e-mail"/>
+                    <input class="search-btn" type="submit" value="поиск"/>
+                </form>
+                <form class="login100-form validate-form p-l-40 p-r-40 p-t-38 search-group-wrap">
+                    {% for item in search %}
+                        <div class="container-login100-form-btn  m-b-16">
+                            <button class="login100-form-btn" type="button">
+                                <a class="txt3" href="#">{{ item.username }}</a>
+                            </button>
+                            <div class="search-group-drop-info">
+                                <p class="search-group-description">Почта: {{ item.email }}</p>
+                                {% if user in item.get_contacts %}
+                                    <button class="btn-search enroll" type="button"><a href="#">Друг</a></button>
+                                {% else %}
+                                    <button class="btn-search enroll" type="button"><a href="{% url 'userapp:addcontact' friend_pk=item.pk %}" class="txt7">Добавить</a></button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </form>
             </div>
         </div>
-
     </div>
-
-
 {% endblock %}

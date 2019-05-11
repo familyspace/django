@@ -12,11 +12,13 @@ class NewTaskForm(forms.ModelForm):
         self.fields['description'].widget.attrs['placeholder'] = "Комментарий"
 
         for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'logo-input'
+            self.fields[field].widget.attrs['class'] = 'input100'
             self.fields[field].label = ""
 
 
 class TaskEditForm(forms.ModelForm):
+    description = forms.CharField(widget=forms.Textarea(attrs={'rows': 10, 'cols': 40}))
+
     class Meta:
             model = Task
             fields = ('title', 'user', 'description', 'done')
@@ -27,5 +29,5 @@ class TaskEditForm(forms.ModelForm):
         self.fields['description'].widget.attrs['placeholder'] = "Комментарий"
 
         for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'logo-input'
+            self.fields[field].widget.attrs['class'] = 'input100'
             self.fields[field].label = ""
