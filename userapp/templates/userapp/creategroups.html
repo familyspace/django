@@ -1,38 +1,32 @@
-<!DOCTYPE html>
+{% extends "userapp/base_new.html" %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome</title>
-    <link rel="stylesheet" href="/static/css/style_userapp.css">
-    <meta name="viewport" content="width=device-width">
-</head>
-<body>
-    <div class="createpage-wrapper">
-        <div class="logo-wrapper">
-            <div class="flex-logo-wrapper">
-
-                <div class="btn">
-                    <form class="creategroup-form" action="{% url 'userapp:creategroups' user.pk %}" method="post">
-                        {% csrf_token %}
-                        {% for item in group_form %}
-                            {% if 'is_public' in item.as_widget %}
-                                <p>Публичная группа: {{ item }}</p>
-                            {% else %}
+{% block body %}
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form p-l-40 p-r-40 p-t-58" action="{% url 'userapp:creategroups' %}" method="post" enctype="multipart/form-data">
+                    <span class="login100-form-title">FamilySpace</span>
+                    <div class="btn mainpg">
+                        <button class="login100-form-btn creategroup-btn" type="button"><a href="{% url 'userapp:usergroups' %}" class="txt4">Назад</a></button>
+                        <p class="txt3 creategroup-p">Создание группы:</p>
+                        <input class="login100-form-btn creategroup-btn" type="submit" value="OK">
+                    </div>
+                    {% csrf_token %}
+                    {% for item in group_form %}
+                        {% if 'is_public' in item.as_widget %}
+                            <p class="txt3 publickcheckbox">Публичная группа:</p>{{ item }}
+                        {% elif 'description' in item.as_widget %}
+                            <div class="wrap-input100 validate-input m-b-16 m-t-26">
+                                <textarea name="description" cols="40" rows="10" placeholder="Описание группы" class="input100" id="id_description"></textarea>
+                            </div>
+                        {% else %}
+                            <div class="wrap-input100 validate-input m-b-16 m-t-26">
                                 {{ item }}
-                            {% endif %}
-                        {% endfor %}
-                        <input class="logo-input-submit" type="submit" value="Создать группу">
-                    </form>
-                </div>
-                <div class="btn">
-                    <button class="logo-signup-btn" type="button">
-                        <a href="{% url 'userapp:userpage' %}">На главную</a>
-                    </button>
-                </div>
-
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </form>
             </div>
         </div>
     </div>
-</body>
-</html>
+{% endblock %}

@@ -10,7 +10,7 @@ class Chat(models.Model):
     '''
     group = models.ForeignKey(Group,
                               verbose_name='Группа',
-                              on_delete='CASCADE',
+                              on_delete=models.CASCADE,
                               related_name='chat')
     user = models.ForeignKey(User,
                              verbose_name='Пользователь написавший сообщение',
@@ -21,3 +21,5 @@ class Chat(models.Model):
                                        auto_now_add=True)
     text = models.CharField(max_length=500,
                             verbose_name='Текст сообщения')
+
+

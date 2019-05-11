@@ -1,9 +1,8 @@
 from django.contrib import admin
-
-
-from groupapp.models import Group, Category
+from .models import UserContactList
 
 # Register your models here.
+admin.site.register(UserContactList)
 
 
 

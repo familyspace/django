@@ -1,35 +1,48 @@
-{% extends "userapp/base.html" %}
+{% extends "userapp/base_new.html" %}
 {% load static %}
 {% block body %}
-
-    <div class="flex-container-two">
-
-        <div class="flex-block-wrapper-3">
-            <form class="search" method="get" action="{% url 'userapp:groupsearch' %}">
-                <input type="text" name="query" placeholder="введите название группы"/>
-                <input class="search-btn" type="submit" value="поиск"/>
-            </form>
-            <div class="hide-div" id="hide-groups">
-                {% for item in search %}
-                    <div class="btn mainpg">
-                        <button class="btn-group" type="button">
-                            <a href="{% url 'groupapp:view_one_group' item.pk %}">{{ item.title }}</a>
-                        </button>
-                        {% if user in item.get_users %}
-                            <button class="btn-search" type="button">
-                                <a href="{% url 'userapp:removeuser' item.pk %}">
-                                    <span class="sr-nm">Вы в группе</span>&nbsp;
-                                    <span class="add">Выйти из группы</span>
-                                </a>
-                            </button>
-                        {% else %}
-                            <button class="btn-search" type="button"><a href="{% url 'userapp:adduser' item.pk %}">Вступить</a></button>
-                        {% endif %}
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form p-l-40 p-r-40 p-t-58" method="get" action="{% url 'userapp:groupsearch' %}" enctype="multipart/form-data">
+                    <span class="login100-form-title">FamilySpace</span>
+                    <div class="btn mainpg btn-backbutton">
+                        <button class="login100-form-btn backbutton-search" type="button"><a href="{% url 'userapp:usergroups' %}" class="txt5">Назад</a></button>
+                        <p class="txt3 creategroup-p">Поиск групп:</p>
                     </div>
-                {% endfor %}
+                    <select name="category" class="search-input">
+                        {% for i in categories %}
+                            <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                    <input class="search-input" type="text" name="query" placeholder="введите название группы"/>
+                    <input class="search-btn" type="submit" value="поиск"/>
+                </form>
+                <form class="login100-form validate-form p-l-40 p-r-40 p-t-38 search-group-wrap">
+                    {% for item in search %}
+                        <div class="container-login100-form-btn  m-b-16">
+                            <button class="login100-form-btn" type="button">
+                                <a class="txt3" href="{% url 'groupapp:view_one_group' item.pk %}">{{ item.title }}</a>
+                            </button>
+                            <div class="search-group-drop-info">
+                                <p class="search-group-description description-titile">Описание группы:</p>
+                                <p class="search-group-description">{{ item.description }}</p>
+                                {% if user in item.get_users %}
+                                    <button class="btn-search enroll" type="button">
+                                        <a href="{% url 'userapp:removeuser' item.pk %}">
+                                            <span class="sr-nm">Вы в группе</span>&nbsp;
+                                            <span class="add">Выйти из группы</span>
+                                        </a>
+                                    </button>
+                                {% else %}
+                                    <button class="btn-search" type="button"><a href="{% url 'userapp:adduser' item.pk %}">Вступить</a></button>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                </form>
             </div>
         </div>
-
     </div>
-
 {% endblock %}

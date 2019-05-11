@@ -40,9 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_swagger',
+    'django_filters',
     'api.apiauthapp',
     'api.apiuserapp',
     'api.apigroupapp',
+    'api.apichatapp',
+    'api.apitaskapp',
+    'api.apieventapp',
+    'api.apishopingapp',
     'api.core',
     'groupapp',
     'shoppingapp',
@@ -127,6 +132,8 @@ LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'Europe/Moscow'
 
+DATETIME_FORMAT = "%Y-%m-%d%H:%M"
+
 USE_I18N = True
 
 USE_L10N = True
@@ -184,7 +191,7 @@ SWAGGER_SETTINGS = {
 AUTH_USER_MODEL = 'authapp.User'
 
 LOGIN_URL = 'authapp:signin'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'userapp:usergroups'
 LOGOUT_REDIRECT_URL = 'authapp:signin'
 
 DOMAIN_NAME = 'http://localhost:8000'

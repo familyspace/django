@@ -1,22 +1,39 @@
-{% extends "userapp/base.html" %}
+{% extends "userapp/base_new.html" %}
 {% load static %}
 {% block body %}
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <form class="login100-form validate-form p-l-40 p-r-40 p-t-78">
+                <span class="login100-form-title">FamilySpace</span>
+                <div class="container-login100-form m-b-43">
+                    <span class="login100-form-main m-b-16">
+                        <p class="txt3" id="fordropdownmenu">Мои группы</p>
+                        <a href="#" class="txt3" id="drop-menu">Меню</a>
+                    </span>
 
-        <div class="flex-container-two">
-
-            <div class="flex-block-wrapper-3">
-                <p>Ваши группы: </p>
-                <div class="hide-div" id="hide-groups">
-                    {% for group in groups %}
-                        <div class="btn mainpg">
-                            <button class="btn-group" type="button"><a href="{% url 'groupapp:view_one_group' group.pk %}">{{ group.title }}</a></button>
-                        </div>
-                    {% endfor %}
                 </div>
 
-            </div>
+                <div class="hide-menu">
+                    <ul>
+                        <li><a href="{% url 'userapp:creategroups' %}" class="txt3">Создать группу</a></li>
+                        <li><a href="{% url 'userapp:groupsearch' %}" class="txt3">Поиск групп</a></li>
+                        <li><a href="{% url 'userapp:usercontacts' %}" class="txt3">Мои контакты</a></li>
+                        <li><a href="{% url 'userapp:usersearch' %}" class="txt3">Поиск контактов</a></li>
+                        <li><a href="{% url 'authapp:edit' user.pk %}" class="txt3">Профиль</a></li>
+                        <li><a href="{% url 'authapp:signout' %}" class="txt3">Выйти</a></li>
+                    </ul>
+                </div>
 
-
+                {% for group in groups %}
+                    <div class="container-login100-form-btn  m-b-16">
+                      <button class="login100-form-btn">
+                        <a href="{% url 'chatapp:chatpage' group_pk=group.pk %}" class="txt3">{{ group.title }}</a>
+                      </button>
+                    </div>
+                {% endfor %}
+            </form>
         </div>
-
+    </div>
+</div>
 {% endblock %}

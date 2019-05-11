@@ -7,7 +7,7 @@ from django.core.mail import EmailMessage
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.utils.timezone import now
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -16,9 +16,11 @@ from datetime import datetime, timedelta
 import time
 
 from family_space import settings
+from userapp.models import UserContactList
 
 GENDER_CHOICES = (('M', _('M')),
                   ('W', _('W')))
+
 
 class User(AbstractUser):
     """
@@ -48,10 +50,19 @@ class User(AbstractUser):
                                                   editable=False,
                                                   verbose_name=_('Activation key expires'))
 
+    def get_contacts(self):
+        contacts = UserContactList.objects.filter(contact_user=self.pk)
+        friends = map(lambda item: item.user, contacts)
+        return friends
+
+    def add_contact(self, friend_pk):
+        UserContactList.objects.create(user=self, contact_user=friend_pk)
+        comment = 'Участник добавлен'
+        return comment
+
     @property
     def token(self):
         return self._generate_jwt_token()
-
 
     def _generate_jwt_token(self):
         dt_exp = time.mktime((datetime.now() + timedelta(days=settings.EXP_TOKEN)).timetuple())
@@ -124,6 +135,25 @@ class UserProfile(models.Model):
                                 verbose_name=_('User'),
                                 related_name='userprofile')
 
+    first_name = models.CharField(null=True,
+                                  blank=True,
+                                  max_length=30,
+                                  verbose_name=_('First name'))
+
+    last_name = models.CharField(null=True,
+                                 blank=True,
+                                 max_length=30,
+                                 verbose_name=_('Last name'))
+    # отчество
+    patronymic = models.CharField(null=True,
+                                  blank=True,
+                                  max_length=30,
+                                  verbose_name=_('Patronymic'))
+
+    phone = models.CharField(null=True,
+                             blank=True,
+                             max_length=30,
+                             verbose_name=_('Phone'))
 
     gender = models.CharField(max_length=1,
                               blank=True,
@@ -141,6 +171,10 @@ class UserProfile(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.userprofile.save()
+
+    @property
+    def email(self):
+        return self.user.email
 
     def __str__(self):
         return self.user.username

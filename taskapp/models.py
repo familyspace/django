@@ -9,10 +9,17 @@ class Task(models.Model):
                              max_length=255)
     group = models.ForeignKey(Group,
                               verbose_name='Группа',
-                              on_delete='CASCADE',
+                              on_delete=models.CASCADE,
                               related_name='grouptasks')
     user = models.ManyToManyField(User,
                                   verbose_name='Пользователи в задаче',
                                   related_name='taskusers')
     done = models.BooleanField(default=False,
                                verbose_name='Задача выполнена')
+
+    description = models.CharField(max_length=255,
+                               verbose_name='Коментарий к покупке',
+                               blank=True)
+
+    def __str__(self):
+        return self.title

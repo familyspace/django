@@ -1,0 +1,54 @@
+{% extends "userapp/base.html" %}
+{% load static %}
+{% block body %}
+
+        <div class="flex-container-two" id="shop">
+
+            <div class="flex-block-wrapper-3">
+                <div class="hide-div" id="hide-groups">
+                    <div class="btn mainpg">
+                        <button class="btn-search" id="btn-add-purchase" type="button">
+                            <a href="{% url 'eventapp:show_events' group_pk=event.group.pk %}">Назад</a>
+                        </button>
+                        <p id="p-purchase">Детали события: </p>
+                        <button class="btn-search" id="btn-add-purchase" type="button">
+                            {% if is_initiator %}
+                                <a href="{% url 'eventapp:edit_event' event_pk=event.pk group_pk=group_pk %}">Редактировать</a>
+                            {% elif is_participator %}
+                                <a href="{% url 'eventapp:leave_event' event_pk=event.pk group_pk=group_pk %}">Уйти</a>
+                            {% else %}
+                                <a href="{% url 'eventapp:join_event' event_pk=event.pk group_pk=group_pk %}">Участвовать</a>
+                            {% endif %}
+                        </button>
+
+
+                    </div>
+
+                    <p>Дата: {{ event.date.date|date:"d.m.Y" }}</p>
+                    <p>Время: {{ event.date.time }}</p>
+                    <p>Название: {{ event.title }}</p>
+                    <p>Описание: {{ event.description }}</p>
+                    Пользователи:
+                    {% for item in eventusers %}
+                        <div class="btn mainpg">
+                            <button class="btn-group" type="button">
+                                    <a href="">
+                                        {% if item.user  == request.user %}
+                                                Вы
+                                        {% else %}
+                                            {{ item.user.username }}
+                                        {% endif %}
+                                        {% if item.role == 'INT' %}
+                                            *
+                                        {% endif %}
+                                    </a>
+                            </button>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+            
+        </div>
+
+{% endblock %}

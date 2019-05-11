@@ -1,0 +1,24 @@
+{% for item in todo %}
+    <div class="btn mainpg">
+        <input type="checkbox" class="taskcheckbox" name="{{ item.pk }}">
+        <button class="btn-group" type="button">
+            <a href="{% url 'taskapp:taskedit' task_pk=item.pk group_pk=group_pk %}">{{ item.title }}</a>
+        </button>
+    </div>
+    <button class="btn-search" id="change-role" type="button">
+        <a href="{% url 'taskapp:taskremove' task_pk=item.pk group_pk=group_pk %}">Удалить задачу</a>
+    </button>
+    <p>Описание: {{ item.description }}</p>
+{% endfor %}
+{% for item in done %}
+    <div class="btn mainpg">
+    <input type="checkbox" class="taskcheckbox" name="{{ item.pk }}" checked>
+        <button class="btn-group buy-done" type="button">
+            <a href="{% url 'taskapp:taskedit' task_pk=item.pk group_pk=group_pk %}">{{ item.title }}</a>
+        </button>
+    </div>
+    <button class="btn-search" id="change-role" type="button">
+        <a href="{% url 'taskapp:taskremove' task_pk=item.pk group_pk=group_pk %}">Удалить задачу</a>
+    </button>
+    <p>Описание: {{ item.description }}</p>
+{% endfor %}

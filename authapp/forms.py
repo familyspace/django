@@ -13,7 +13,7 @@ class SignInForm(AuthenticationForm):
 
         for field_name, field in self.fields.items():
             field.widget.attrs['required'] = True
-            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs['class'] = 'input100'
             field.label = ""
 
             if field_name == 'username':
@@ -29,7 +29,7 @@ class SignUpForm(UserCreationForm):
 
         for field_name, field in self.fields.items():
             field.widget.attrs['required'] = True
-            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs['class'] = 'input100'
             field.label = ""
 
             if field_name == 'username':
@@ -65,7 +65,7 @@ class UserUpdateForm(ModelForm):
 
         for field_name, field in self.fields.items():
             field.widget.attrs['required'] = True
-            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs['class'] = 'input100'
             field.label = ""
 
             if field_name == 'username':
@@ -92,7 +92,7 @@ class UserProfileUpdateForm(ModelForm):
 
         for field_name, field in self.fields.items():
 
-            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs['class'] = 'date'
             field.widget.attrs['required'] = True
             field.label = ""
 
@@ -102,7 +102,7 @@ class UserProfileUpdateForm(ModelForm):
             elif field_name == 'birth_date':
 
                 field.widget = DateBSInput()
-                field.widget.attrs['class'] = 'form-control'
+                field.widget.attrs['class'] = 'date'
                 field.widget.attrs['required'] = True
                 field.label = ""
                 field.help_text = _('Your birth date')

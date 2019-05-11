@@ -1,0 +1,33 @@
+{% extends "userapp/base.html" %}
+{% load static %}
+{% block body %}
+
+
+        <div class="flex-container-two" id="shop">
+
+            <div class="flex-block-wrapper-3">
+                <div class="btn mainpg">
+                    <button class="btn-search" id="btn-add-purchase" type="button"><a href="{% url 'groupapp:view_one_group' group_pk=group_pk %}">Назад</a></button>
+                    <p id="p-purchase">Контакты: </p>
+                </div>
+                <div class="hide-div" id="hide-groups">
+                    {% for item in contacts %}
+                        <button class="btn-group" type="button"><a href="#">{{ item.username }}</a></button>
+                        <p>Телефон: {{ item.telephone }}</p>
+                        <p>Почта: {{ item.email }}</p>
+                        {% if item in ingroup %}
+                            <button class="btn-search" type="button">
+                                <a href="#">
+                                    В группе
+                                </a>
+                            </button>
+                        {% else %}
+                            <button class="btn-search" type="button"><a href="{% url 'groupapp:addtogroup' group_pk=group_pk friend_pk=item.pk %}">Добавить</a></button>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+
+{% endblock %}

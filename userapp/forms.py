@@ -16,4 +16,4 @@ class GroupCreationForm(forms.ModelForm):
         self.fields['is_public'].label = ''
 
         for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'logo-input'
+            self.fields[field].widget.attrs['class'] = 'input100'

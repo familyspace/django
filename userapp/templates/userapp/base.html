@@ -10,39 +10,6 @@
 <body>
     <div class="wrapper">
         <div class="flex-container-wrapper">
-            <img class="img-logo" src="/static/img/logo_userapp.png" alt="logo">
-            <div class="flex-container-one">
-                {% if user.is_authenticated %}
-                    <div class="btn mainpg">
-                        <button class="btn-menu userblock" type="button"><a href="#">{{ user.username }}</a></button>
-                    </div>
-                    <div class="btn mainpg">
-                        <button class="btn-menu userblock" type="button">
-                            <a href="{% url 'authapp:edit' user.pk %}">Профиль</a>
-                        </button>
-                    </div>
-                    <div class="btn mainpg">
-                        <button class="btn-menu userblock" type="button">
-                            <a href="{% url 'authapp:signout' %}">Выйти</a>
-                        </button>
-                    </div>
-                {% endif %}
-                <div class="btn mainpg">
-                    <button class="btn-menu" type="button"><a href="{% url 'userapp:usersearch' %}">Поиск контактов</a></button>
-                </div>
-                <div class="btn mainpg">
-                    <button class="btn-menu" type="button"><a href="{% url 'userapp:userpage' %}">Все группы</a></button>
-                </div>
-                <div class="btn mainpg">
-                    <button class="btn-menu" type="button"><a href="{% url 'userapp:usergroups' user.pk %}">Ваши группы</a></button>
-                </div>
-                <div class="btn mainpg">
-                    <button class="btn-menu" type="button"><a href="{% url 'userapp:creategroups' user.pk %}">Создать группу</a></button>
-                </div>
-                <div class="btn mainpg">
-                    <button class="btn-menu" type="button"><a href="{% url 'userapp:groupsearch' %}">Найти группу</a></button>
-                </div>
-            </div>
                 {% block body %}
                 {% endblock %}
         </div>
