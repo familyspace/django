@@ -13,12 +13,14 @@
                     <div class="container-login100-form m-b-19">
                         <span class="login100-form-main m-b-16">Мой профиль</span>
                     </div>
+                    {% csrf_token %}
                     {% for i in user_form %}
                         <div class="wrap-input100 validate-input m-b-16 m-t-46">
                             {{ i }}
                             <span class="focus-input100"></span>
                         </div>
                     {% endfor %}
+                    {% csrf_token %}
                     {% for i in userprofile_form %}
                         <div class="birth-input m-b-16 m-t-16">
                             {{ i }}

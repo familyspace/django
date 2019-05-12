@@ -41,7 +41,8 @@ def show_events(request, group_pk):
     events = my_group.events.filter(status='ACT').order_by('date')
 
     events_day = []
-    events_day.append(events[0])
+    if len(events) >= 1:
+        events_day.append(events[0])
 
     box_one = 0
     while box_one < len(events):
@@ -54,9 +55,6 @@ def show_events(request, group_pk):
                     box_two = box_two + 1
             if box_two < 1:
                 events_day.append(i)
-
-    test = set(events_day)
-    print(test)
 
     content = {
         'events': events,
