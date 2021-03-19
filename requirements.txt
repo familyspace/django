@@ -11,7 +11,7 @@ Django==2.2.10
 django-rest-swagger==2.1.2
 django-debug-toolbar==1.11
 django-debug-toolbar-template-profiler==1.0.2
-djangorestframework==3.9.1
+djangorestframework==3.11.2
 fabric==2.4.0
 idna==2.8
 invoke==1.2.0
